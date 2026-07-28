@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agosto 2026 · Mira Vest · Base Visual do Plano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wine:#722F37; --wine-deep:#54222A; --gold:#B08D57; --gold-soft:#E4D3B4;
+    --cream:#FAF6EF; --paper:#FFFFFF; --ink:#2E2A26; --ink-soft:#7A6F63;
+    --line:#E8DFD2; --line-soft:#F0E9DC;
+    --topo:#C08A3E; --meio:#7E8B63; --fundo:#722F37; --ret:#6E5A7E; --bast:#8A8178;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--cream);color:var(--ink);font-family:'Montserrat','Segoe UI',sans-serif;font-size:14px;line-height:1.5}
+  h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,serif}
+
+  /* ---------- topo ---------- */
+  header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,var(--cream) 82%,rgba(250,246,239,0));padding:26px 34px 14px;border-bottom:1px solid var(--line)}
+  .hrow{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .brand{font-size:11px;letter-spacing:.34em;color:var(--gold);font-weight:600;text-transform:uppercase;margin-bottom:6px}
+  h1{font-size:30px;font-weight:600;color:var(--wine-deep)}
+  .sub{color:var(--ink-soft);font-size:12.5px;margin-top:5px}
+  .sub b{color:var(--ink);font-weight:600}
+
+  .toggle{display:flex;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:4px;box-shadow:0 2px 10px rgba(84,34,42,.06)}
+  .toggle button{border:0;background:transparent;font:600 12.5px 'Montserrat',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);padding:9px 22px;border-radius:999px;cursor:pointer;transition:.18s}
+  .toggle button.on{background:var(--wine);color:#F6EDE0}
+
+  .legend{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .chip{display:inline-flex;align-items:center;gap:7px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:11.5px;font-weight:500;color:var(--ink);cursor:pointer;user-select:none;transition:.15s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip .n{color:var(--ink-soft);font-weight:600}
+  .chip.on{border-color:var(--wine);box-shadow:0 0 0 1px var(--wine)}
+  .lg-note{font-size:11px;color:var(--ink-soft);margin-left:6px}
+  .lg-note b{font-weight:600;color:var(--ink)}
+
+  /* filtro por funil */
+  body[data-f="topo"] [data-fun]:not([data-fun="topo"]),
+  body[data-f="meio"] [data-fun]:not([data-fun="meio"]),
+  body[data-f="fundo"] [data-fun]:not([data-fun="fundo"]),
+  body[data-f="ret"] [data-fun]:not([data-fun="ret"]),
+  body[data-f="bast"] [data-fun]:not([data-fun="bast"]){opacity:.22;filter:saturate(.4)}
+
+  main{padding:22px 34px 60px;max-width:1560px;margin:0 auto}
+  .view{display:none}.view.on{display:block}
+
+  /* ---------- calendário ---------- */
+  .jstrip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px}
+  .jcard{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:10px;padding:10px 14px}
+  .jcard .jt{font-family:'Playfair Display',serif;font-weight:600;font-size:14.5px;color:var(--wine-deep)}
+  .jcard .jd{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:2px}
+  .jcard .jm{font-size:12px;color:var(--ink);margin-top:3px}
+  .jcard .jm b{color:var(--wine);font-weight:700}
+
+  .calwrap{overflow-x:auto;padding-bottom:6px}
+  .cal{min-width:1120px}
+  .wdays{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;margin-bottom:7px}
+  .wdays div{text-align:center;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;padding:4px 0}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}
+  .day{background:#FDFAF4;border:1px solid var(--line);border-radius:11px;min-height:132px;padding:8px 8px 9px;display:flex;flex-direction:column;gap:0}
+  .day.out{opacity:.5;background:transparent;border-style:dashed}
+  .day.special{border:1.5px solid var(--gold);background:#FBF5E9}
+  .dhead{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px}
+  .dnum{font-family:'Playfair Display',serif;font-weight:600;font-size:16px;color:var(--ink)}
+  .day.out .dnum{color:var(--ink-soft)}
+  .jtag{background:var(--wine);color:#F6EDE0;font-size:9px;font-weight:600;letter-spacing:.05em;border-radius:4px;padding:2px 6px;text-transform:uppercase}
+  .stag{background:var(--gold);color:#fff;font-size:9px;font-weight:600;letter-spacing:.05em;border-radius:4px;padding:2px 6px;text-transform:uppercase}
+  .snote{font-size:9.5px;color:#8C7340;line-height:1.35;margin-bottom:3px}
+
+  .cc{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--bast);border-radius:7px;padding:5px 7px 6px;margin-top:5px;cursor:pointer;transition:.14s}
+  .cc:hover{box-shadow:0 3px 12px rgba(84,34,42,.13);transform:translateY(-1px)}
+  .cc .l1{display:flex;align-items:baseline;gap:5px}
+  .cc .ch{font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
+  .cc .bdg{margin-left:auto;font-size:10px;white-space:nowrap}
+  .cc .tt{font-size:11px;font-weight:600;line-height:1.32;color:var(--ink);margin-top:1px}
+  .cc.bast{border-style:dashed;background:#FBF9F4}
+  .cc.bast .tt{font-weight:500;color:#5F574D}
+  .star{color:var(--gold)} .warn{color:#B2622B}
+
+  /* ---------- briefing ---------- */
+  .group{margin-bottom:34px}
+  .ghead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--gold-soft);padding-bottom:8px;margin-bottom:14px}
+  .ghead h2{font-size:21px;font-weight:600;color:var(--wine-deep)}
+  .gper{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .gmeta{margin-left:auto;font-size:12px;color:var(--wine);font-weight:600;background:#F5EBE0;border:1px solid var(--gold-soft);border-radius:999px;padding:3px 12px}
+  .gdesc{font-size:12.5px;color:var(--ink-soft);margin:-6px 0 14px;max-width:900px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:13px}
+
+  .bc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:15px 16px 14px;display:flex;flex-direction:column;gap:9px;transition:.2s}
+  .bc.flash{box-shadow:0 0 0 2px var(--gold);}
+  .bc .head{display:flex;align-items:flex-start;gap:8px}
+  .bc .fdot{width:10px;height:10px;border-radius:50%;margin-top:5px;flex:none}
+  .bc h3{font-size:15.5px;font-weight:600;line-height:1.3;color:var(--ink)}
+  .bc .bdg{margin-left:auto;font-size:13px;white-space:nowrap}
+  .props{display:flex;flex-direction:column;gap:4px}
+  .pr{display:flex;gap:8px;font-size:12px}
+  .pl{width:94px;flex:none;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding-top:2px}
+  .pv{color:var(--ink)}
+  .pill{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.04em;border-radius:999px;padding:2px 10px;color:#fff}
+  .why{border-left:3px solid var(--gold);background:#FBF7EF;border-radius:0 8px 8px 0;padding:8px 11px;font-size:12px;color:#5C5348;line-height:1.5}
+  .why b{color:var(--wine);font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:2px}
+  .wbox{border:1px solid #E3C98F;background:#FCF3E2;border-radius:8px;padding:7px 11px;font-size:11.5px;color:#7A511F;line-height:1.45}
+  .wbox b{font-weight:700}
+
+  footer{padding:10px 34px 34px;font-size:11px;color:var(--ink-soft);max-width:1560px;margin:0 auto}
+  @media (max-width:760px){
+    header,main{padding-left:16px;padding-right:16px}
+    h1{font-size:23px}
+    .jstrip{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hrow">
+    <div>
+      <div class="brand">Mira Vest</div>
+      <h1>Agosto 2026 · Plano em uma tela</h1>
+      <div class="sub">Meta <b>R$ 80 mil</b> · <b>205 pedidos</b> · ticket <b>R$ 390</b> · verba de mídia <b>R$ 10 mil</b> · consolidado de 28/07</div>
+    </div>
+    <div class="toggle" role="tablist">
+      <button id="btn-cal" class="on" onclick="showView('cal')">Calendário</button>
+      <button id="btn-brief" onclick="showView('brief')">Briefing</button>
+    </div>
+  </div>
+  <div class="legend" id="legend"></div>
+</header>
+
+<main>
+  <section id="view-cal" class="view on">
+    <div class="jstrip" id="jstrip"></div>
+    <div class="calwrap">
+      <div class="cal">
+        <div class="wdays"><div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div></div>
+        <div class="grid" id="grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-brief" class="view">
+    <div id="groups"></div>
+  </section>
+</main>
+
+<footer>
+  Fonte: Plano_Agosto_v5_CONSOLIDADO.md, 28/07/2026. Vendas pela API Convertr, site pelo GA4, estoque pelo grade_status.csv de 27/07.
+  Selos: <span class="warn">⚠</span> pendência ou dependência que trava · <span class="star">✦</span> momento-chave do mês.
+  Clique num card do calendário para abrir o briefing dele.
+</footer>
+
+<script>
+const FUN = {
+  topo:  {label:'Topo · descoberta',      c:'#C08A3E'},
+  meio:  {label:'Meio · consideração',    c:'#7E8B63'},
+  fundo: {label:'Fundo · conversão',      c:'#722F37'},
+  ret:   {label:'Retenção · base',        c:'#6E5A7E'},
+  bast:  {label:'Bastidor · estrutura',   c:'#8A8178'}
+};
+
+const CAMPS = {
+  abertura:  {name:'Abertura dos Agasalhos', per:'31/07 a 04/08 · janela 1', meta:'J1 · R$ 24,0 mil',
+              desc:'Abrir o mês a preço cheio pela categoria mais cara e mais desejada. O grupo vê no sábado, o site abre no domingo. O ritmo se repete o mês todo e vira hábito.'},
+  almoco:    {name:'Almoço de Domingo', per:'05 a 09/08 · âncora do mês', meta:'Ticket da semana acima de R$ 420',
+              desc:'A única data do mês com efeito medido na casa, e o efeito é ticket (+20% em 2025), não volume. A cliente se veste para o almoço de família, e o pico é na quinta e na sexta, antes do domingo.'},
+  cadencia:  {name:'Cadência VIP · Seg, Qua e Sex', per:'Mês todo', meta:'',
+              desc:'O ritmo fixo do grupo: look da semana na segunda 10h30, prova real na quarta 11h, ação na sexta 10h30. Teto anti-ban de 3 disparos por semana por grupo. O número já caiu duas vezes.'},
+  kits:      {name:'Os 3 Kits', per:'11 a 21/08', meta:'',
+              desc:'Suede R$ 459, Alfaiataria R$ 749, Conforto R$ 359, montados de compra conjunta real. Preço de conjunto, nunca porcentagem na peça. Giro puxa parado.'},
+  reposicao: {name:'Reposição de Básicas', per:'qua 12/08', meta:'',
+              desc:'Quem comprou básica em abril e maio está no fim do ciclo de 3 a 4 meses. 10% só no canal fechado, o site aberto não vê porcentagem.'},
+  inverno:   {name:'Últimas Peças do Inverno', per:'14 a 21/08 · janela 3', meta:'J3 · R$ 18,4 mil',
+              desc:'599 SKUs de grade quebrada, R$ 799 mil de etiqueta, atrás de link não listado. Fora do menu, fora do Google. A vitrine não vê a condição.'},
+  tamanhos:  {name:'Últimos Tamanhos', per:'22 a 28/08 · janela 4', meta:'J4 · R$ 11,2 mil',
+              desc:'A semana historicamente mais fraca do mês (13,5% em 2025) abre um degrau menor, até 30%, sempre em canal fechado.'},
+  primavera: {name:'Cápsula Primavera', per:'29 a 31/08 · janela 5', meta:'J5 · R$ 7,2 mil',
+              desc:'Setembro nasce no VIP a preço cheio, com 15 produtos. A promessa que abriu o mês se cumpre no dia 31: o inverno sai da vitrine.'},
+  midia:     {name:'Mídia contínua', per:'Mês todo · R$ 10 mil', meta:'Google 48% · Meta 43% · reserva 9%',
+              desc:'Verba dividida pela régua do Analytics, a única que mede todos os canais igual. Reserva de R$ 900 fora das linhas, liberada só por gatilho do plano B. Nenhum criativo público leva porcentagem.'},
+  bastidor:  {name:'Bastidor estrutural', per:'O que trava o go-live', meta:'',
+              desc:'Não é arte e não é mídia: cadastro, cupom, página, faxina de preço e UTM. Sem essas entregas, a ação não existe no dia.'}
+};
+
+/* ---- ações de conteúdo ---- */
+const A = [
+{id:1, d:'2026-07-31', t:'', ch:'WhatsApp VIP', fmt:'Enquete com 4 cards de categoria', title:'Enquete: qual categoria abre amanhã', cta:'Vote na categoria', fun:'ret', own:'Renam', camp:'abertura',
+ obj:'Aquecer o grupo e deixar a base escolher a abertura', prod:'Cards prontos qua 29/07 (artes 6 a 9)',
+ jus:'Enquete funciona quando a opção é categoria com foto, nunca nome de produto. A vencedora abre o disparo de sábado com "vocês pediram, começamos por elas".',
+ warn:'Sem as 4 fotos aprovadas, a enquete não roda. Regra do plano.'},
+{id:2, d:'2026-08-01', t:'9h', ch:'WhatsApp VIP', fmt:'Card + fotos + link', title:'Os agasalhos abrem agosto, o grupo vê primeiro', cta:'Ver os modelos', fun:'fundo', own:'Renam', camp:'abertura',
+ obj:'Abrir o mês vendendo a peça mais cara a preço cheio', prod:'Card qua 29/07 (arte 11) · cadastro dos 47 SKUs até qui 30/07 (Davi)',
+ jus:'A primeira semana é a de maior ticket do ano (R$ 499 em agosto/25). O benefício do grupo é ver e escolher primeiro, não é desconto. A categoria vencedora da enquete abre o disparo.',
+ warn:'Decisão pendente: o v4 previa cupom de 30% neste dia. Este plano abre sem cupom. Precisa do OK do Renam antes de qui 30/07.', star:true},
+{id:3, d:'2026-08-01', t:'', ch:'Instagram', fmt:'Story em sequência', title:'Bastidor da abertura', cta:'Arrasta pra cima', fun:'topo', own:'Milena', camp:'abertura',
+ obj:'Reacender o orgânico no dia mais importante da semana', prod:'No dia, com material existente',
+ jus:'O orgânico caiu 74% e valia R$ 1.336 por dia em agosto/25. Bastidor reaproveita as fotos da campanha, sem arte nova.'},
+{id:4, d:'2026-08-02', t:'', ch:'Site', fmt:'Hero desktop e mobile', title:'Casacos e Tricôs de Inverno entram no site', cta:'Ver os modelos', fun:'meio', own:'Davi', camp:'abertura',
+ obj:'Abrir a categoria para o público um dia depois do grupo', prod:'Hero qua 29/07 (arte 4), medidas confirmadas com o Davi',
+ jus:'No site a cliente vê um preço só, sem riscado e sem porcentagem. Sábado no grupo, domingo no site: o ritmo vira hábito.'},
+{id:5, d:'2026-08-02', t:'', ch:'Meta', fmt:'Estático 1080x1350 + story', title:'47 modelos, poucas numerações', cta:'Ver os modelos', fun:'topo', own:'Renam', camp:'abertura',
+ obj:'Levar tráfego frio para a categoria que abre o mês', prod:'Arte qua 29/07 (arte 5)',
+ jus:'Estático de peça em uso segue ganhando de vídeo (ad01 fez ROAS 10,61 em julho). Escassez só como fato: poucas numerações.'},
+{id:6, d:'2026-08-03', t:'10h30', ch:'WhatsApp VIP', fmt:'3 fotos de look + link', title:'Look da semana 1', cta:'Ver o look completo', fun:'meio', own:'Renam', camp:'cadencia',
+ obj:'Subir peças por pedido e ticket', prod:'Looks montados pela Milena até seg 03/08 cedo',
+ jus:'59% dos pedidos levam 2 ou mais produtos. Look completo é a mecânica que joga ticket sem custar margem.'},
+{id:7, d:'2026-08-03', t:'', ch:'Instagram', fmt:'Carrossel', title:'Look da semana no feed', cta:'Link na bio', fun:'meio', own:'Milena', camp:'cadencia',
+ obj:'Dar cadência ao orgânico com o mesmo material', prod:'Mesmo material do disparo',
+ jus:'Mesmo conteúdo do disparo, custo zero de produção extra.'},
+{id:8, d:'2026-08-04', t:'', ch:'Instagram', fmt:'Reel', title:'Caimento de agasalho', cta:'Ver no site', fun:'meio', own:'Milena', camp:'cadencia',
+ obj:'Atacar a taxa de produto para carrinho', prod:'Lote 1 de reels gravado até 03/08',
+ jus:'De 100 mulheres que veem uma peça, 5,7 põem no carrinho. Prova de caimento é o que mexe nesse número.'},
+{id:9, d:'2026-08-05', t:'11h', ch:'Site + VIP', fmt:'Página + card', title:'Almoço de Domingo entra no ar', cta:'Ver a seleção', fun:'fundo', own:'Davi e Renam', camp:'almoco',
+ obj:'Ancorar o mês na única data com efeito medido', prod:'Hero e card seg 03/08 (materiais 12 a 14) · página montada pelo Davi até qua 05 (E6)',
+ jus:'O Dia dos Pais na Mira é ticket, não presente: receita +31% e ticket +20% em 2025. A página junta vestido midi, alfaiataria e tricô a preço cheio e fica 5 dias no ar, cruzando a virada da semana de propósito.',
+ warn:'A página montada (E6) bloqueia a ação. Sem ela, o mês fica sem âncora.', star:true},
+{id:10, d:'2026-08-05', t:'11h', ch:'E-mail (RD)', fmt:'E-mail 1 · base completa', title:'Almoço de Domingo por e-mail', cta:'Ver a seleção', fun:'meio', own:'Milena', camp:'almoco',
+ obj:'Levar a âncora para a base inteira', prod:'Copy e arte até ter 04/08',
+ jus:'Único envio do mês para a base completa. Os outros três são segmentados.'},
+{id:11, d:'2026-08-05', t:'11h', ch:'WhatsApp VIP', fmt:'Vídeo', title:'Prova real de caimento', cta:'Ver no site', fun:'meio', own:'Milena', camp:'cadencia',
+ obj:'Atacar o carrinho no dia fixo de prova', prod:'Reel do lote 1 (até 03/08)',
+ jus:'Quarta é o dia fixo da prova real. Gravada em lote em casa, custo zero.'},
+{id:12, d:'2026-08-06', t:'', ch:'Instagram + Meta', fmt:'Carrossel de look', title:'Como montar o look do almoço', cta:'Ver a seleção', fun:'meio', own:'Milena', camp:'almoco',
+ obj:'Empurrar a venda no dia de maior ticket', prod:'Sai do material da página, sem arte nova',
+ jus:'A quinta antes da data fez ticket de R$ 816 em 2025, o maior do mês inteiro. Ela precisa da roupa pronta antes de domingo.', star:true},
+{id:13, d:'2026-08-07', t:'10h30', ch:'WhatsApp VIP', fmt:'Foto de look + link', title:'Sexta de ocasião, peça de ticket alto', cta:'Ver o look', fun:'fundo', own:'Renam', camp:'almoco',
+ obj:'Converter no melhor dia da loja', prod:'Look montado na véspera',
+ jus:'Sexta é índice 135 (R$ 3.797 por dia) e a venda da data acontece antes do domingo.'},
+{id:43, d:'2026-08-07', t:'', ch:'Instagram', fmt:'Reel', title:'O look pronto para domingo', cta:'Link na bio', fun:'meio', own:'Milena', camp:'almoco',
+ obj:'Mostrar o look resolvido antes do fim de semana', prod:'Sai do material da página, sem arte nova',
+ jus:'Fecha a semana no orgânico com o mesmo argumento do disparo: a roupa pronta antes do domingo.'},
+{id:14, d:'2026-08-08', t:'', ch:'Instagram', fmt:'Story', title:'Últimos dias para receber a tempo', cta:'Ver a seleção', fun:'fundo', own:'Milena', camp:'almoco',
+ obj:'Converter quem deixou para a última hora', prod:'No dia',
+ jus:'O prazo de entrega é o argumento honesto do sábado. Urgência como fato, não como retórica.'},
+{id:15, d:'2026-08-08', t:'', ch:'Meta', fmt:'Estático', title:'Almoço de Domingo, reforço', cta:'Ver a seleção', fun:'fundo', own:'Renam', camp:'almoco',
+ obj:'Último empurrão pago da data', prod:'Reaproveita o criativo de qua 05',
+ jus:'Último fim de semana útil da data. Mesmo criativo, sem porcentagem.'},
+{id:16, d:'2026-08-09', t:'', ch:'Instagram', fmt:'Post único', title:'Dia dos Pais: conteúdo afetivo, zero oferta', cta:'Nenhum', fun:'topo', own:'Milena', camp:'almoco',
+ obj:'Marcar presença sem vender', prod:'Arte simples, sem produto',
+ jus:'A venda já aconteceu na quinta e na sexta. No dia, a marca aparece sem oferta, do jeito que a voz da casa pede.'},
+{id:17, d:'2026-08-10', t:'10h30', ch:'WhatsApp VIP', fmt:'3 looks', title:'Look da semana 2', cta:'Ver o look completo', fun:'meio', own:'Renam', camp:'cadencia',
+ obj:'Manter a cadência e o ticket', prod:'Looks na segunda cedo',
+ jus:'No mesmo dia a página Almoço de Domingo sai do ar. A semana volta ao ritmo normal.'},
+{id:18, d:'2026-08-11', t:'', ch:'Instagram', fmt:'Carrossel', title:'Os 3 kits, peça a peça', cta:'Ver o kit', fun:'meio', own:'Milena', camp:'kits',
+ obj:'Apresentar os kits como look, não como oferta', prod:'Carrossel seg 10/08 (material 16)',
+ jus:'Kits montados de compra conjunta real. O Suede puxa a calça mais parada da loja, R$ 16,8 mil presos.'},
+{id:19, d:'2026-08-12', t:'11h', ch:'WhatsApp segmentado', fmt:'Texto + fotos', title:'Reposição de básicas, 10% no canal fechado', cta:'Renovar as básicas', fun:'ret', own:'Renam', camp:'reposicao',
+ obj:'Ativar o ciclo de recompra de 3 a 4 meses', prod:'Card ter 11/08 (material 18)',
+ jus:'Quem comprou básica em abril e maio está no vencimento do ciclo. 10% só no fechado, o site aberto não vê porcentagem.',
+ warn:'Régua do segmento no RD ainda não confirmada pelo Renam.'},
+{id:20, d:'2026-08-12', t:'11h', ch:'E-mail (RD)', fmt:'E-mail 2 · segmento abril e maio', title:'Reposição de básicas por e-mail', cta:'Renovar as básicas', fun:'ret', own:'Milena', camp:'reposicao',
+ obj:'Dobrar o alcance do segmento sem custo', prod:'Copy até ter 11/08',
+ jus:'Mesmo recorte do disparo, no canal de custo zero.'},
+{id:21, d:'2026-08-12', t:'', ch:'Instagram', fmt:'Reel', title:'Prova real de caimento', cta:'Ver no site', fun:'meio', own:'Milena', camp:'cadencia',
+ obj:'Manter a rotina de prova de quarta', prod:'Lote 1',
+ jus:'Rotina fixa de quarta, gravada em lote.'},
+{id:22, d:'2026-08-13', t:'', ch:'Meta', fmt:'Estático novo (refresh)', title:'Kits, look completo', cta:'Ver o kit', fun:'meio', own:'Renam', camp:'kits',
+ obj:'Renovar o criativo no meio da quinzena', prod:'Arte qua 12/08 (material 17)',
+ jus:'Refresh a cada 10 a 12 dias evita fadiga. O kit é preço de conjunto, nunca porcentagem na peça.'},
+{id:23, d:'2026-08-14', t:'15h', ch:'WhatsApp VIP', fmt:'Texto', title:'Teaser: sábado abre a ação de inverno, só no grupo', cta:'Fique de olho', fun:'ret', own:'Renam', camp:'inverno',
+ obj:'Encher o sábado sem abrir a condição', prod:'Só texto, sem arte',
+ jus:'O teaser fecha a semana criando expectativa. A condição em si só aparece no sábado, dentro do grupo.',
+ warn:'Com o sábado 15, a semana fica com 4 disparos e o teto anti-ban é 3. Candidato a juntar com o disparo de quarta 12. Decidir antes.'},
+{id:24, d:'2026-08-14', t:'noite', ch:'WhatsApp 1:1', fmt:'Mensagem pessoal', title:'Convite das 10 embaixadoras', cta:'Ver antes', fun:'ret', own:'Renam', camp:'inverno',
+ obj:'Dar pré-acesso a quem mais compra', prod:'Lista puxada da API na sexta de manhã',
+ jus:'As 10 maiores compradoras de julho veem a ação antes de todo mundo. Custo zero, cara de clube, não de promoção.', star:true},
+{id:25, d:'2026-08-15', t:'10h30', ch:'WhatsApp VIP', fmt:'Card + link não listado', title:'Últimas Peças do Inverno abre', cta:'Ver os tamanhos', fun:'fundo', own:'Renam', camp:'inverno',
+ obj:'Escoar a grade quebrada sem sujar a vitrine', prod:'Card qui 13/08 (material 19) · link e cupom sex 14/08 (E8 e E9)',
+ jus:'599 SKUs de grade quebrada, R$ 799 mil de etiqueta, fora do menu e do Google. Quando a grade quebra, sobram poucos tamanhos: se um deles é o dela, o preço é dela.',
+ warn:'Teto de desconto indefinido: a regra da marca diz 60% no VIP, a diretoria falou em 30%. Sem essa resposta, o card não pode ser escrito.', star:true},
+{id:26, d:'2026-08-15', t:'', ch:'Meta', fmt:'Estático sem porcentagem', title:'Peças de inverno, poucas numerações', cta:'Ver os modelos', fun:'topo', own:'Renam', camp:'inverno',
+ obj:'Dar ar para a ação sem mostrar a condição', prod:'Arte qui 13/08 (material 20)',
+ jus:'O anúncio nunca leva porcentagem, a condição mora no link fechado. Em agosto/25 o anúncio com 30% na cara marcou ROAS 20 na plataforma e o Analytics viu R$ 2 mil.'},
+{id:27, d:'2026-08-17', t:'10h30', ch:'WhatsApp VIP', fmt:'3 looks da ação', title:'Look da semana 3, com peças da ação', cta:'Ver o look', fun:'meio', own:'Renam', camp:'cadencia',
+ obj:'Subir o ticket dentro da própria ação', prod:'Looks na segunda cedo',
+ jus:'Look montado só com peças do link fechado. Quem entra por uma peça sai com três.'},
+{id:28, d:'2026-08-18', t:'', ch:'Instagram', fmt:'Carrossel', title:'Como usar tricô na virada de estação', cta:'Link na bio', fun:'topo', own:'Milena', camp:'inverno',
+ obj:'Alcançar quem não compra por desconto', prod:'Fotos de catálogo, sem arte nova',
+ jus:'Conteúdo de uso alonga a vida da peça de inverno e conversa com setembro, quando ainda faz frio no Sul.'},
+{id:29, d:'2026-08-19', t:'11h', ch:'WhatsApp VIP', fmt:'Vídeo', title:'Prova real com peça de inverno', cta:'Ver os tamanhos', fun:'meio', own:'Milena', camp:'cadencia',
+ obj:'Provar caimento de peça da ação', prod:'Lote 2 de reels até seg 17/08',
+ jus:'A prova de quarta usa peça do link fechado, sem citar a condição na imagem.',
+ warn:'Semana com 4 disparos contando o sábado 15. Teto anti-ban é 3. Decidir qual sai antes de segunda 17.'},
+{id:30, d:'2026-08-19', t:'11h', ch:'E-mail (RD)', fmt:'E-mail 3 · só base compradora', title:'Últimas peças, só para quem já é cliente', cta:'Ver os tamanhos', fun:'ret', own:'Milena', camp:'inverno',
+ obj:'Reativar hibernando e perdidas', prod:'Copy até ter 18/08',
+ jus:'Cerca de 990 clientes paradas no CRM. É o maior bolso adormecido da casa e custa zero tocar nele.'},
+{id:31, d:'2026-08-20', t:'', ch:'Meta', fmt:'UGC de criadora', title:'Peça de inverno com condição concreta no roteiro', cta:'Ver os modelos', fun:'meio', own:'Maria Alice', camp:'inverno',
+ obj:'Dar rosto humano à ação no anúncio', prod:'Vídeo U1 gravado até qua 19/08',
+ jus:'UGC funciona quando o roteiro tem condição concreta, nunca só estilo. Dado de 2025: oferta clara vendeu mais que conteúdo de estilo.'},
+{id:32, d:'2026-08-21', t:'10h30', ch:'WhatsApp VIP + e-mail', fmt:'Card + link', title:'Janela de 48h com os 3 kits', cta:'Ver os kits', fun:'fundo', own:'Renam', camp:'kits',
+ obj:'Fechar a ação de inverno com carrinho cheio', prod:'Card qua 19/08 (material 21)',
+ jus:'Com essa base, oferta além de 48 a 72 horas vira paisagem. Os kits fecham a semana tirando peça parada em conjunto.', star:true},
+{id:33, d:'2026-08-22', t:'10h30', ch:'WhatsApp VIP', fmt:'Card + link', title:'Últimos Tamanhos abre', cta:'Ver os tamanhos', fun:'fundo', own:'Renam', camp:'tamanhos',
+ obj:'Manter receita na semana mais fraca do mês', prod:'Card qui 20/08 (material 22) · cupom sex 21/08 (E9)',
+ jus:'A semana fez 13,5% do mês em 2025, com ticket de R$ 250. Degrau de até 30%, canal fechado, nunca vitrine.',
+ warn:'Depende do cupom criado na véspera (E9). Sem cupom, não tem ação.'},
+{id:34, d:'2026-08-24', t:'10h30', ch:'WhatsApp VIP', fmt:'3 looks', title:'Look da semana 4', cta:'Ver o look', fun:'meio', own:'Renam', camp:'cadencia',
+ obj:'Cadência na semana fraca', prod:'Looks na segunda cedo',
+ jus:'Ritmo fixo mesmo na semana de menor meta. Sumir agora ensinaria a base a sumir junto.'},
+{id:35, d:'2026-08-25', t:'', ch:'Instagram', fmt:'Reel', title:'Peça de inverno que serve em setembro', cta:'Link na bio', fun:'topo', own:'Milena', camp:'tamanhos',
+ obj:'Prolongar o valor da peça de inverno', prod:'Lote 2',
+ jus:'O inverno só termina em 22/09 e a cliente do Sul continua de casaco. Argumento honesto de uso, não de urgência.'},
+{id:36, d:'2026-08-26', t:'11h', ch:'E-mail (RD)', fmt:'E-mail 4 · clicou e não comprou', title:'Últimos tamanhos por grade', cta:'Ver o meu tamanho', fun:'ret', own:'Milena', camp:'tamanhos',
+ obj:'Converter o segmento mais quente do CRM', prod:'Copy até ter 25/08',
+ jus:'Quem clicou nos e-mails anteriores e não comprou recebe a grade por tamanho. Fala do corpo dela, não do estoque.'},
+{id:37, d:'2026-08-26', t:'11h', ch:'WhatsApp VIP', fmt:'Vídeo', title:'Prova real', cta:'Ver no site', fun:'meio', own:'Milena', camp:'cadencia',
+ obj:'Rotina de prova de quarta', prod:'Lote 2',
+ jus:'Última prova real do inverno.',
+ warn:'Semana com 4 disparos contando o sábado 22. Teto anti-ban é 3. Decidir qual sai antes de segunda 24.'},
+{id:38, d:'2026-08-27', t:'', ch:'Meta', fmt:'UGC de criadora 2', title:'Look de transição', cta:'Ver os modelos', fun:'meio', own:'Maria Alice', camp:'tamanhos',
+ obj:'Preparar a virada de estação no anúncio', prod:'Vídeo U2 gravado até qua 26/08',
+ jus:'Segundo e último UGC do mês. Look de transição conversa com a primavera sem revelar a cápsula.'},
+{id:39, d:'2026-08-28', t:'10h30', ch:'WhatsApp VIP', fmt:'Texto + foto', title:'Encerramento do inverno e teaser da primavera', cta:'Ver o que ainda tem', fun:'fundo', own:'Renam', camp:'tamanhos',
+ obj:'Fechar o inverno e apontar para setembro', prod:'Texto + foto de catálogo',
+ jus:'O encerramento é real: segunda 31 as peças mudam de lugar no site. E o sábado seguinte já tem motivo novo.'},
+{id:40, d:'2026-08-29', t:'10h30', ch:'WhatsApp VIP', fmt:'Card + 15 fotos', title:'Cápsula Primavera, o grupo vê antes', cta:'Ver as primeiras peças', fun:'fundo', own:'Renam', camp:'primavera',
+ obj:'Fazer setembro nascer sem vício de desconto', prod:'Fotos até qui 20/08 (material 23) · hero e card qui 27/08 (materiais 24 e 25)',
+ jus:'15 produtos a preço cheio, o grupo vê primeiro. É o único jeito de fechar um mês de escoamento sem treinar a base a esperar porcentagem.',
+ warn:'Se as fotos não existirem até 20/08, a janela vira extensão de Últimos Tamanhos no VIP. Gatilho do plano B número 3.', star:true},
+{id:44, d:'2026-08-29', t:'', ch:'Instagram', fmt:'Carrossel', title:'As primeiras peças da estação', cta:'Link na bio', fun:'topo', own:'Milena', camp:'primavera',
+ obj:'Apresentar a primavera para quem não está no grupo', prod:'Fotos da cápsula (material 23)',
+ jus:'O orgânico mostra a estação nova no mesmo dia, sem revelar que o grupo compra antes. Uma condição por vez.'},
+{id:41, d:'2026-08-30', t:'', ch:'Site', fmt:'Hero novo', title:'Primavera no site', cta:'Ver a cápsula', fun:'meio', own:'Davi', camp:'primavera',
+ obj:'Abrir a cápsula para o público', prod:'Hero qui 27/08 (material 24)',
+ jus:'Mesmo ritmo do mês inteiro: sábado no grupo, domingo no site.'},
+{id:42, d:'2026-08-31', t:'10h30', ch:'WhatsApp VIP + IG', fmt:'Texto + post', title:'O inverno sai da vitrine', cta:'Ver a cápsula', fun:'ret', own:'Renam', camp:'primavera',
+ obj:'Cumprir a promessa que abriu o mês', prod:'Texto + recap do mês',
+ jus:'A frase que guiou agosto se cumpre no dia: as peças de inverno mudam de lugar no site. Em setembro, o que chega é outra história.', star:true}
+];
+
+/* ---- bastidor estrutural ---- */
+const B = [
+{id:'b1', d:'2026-07-30', own:'Davi', title:'Cadastro dos 47 SKUs de agasalho', eff:'Trava a abertura do mês',
+ warn:'Sem página, o sábado 01/08 não existe.'},
+{id:'b2', d:'2026-08-01', own:'Davi', title:'Faxina de preço: 114 SKUs de coleção 2026 voltam ao preço cheio', eff:'Ataca direto o ticket, custo zero',
+ warn:'Maior alavanca do mês. Decisão do Renam ainda pendente.', star:true},
+{id:'b3', d:'2026-08-01', own:'Davi', title:'Despublicar /progressivo/c e tirar /outlet/c do menu e do Google', eff:'A loja para de competir com ela mesma'},
+{id:'b4', d:'2026-08-01', own:'Renam', title:'UTM padrão em todos os links de disparo', eff:'Métrica de higiene do mês',
+ warn:'Sem UTM, agosto termina sem saber quanto o WhatsApp vendeu, de novo.'},
+{id:'b9', d:'2026-08-05', own:'Davi', title:'Página Almoço de Domingo montada', eff:'Trava a ação âncora do mês',
+ warn:'Sem a página no ar na quarta 05, o mês fica sem âncora.'},
+{id:'b5', d:'2026-08-07', own:'Davi', title:'Avaliações reais de clientes cadastradas nas 20 mais vendidas', eff:'Ataca a conversão da página de produto',
+ warn:'Regra da marca: depoimento só real. Entra avaliação verdadeira de cliente, com autorização. Nada escrito pela casa.'},
+{id:'b6', d:'2026-08-14', own:'Davi', title:'Link não listado do inverno + cupom da janela 3', eff:'Trava a janela 3',
+ warn:'Sem link e cupom, o sábado 15 não abre.'},
+{id:'b7', d:'2026-08-20', own:'Produção de foto', title:'Fotos dos 15 produtos da cápsula primavera', eff:'Trava a janela 5',
+ warn:'Data-gatilho do plano B: sem foto até hoje, a janela 5 muda.'},
+{id:'b8', d:'2026-08-21', own:'Davi', title:'Cupom da janela 4', eff:'Trava a janela 4',
+ warn:'Sem cupom, o sábado 22 não abre.'}
+];
+
+/* ---- mídia contínua (só no briefing) ---- */
+const M = [
+{id:'m1', title:'Google Search, marca e categoria', verba:'R$ 2.480 · R$ 80/dia', jan:'Mês todo', pub:'Busca ativa: marca, vestido midi, casaco feminino, alfaiataria', kpi:'Conversão acima de 1,5% · receita acima de R$ 12 mil no GA', fun:'fundo', own:'Renam',
+ jus:'Melhor conversão paga da casa (1,73% em julho). Recebe o R$ 1 mil extra do orçamento.',
+ warn:'Ninguém puxou o gasto real do Google até hoje. É a maior aposta cega do plano.'},
+{id:'m2', title:'Google Shopping', verba:'R$ 1.550 · R$ 50/dia', jan:'Mês todo', pub:'Feed de produto, coleção 2026 a preço cheio', kpi:'Conversão acima de 0,9% · receita acima de R$ 8 mil', fun:'fundo', own:'Renam',
+ jus:'Segundo melhor canal pago. Sobe junto com o Search.'},
+{id:'m3', title:'Google PMAX', verba:'R$ 775 · R$ 25/dia', jan:'Mês todo', pub:'Automático, com exclusão de termos de marca', kpi:'Não canibalizar o Search', fun:'topo', own:'Renam',
+ jus:'Fica no teto. Se o Search cair, o PMAX perde verba primeiro.'},
+{id:'m4', title:'Meta remarketing 30 dias', verba:'R$ 1.240 · R$ 40/dia', jan:'Mês todo', pub:'Visitou produto ou carrinho em 30 dias, exclui quem comprou em 15', kpi:'Custo por compra abaixo de R$ 45 · receita acima de R$ 9 mil na plataforma', fun:'fundo', own:'Renam',
+ jus:'Linha de Meta com histórico limpo: retorno 10,0 no trimestre.'},
+{id:'m5', title:'Meta captação VIP', verba:'R$ 1.240 · R$ 40/dia', jan:'Mês todo', pub:'Aberto, com Lookalike de valor como conjunto secundário', kpi:'Lead abaixo de R$ 2,00 · receita do grupo rastreada por UTM pela primeira vez', fun:'topo', own:'Renam',
+ jus:'Alimenta o motor principal. Julho pagou R$ 1,56 por lead. Não mexer na campanha que performa.',
+ warn:'A captação levou 34% da verba do trimestre sem receita medida do canal. A UTM de agosto decide se a linha continua.'},
+{id:'m6', title:'Meta conversão, quinzena 1', verba:'R$ 1.050 · R$ 75/dia', jan:'01 a 14/08', pub:'Lookalike de valor das compradoras + interesse', kpi:'Conversão do tráfego acima de 0,5% (hoje 0,25%)', fun:'topo', own:'Renam',
+ jus:'Look completo e ocasião no criativo, zero porcentagem.'},
+{id:'m7', title:'Meta conversão, quinzena 2', verba:'R$ 765 · R$ 45/dia', jan:'15 a 31/08', pub:'Lookalike de compradoras', kpi:'Custo por compra abaixo de R$ 60', fun:'topo', own:'Renam',
+ jus:'Sustenta as janelas 3 e 4 sem revelar condição no anúncio.'}
+];
+
+/* ---- calendário: janelas e dias especiais ---- */
+const JANELAS = [
+ {tag:'J1', nome:'Abertura + Almoço', dias:'sáb 01 a sex 07', meta:'R$ 24,0 mil', pct:'30% do mês'},
+ {tag:'J2', nome:'Ocasião + Reposição', dias:'sáb 08 a sex 14', meta:'R$ 19,2 mil', pct:'24% do mês'},
+ {tag:'J3', nome:'Inverno fechado', dias:'sáb 15 a sex 21', meta:'R$ 18,4 mil', pct:'23% do mês'},
+ {tag:'J4', nome:'Últimos Tamanhos', dias:'sáb 22 a sex 28', meta:'R$ 11,2 mil', pct:'14% do mês'},
+ {tag:'J5', nome:'Primavera', dias:'sáb 29 a seg 31', meta:'R$ 7,2 mil', pct:'9% do mês'}
+];
+const JSTART = {'2026-08-01':'J1','2026-08-08':'J2','2026-08-15':'J3','2026-08-22':'J4','2026-08-29':'J5'};
+const SPECIAL = {
+ '2026-08-09':{tag:'Dia dos Pais', note:'Ticket +20% em 2025. O pico é na quinta e na sexta antes, não no domingo.'},
+ '2026-08-31':{tag:'Virada de estação', note:'O inverno sai da vitrine. As peças mudam de lugar no site.'}
+};
+
+/* ================= render ================= */
+const esc = s => (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const badges = it => (it.warn?'<span class="warn" title="'+esc(it.warn)+'">⚠</span> ':'') + (it.star?'<span class="star">✦</span>':'');
+
+function legend(){
+  const counts = {topo:0,meio:0,fundo:0,ret:0};
+  A.forEach(a=>counts[a.fun]++);
+  let h='';
+  for(const k of ['topo','meio','fundo','ret']){
+    h+='<span class="chip" data-k="'+k+'" onclick="filt(this)"><span class="dot" style="background:'+FUN[k].c+'"></span>'+FUN[k].label+' <span class="n">'+counts[k]+'</span></span>';
+  }
+  h+='<span class="chip" data-k="bast" onclick="filt(this)"><span class="dot" style="background:'+FUN.bast.c+';border-radius:2px"></span>'+FUN.bast.label+' <span class="n">'+B.length+'</span></span>';
+  h+='<span class="lg-note"><b class="warn">⚠</b> pendência que trava · <b class="star">✦</b> momento-chave · clique num selo pra ler o motivo</span>';
+  document.getElementById('legend').innerHTML=h;
+}
+function filt(el){
+  const k=el.dataset.k, b=document.body;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  if(b.dataset.f===k){ b.removeAttribute('data-f'); }
+  else { b.dataset.f=k; el.classList.add('on'); }
+}
+
+function jstrip(){
+  document.getElementById('jstrip').innerHTML = JANELAS.map(j=>
+    '<div class="jcard"><div class="jd">'+j.tag+' · '+j.dias+'</div><div class="jt">'+j.nome+'</div><div class="jm">meta <b>'+j.meta+'</b> · '+j.pct+'</div></div>'
+  ).join('');
+}
+
+function calendar(){
+  const byDate = {};
+  A.forEach(a=>{ (byDate[a.d]=byDate[a.d]||[]).push(a); });
+  B.forEach(b=>{ (byDate[b.d]=byDate[b.d]||[]).push(Object.assign({bast:true},b)); });
+
+  // grade: dom 26/07 até sáb 05/09 (6 semanas)
+  const start = new Date(2026,6,26);
+  let h='';
+  for(let i=0;i<42;i++){
+    const dt = new Date(start); dt.setDate(start.getDate()+i);
+    const y=dt.getFullYear(), mo=dt.getMonth()+1, da=dt.getDate();
+    const key = y+'-'+String(mo).padStart(2,'0')+'-'+String(da).padStart(2,'0');
+    const inAug = (mo===8);
+    const sp = SPECIAL[key];
+    let cell='<div class="day'+(inAug?'':' out')+(sp?' special':'')+'">';
+    cell+='<div class="dhead"><span class="dnum">'+da+(inAug?'':(mo===7?' jul':' set'))+'</span>';
+    if(JSTART[key]) cell+='<span class="jtag">'+JSTART[key]+' abre</span>';
+    if(sp) cell+='<span class="stag">'+sp.tag+'</span>';
+    cell+='</div>';
+    if(sp) cell+='<div class="snote">'+sp.note+'</div>';
+    (byDate[key]||[]).forEach(it=>{
+      if(it.bast){
+        cell+='<div class="cc bast" data-fun="bast" onclick="goBrief(\'b-'+it.id+'\')"><div class="l1"><span class="ch">'+esc(it.own)+'</span><span class="bdg">'+badges(it)+'</span></div><div class="tt">'+esc(it.title)+'</div></div>';
+      } else {
+        cell+='<div class="cc" data-fun="'+it.fun+'" style="border-left-color:'+FUN[it.fun].c+'" onclick="goBrief(\'a-'+it.id+'\')">'+
+          '<div class="l1"><span class="ch">'+(it.t?esc(it.t)+' · ':'')+esc(it.ch)+'</span><span class="bdg">'+badges(it)+'</span></div>'+
+          '<div class="tt">'+esc(it.title)+'</div></div>';
+      }
+    });
+    cell+='</div>';
+    h+=cell;
+  }
+  document.getElementById('grid').innerHTML=h;
+}
+
+const fmtDate = d=>{
+  const [y,mo,da]=d.split('-').map(Number);
+  const wd=['dom','seg','ter','qua','qui','sex','sáb'][new Date(y,mo-1,da).getDay()];
+  return wd+' '+String(da).padStart(2,'0')+'/'+String(mo).padStart(2,'0');
+};
+
+function prow(l,v){ return v?'<div class="pr"><span class="pl">'+l+'</span><span class="pv">'+v+'</span></div>':''; }
+function funPill(k){ return '<span class="pill" style="background:'+FUN[k].c+'">'+FUN[k].label+'</span>'; }
+
+function brief(){
+  const order=['abertura','almoco','cadencia','kits','reposicao','inverno','tamanhos','primavera','midia','bastidor'];
+  let h='';
+  for(const ck of order){
+    const g=CAMPS[ck];
+    let items='';
+    if(ck==='midia'){
+      items=M.map(m=>'<div class="bc" id="bc-'+m.id+'" data-fun="'+m.fun+'"><div class="head"><span class="fdot" style="background:'+FUN[m.fun].c+'"></span><h3>'+esc(m.title)+'</h3><span class="bdg">'+badges(m)+'</span></div>'+
+        '<div class="props">'+
+        prow('Janela',esc(m.jan))+prow('Verba',esc(m.verba))+
+        '<div class="pr"><span class="pl">Funil</span><span class="pv">'+funPill(m.fun)+'</span></div>'+
+        prow('Público',esc(m.pub))+prow('KPI',esc(m.kpi))+prow('Responsável',esc(m.own))+
+        '</div><div class="why"><b>Por quê</b>'+esc(m.jus)+'</div>'+
+        (m.warn?'<div class="wbox"><b>⚠ </b>'+esc(m.warn)+'</div>':'')+'</div>').join('');
+    } else if(ck==='bastidor'){
+      items=B.map(b=>'<div class="bc" id="bc-b-'+b.id+'" data-fun="bast"><div class="head"><span class="fdot" style="background:'+FUN.bast.c+'"></span><h3>'+esc(b.title)+'</h3><span class="bdg">'+badges(b)+'</span></div>'+
+        '<div class="props">'+prow('Prazo',fmtDate(b.d))+prow('Responsável',esc(b.own))+prow('Efeito',esc(b.eff))+'</div>'+
+        (b.warn?'<div class="wbox"><b>⚠ </b>'+esc(b.warn)+'</div>':'')+'</div>').join('');
+    } else {
+      items=A.filter(a=>a.camp===ck).map(a=>'<div class="bc" id="bc-a-'+a.id+'" data-fun="'+a.fun+'">'+
+        '<div class="head"><span class="fdot" style="background:'+FUN[a.fun].c+'"></span><h3>'+esc(a.title)+'</h3><span class="bdg">'+badges(a)+'</span></div>'+
+        '<div class="props">'+
+        prow('Publicação',fmtDate(a.d)+(a.t?' · '+esc(a.t):''))+
+        prow('Produção',esc(a.prod))+
+        '<div class="pr"><span class="pl">Funil</span><span class="pv">'+funPill(a.fun)+'</span></div>'+
+        prow('Objetivo',esc(a.obj))+
+        prow('Formato',esc(a.fmt))+
+        prow('Canal',esc(a.ch))+
+        prow('CTA',esc(a.cta))+
+        prow('Responsável',esc(a.own))+
+        '</div>'+
+        '<div class="why"><b>Por quê</b>'+esc(a.jus)+'</div>'+
+        (a.warn?'<div class="wbox"><b>⚠ </b>'+esc(a.warn)+'</div>':'')+
+        '</div>').join('');
+    }
+    const count = ck==='midia'?M.length : ck==='bastidor'?B.length : A.filter(a=>a.camp===ck).length;
+    h+='<div class="group"><div class="ghead"><h2>'+g.name+'</h2><span class="gper">'+g.per+' · '+count+' cards</span>'+(g.meta?'<span class="gmeta">'+g.meta+'</span>':'')+'</div>'+
+       '<div class="gdesc">'+g.desc+'</div><div class="cards">'+items+'</div></div>';
+  }
+  document.getElementById('groups').innerHTML=h;
+}
+
+function showView(v){
+  document.getElementById('view-cal').classList.toggle('on', v==='cal');
+  document.getElementById('view-brief').classList.toggle('on', v==='brief');
+  document.getElementById('btn-cal').classList.toggle('on', v==='cal');
+  document.getElementById('btn-brief').classList.toggle('on', v==='brief');
+}
+function goBrief(id){
+  showView('brief');
+  const el=document.getElementById('bc-'+id);
+  if(el){ el.scrollIntoView({behavior:'smooth',block:'center'});
+    el.classList.add('flash'); setTimeout(()=>el.classList.remove('flash'),1800); }
+}
+
+legend(); jstrip(); calendar(); brief();
+</script>
+</body>
+</html>
