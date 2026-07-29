@@ -58,8 +58,8 @@
   main{padding:26px 40px 64px;max-width:1560px;margin:0 auto}
   .view{display:none}.view.on{display:block}
 
-  /* ---------- faixa de janelas ---------- */
-  .jstrip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:22px}
+  /* ---------- faixa de fases ---------- */
+  .jstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
   .jcard{background:var(--tint);border-radius:var(--r);padding:13px 15px}
   .jcard .jd{font-size:var(--fs-sm);color:var(--ink-soft);margin-bottom:3px}
   .jcard .jt{font-size:var(--fs-md);font-weight:600;color:var(--ink);letter-spacing:-.01em}
@@ -179,7 +179,7 @@
   @media (max-width:820px){
     header,main,footer{padding-left:18px;padding-right:18px}
     h1{font-size:var(--fs-lg)}
-    .jstrip{grid-template-columns:repeat(2,1fr)}
+    .jstrip{grid-template-columns:1fr}
     .cards{grid-template-columns:1fr}
     .lg-note{margin-left:0;flex-basis:100%}
   }
@@ -192,7 +192,7 @@
     <div>
       <div class="brand">Mira Vest</div>
       <h1>Agosto 2026 · Plano em uma tela</h1>
-      <div class="sub">Meta <b>R$ 80 mil</b> · <b>205 pedidos</b> · ticket <b>R$ 390</b> · mídia <b>R$ 10 mil</b></div>
+      <div class="sub">Lançamento Primavera/Verão antecipado · meta <b>R$ 80 mil</b> · ticket <b>R$ 390</b> · verba <b>a definir</b></div>
     </div>
     <div class="hactions">
       <div class="toggle">
@@ -228,7 +228,8 @@
 <footer>
 Clique em qualquer ação do calendário para abrir o briefing dela, já marcado.
   <span class="warn">⚠</span> pendência que trava · <span class="star">✦</span> momento-chave.
-  <br>Mira Vest · Agosto de 2026. Números de venda pela Convertr, site pelo Google Analytics, estoque pelo relatório de grade.
+  <br>Mira Vest · Agosto de 2026, versão pivot de 29/07. Todo desconto do mês cabe até dia 16. Do dia 17 em diante a coleção nova é preço cheio.
+  <br>Números de venda pela Convertr, site pelo Google Analytics, estoque pelo relatório de grade.
 </footer>
 
 <script>
@@ -241,270 +242,270 @@ const FUN = {
 };
 
 const CAMPS = {
-  abertura:  {name:'Abertura dos Agasalhos', per:'31/07 a 04/08 · S1', meta:'S1 · R$ 24,0 mil',
-    desc:'Abrir o mês a preço cheio pela categoria mais cara e mais desejada. O grupo vê no sábado, o site abre no domingo. O ritmo se repete o mês todo e vira hábito.'},
-  almoco:    {name:'Almoço de Domingo', per:'05 a 09/08 · âncora do mês', meta:'Ticket acima de R$ 420',
-    desc:'A única data do mês com efeito medido na casa, e o efeito é ticket (+20% em 2025), não volume. A cliente se veste para o almoço de família, e o pico é na quinta e na sexta, antes do domingo.'},
-  cadencia:  {name:'Cadência VIP · Seg, Qua e Sex', per:'Mês todo', meta:'',
-    desc:'O ritmo fixo do grupo: look da semana na segunda 10h30, vídeo de caimento na quarta 11h, ação na sexta 10h30. Teto anti-ban de 3 disparos por semana por grupo. O número já caiu duas vezes.'},
-  kits:      {name:'Os 3 Kits', per:'11 a 21/08', meta:'S2 · R$ 19,2 mil',
-    desc:'Suede R$ 459, Alfaiataria R$ 749, Conforto R$ 359, montados de compra conjunta real. Preço de conjunto, nunca porcentagem na peça. Giro puxa parado.'},
-  reposicao: {name:'Reposição de Básicas', per:'qua 12/08', meta:'',
-    desc:'Quem comprou básica em abril e maio está no fim do ciclo de 3 a 4 meses. 10% só no canal fechado, o site aberto não vê porcentagem.'},
-  inverno:   {name:'Últimas Peças do Inverno', per:'14 a 21/08 · S3', meta:'S3 · R$ 18,4 mil',
-    desc:'599 modelos com poucos tamanhos, R$ 799 mil de etiqueta, atrás de link não listado. Fora do menu, fora do Google. A vitrine não vê a condição.'},
-  tamanhos:  {name:'Últimos Tamanhos', per:'22 a 28/08 · S4', meta:'S4 · R$ 11,2 mil',
-    desc:'A semana historicamente mais fraca do mês (13,5% em 2025) abre um degrau menor, até 30%, sempre em canal fechado.'},
-  primavera: {name:'Cápsula Primavera', per:'29 a 31/08 · S5', meta:'S5 · R$ 7,2 mil',
-    desc:'Quinze peças a preço cheio que só o grupo vê em agosto. Não vai para o site nem para o Meta: é aperitivo, não lançamento. O inverno continua vendendo em paralelo, porque a estação só termina em 22/09 e a cliente do Sul segue de casaco.'},
-  reativa:   {name:'Quem mais compra', per:'Mês todo, em paralelo', meta:'772 clientes de 2 compras ou mais',
-    desc:'Roda por baixo do mês inteiro, não é semana. A condição é uma só: reserva no nome, até 3 peças separadas por 48 horas. Custa zero de margem e ataca o motivo real de quem parou, que é abrir o link e o tamanho já ter ido. São 30 mensagens à mão no mês, 15 por onda, e a reserva só executa quando ela responde.'},
-  midia:     {name:'Mídia contínua', per:'Mês todo · R$ 10 mil', meta:'Google 48% · Meta 43% · reserva 9%',
-    desc:'Verba dividida pela régua do Analytics, a única que mede todos os canais igual. Reserva de R$ 900 liberada só pelos gatilhos de risco. Nenhum criativo público leva porcentagem.'},
+  pulso1:    {name:'Pulso 1 · Abertura dos Agasalhos', per:'31/07 a 02/08 · 48h', meta:'Progressivo, só no grupo',
+    desc:'O primeiro pulso do mês. Escada de 2 peças 20%, 3 peças 30%, 4 ou mais 40%, das 9h às 22h de sábado, só no grupo. No domingo o site abre a categoria sem a condição. Progressivo porque o buraco do mês é ticket, e mecânica de volume paga por peça a mais, não por peça mais barata.'},
+  almoco:    {name:'Pulso 2 · Almoço de Domingo', per:'05 a 09/08 · âncora do mês', meta:'Sedex pela metade + progressivo VIP',
+    desc:'A única data do mês com efeito medido na casa, e o efeito é ticket (+20% em 2025), não volume. O pico é na quinta e na sexta, antes do domingo, porque ela precisa da roupa pronta. Duas mecânicas empilhadas aqui por decisão de 29/07: sedex pela metade no público e progressivo na seleção do almoço para o grupo. É exceção declarada à regra de uma condição por vez.'},
+  outlet:    {name:'Pulso 3 · Outlet, preço único', per:'10 a 12/08 · 72h', meta:'Preço único, outlet público',
+    desc:'O outlet volta a ser página pública por decisão de 29/07, revertendo a despublicação que estava no plano de 28/07. São 599 modelos de poucos tamanhos, R$ 799 mil de etiqueta. A mecânica é preço fixo por peça, sem escada e sem porcentagem: é o único lugar do mês onde o valor pode aparecer em arte pública.'},
+  preview:   {name:'Esquenta e Preview Primavera', per:'09 a 16/08', meta:'Preço cheio, o grupo vê antes',
+    desc:'A ponte entre os pulsos e o lançamento. O Google começa a aquecer busca no dia 09, o grupo recebe conteúdo de esquenta a partir do dia 12, e na sexta 14 abre o preview fechado: a coleção nova, a preço cheio, só para quem está no grupo, três dias antes do público.'},
+  lancamento:{name:'Lançamento Primavera/Verão', per:'17 a 23/08', meta:'Preço cheio, todos os canais',
+    desc:'A coleção vai ao ar no site, no Meta e no Google. Nenhum desconto, em canal nenhum. É por isso que todo o desconto do mês foi empurrado para antes do dia 16: coleção nova que nasce rebaixada não volta a valer o preço cheio depois.'},
+  base:      {name:'No ar + base para Black Friday', per:'24 a 31/08', meta:'Preço cheio',
+    desc:'A coleção segue vendendo e, por baixo, começa o trabalho de lista para novembro: cruzar quem já comprou com quem está nos 5 grupos, e separar os dois recortes que faltam. Não é execução de Black Friday, é levantamento, sem arte nova e sem verba.'},
+  cadencia:  {name:'Cadência VIP · Seg, Qua e Sex', per:'Mês todo', meta:'Teto de 3 por semana, por grupo',
+    desc:'Look da semana na segunda 10h30, prova de caimento na quarta 11h, ação na sexta 10h30. Teto anti-ban de 3 disparos por semana por grupo, e o número já caiu duas vezes. Quando um pulso abre no sábado, ele ocupa o lugar de um dos três, nunca soma um quarto.'},
+  kits:      {name:'Os 3 Kits', per:'Mês todo, com pico no pulso 3', meta:'Preço de conjunto',
+    desc:'Suede R$ 459, alfaiataria R$ 749, conforto R$ 359. Preço de conjunto, nunca porcentagem na peça. O Suede puxa a calça mais parada da loja, R$ 16,8 mil presos.'},
+  reativa:   {name:'Reserva no nome', per:'Antes de cada abertura', meta:'15 nomes por onda',
+    desc:'Não é a ação de embaixadoras, que saiu do plano. É outra coisa: mensagem à mão para quem mais compra, oferecendo separar até 3 peças no nome dela por 48 horas. Ataca o motivo real de quem parou, que é abrir o link e o tamanho já ter ido. Custa zero de margem e só executa quando ela responde.'},
+  midia:     {name:'Mídia contínua', per:'Mês todo · verba a definir', meta:'Reunião Renam, Maria Alice e Suellen',
+    desc:'A estrutura das campanhas está fechada, os números não. Verba por dia e KPI de cada linha saem da reunião com a Maria Alice e a Suellen, e sem eles nenhuma dessas linhas sobe.'},
   bastidor:  {name:'Antes de ir pro ar', per:'O que trava o go-live', meta:'',
-    desc:'Não é arte e não é mídia: cadastro, cupom, página, faxina de preço e UTM. Sem essas entregas, a ação não existe no dia.'}
+    desc:'Não é arte e não é mídia: cadastro, cupom, página, faxina de preço, foto e UTM. Sem essas entregas, a ação não existe no dia.'}
 };
 
 /*DADOS_INICIO*/
 const A = [
-{id:1, d:'2026-07-31', t:'', ch:'WhatsApp VIP', fmt:'Enquete com 4 cards de categoria', title:'Enquete: qual categoria abre amanhã', cta:'Vote na categoria', fun:'ret', own:'Renam', camp:'abertura',
- obj:'Aquecer o grupo e avisar que amanhã a condição sai aqui dentro', prod:'Cards prontos qua 29/07 (artes 6 a 9)',
- copy:{logo:'Mira Vest',headline:'"VOCE ESCOLHE POR ONDE SABADO COMECA"',subhead:'Casaco, casaqueto, tricô ou conjunto. Uma escolha só sua.',beneficio:'AMANHÃ A CONDIÇÃO É SÓ AQUI DENTRO',body:'O resultado define por onde a seleção das 9h começa. Você vê antes, escolhe antes, e o site só recebe as peças no domingo.',cta:'VOTE NA ENQUETE'},
- jus:'Enquete só funciona com categoria e foto, nunca nome de produto. A vencedora abre o disparo de sábado.',
- warn:'Sem as 4 fotos prontas, a enquete não roda.'},
-{id:2, d:'2026-08-01', t:'9h', ch:'WhatsApp VIP', fmt:'Card + fotos + link', title:'Os agasalhos abrem agosto, o grupo vê primeiro', cta:'Ver os modelos', fun:'fundo', own:'Renam', camp:'abertura',
- obj:'Abrir o mês pela peça mais cara e puxar o ticket com o progressivo', prod:'Card qua 29/07 (arte 11) · cadastro dos 47 agasalhos, categoria e regra do progressivo até qui 30/07',
- copy:{logo:'Mira Vest',headline:'47 MODELOS. O GRUPO ESCOLHE PRIMEIRO.',subhead:'Casacos, casaquetos, tricôs e conjuntos nas numerações que ainda estão disponíveis.',beneficio:'LEVE MAIS. PAGUE MENOS EM CADA PEÇA.',body:'As terceiras peças transformam qualquer produção. Quanto mais você leva, menor fica o valor de cada uma. Hoje, das 9h às 22h, o grupo compra primeiro e garante a condição exclusiva. Amanhã, as mesmas peças continuam no site, mas sem esse benefício.',cta:'VER AS PEÇAS AQUI'},
- jus:'R$ 499 de ticket na semana de 01 a 07/08 em 2025, o maior do ano. Progressivo até 40% no grupo, sábado das 9h às 22h, paga por peça a mais e não por peça mais barata.',
- warn:'A escada e a porcentagem vão no texto do disparo, nunca na arte: o card é encaminhável.', star:true},
-{id:4, d:'2026-08-02', t:'', ch:'Site', fmt:'Hero desktop e mobile', title:'Casacos e Tricôs de Inverno entram no site', cta:'Ver os modelos', fun:'meio', own:'Renam', camp:'abertura',
- obj:'Abrir a categoria para o público um dia depois do grupo', prod:'Hero qua 29/07 (arte 4), medidas do hero confirmadas antes',
- copy:{logo:'Mira Vest, grafite',headline:'O CASACO DEFINE TODO O LOOK',subhead:'Para manhãs frias, tardes intensas e uma rotina que pede elegância sem esforço.',beneficio:'UMA PEÇA. INÚMERAS COMBINAÇÕES.',body:'São 47 modelos entre casacos, casaquetos, tricôs e conjuntos. Cada peça está disponível apenas nas numerações restantes, informadas diretamente na página do produto.',cta:'VER OS MODELOS'},
- jus:'No site a cliente vê um preço só, sem riscado e sem porcentagem. Sábado no grupo, domingo no site: o ritmo vira hábito.'},
-{id:5, d:'2026-08-02', t:'', ch:'Meta', fmt:'Estático 1080x1350 + story', title:'47 modelos, poucas numerações', cta:'Ver os modelos', fun:'topo', own:'Renam', camp:'abertura',
+{id:1, d:'2026-07-31', t:'', ch:'WhatsApp VIP', fmt:'Enquete com 4 cards de categoria', title:'Enquete: qual categoria abre amanhã', cta:'Vote na categoria', fun:'ret', own:'Renam', camp:'pulso1',
+ obj:'Aquecer o grupo e plantar quantidade na véspera, não só desconto', prod:'Cards prontos qua 29/07 (artes 6 a 9)',
+ copy:{logo:'Mira Vest',headline:'VOCÊ ESCOLHE O QUE CHEGA PRIMEIRO',subhead:'Casaco. Casaqueto. Tricô. Conjunto. O sábado começa pela sua escolha.',beneficio:'AMANHÃ, QUANTO MAIS LEVAR, MENOS PAGA',body:'A mais votada abre amanhã às 9h, aqui antes de todo mundo. Já vá pensando no que falta no seu armário: a condição de amanhã premia quem leva mais de uma.',cta:'VOTE NA ENQUETE'},
+ jus:'Ninguém decide levar 4 peças às 9h por impulso. Se a véspera não planta quantidade, sábado vira compra de uma peça só e o progressivo não faz nada pelo ticket.',
+ warn:'Sem as 4 fotos prontas, a enquete não roda. Enquete só com categoria e foto, nunca nome de produto.'},
+
+{id:2, d:'2026-08-01', t:'9h', ch:'WhatsApp VIP', fmt:'Card + fotos + link', title:'Pulso 1: os agasalhos abrem com progressivo', cta:'Ver os modelos', fun:'fundo', own:'Renam', camp:'pulso1',
+ obj:'Abrir o mês pela categoria mais cara e puxar o ticket com volume', prod:'Card qua 29/07 (arte 11) · cadastro dos 47 agasalhos e regra do progressivo até qui 30/07',
+ copy:{logo:'Mira Vest',headline:'47 MODELOS. O GRUPO ESCOLHE PRIMEIRO.',subhead:'Casacos, casaquetos, tricôs e conjuntos nas numerações que ainda existem.',beneficio:'LEVE MAIS. PAGUE MENOS EM CADA PEÇA.',body:'A terceira peça transforma qualquer produção. Quanto mais você leva, menor fica o valor de cada uma. Hoje das 9h às 22h, só aqui. Amanhã as peças seguem no site.',cta:'VER AS PEÇAS AQUI'},
+ jus:'R$ 499 de ticket na semana de 01 a 07/08 em 2025, o maior do ano. Progressivo paga por peça a mais, não por peça mais barata, e ticket é o que está quebrado.',
+ warn:'A escada e a porcentagem vão no texto do disparo, nunca na arte: o card é encaminhável. Ocupa o slot de sexta da semana 1, então não tem look da semana na segunda 03.', star:true},
+
+{id:4, d:'2026-08-02', t:'', ch:'Site', fmt:'Hero desktop e mobile', title:'Site abre a categoria, sem a condição do grupo', cta:'Ver os modelos', fun:'meio', own:'Renam', camp:'pulso1',
+ obj:'Abrir a categoria para o público um dia depois do grupo', prod:'Hero qua 29/07 (arte 4)',
+ copy:{logo:'Mira Vest, grafite',headline:'O CASACO DEFINE TODO O LOOK',subhead:'Para manhãs frias, tardes intensas e uma rotina que pede elegância sem esforço.',beneficio:'UMA PEÇA. INÚMERAS COMBINAÇÕES.',body:'São 47 modelos entre casacos, casaquetos, tricôs e conjuntos. Cada peça está disponível apenas nas numerações restantes, informadas na página do produto.',cta:'VER OS MODELOS'},
+ jus:'No site a cliente vê um preço só, sem riscado e sem porcentagem. Sábado no grupo, domingo no site: o ritmo vira hábito e o benefício de estar no grupo fica visível.'},
+
+{id:5, d:'2026-08-02', t:'', ch:'Meta', fmt:'Estático 1080x1350 + story', title:'47 modelos, poucas numerações', cta:'Ver os modelos', fun:'topo', own:'Renam', camp:'pulso1',
  obj:'Levar tráfego frio para a categoria que abre o mês', prod:'Arte qua 29/07 (arte 5)',
- copy:{logo:'Mira Vest, monograma dourado',headline:'ELEGÂNCIA QUE NÃO PRECISA DISPUTAR',subhead:'Agasalhos que acompanham você do primeiro compromisso ao último encontro do dia.',beneficio:'UMA ESCOLHA. INFINITAS COMBINAÇÕES.',body:'Casaquetos, tricôs e conjuntos pensados para acompanhar diferentes momentos da sua rotina. Cada modelo possui poucas numerações disponíveis, informadas na página da peça.',cta:'VER OS MODELOS'},
+ copy:{logo:'Mira Vest, monograma dourado',headline:'ELEGÂNCIA QUE NÃO PRECISA DISPUTAR',subhead:'Agasalhos que acompanham você do primeiro compromisso ao último encontro do dia.',beneficio:'UMA ESCOLHA. INFINITAS COMBINAÇÕES.',body:'Casaquetos, tricôs e conjuntos para diferentes momentos da rotina. Cada modelo tem poucas numerações disponíveis, informadas na página da peça.',cta:'VER OS MODELOS'},
  jus:'10,61 de retorno na plataforma foi o campeão de julho, e era estático de peça em uso, não vídeo. O criativo repete o formato que ganhou.'},
-{id:6, d:'2026-08-03', t:'10h30', ch:'WhatsApp VIP', fmt:'3 fotos de look + link', title:'Look da semana 1', cta:'Ver o look completo', fun:'meio', own:'Renam', camp:'cadencia',
- obj:'Subir peças por pedido e ticket', prod:'Looks montados pela Milena até seg 03/08 cedo',
- copy:{logo:'Mira Vest, monograma dourado',headline:'A SEGUNDA JÁ NASCE PRONTA.',subhead:'As três composições que inauguram agosto com elegância e intenção.',beneficio:'VOCÊ VESTE. O ESTILO JÁ ESTÁ DEFINIDO.',body:'O casaqueto conduz a primeira produção com presença. O tricô encontra o jeans no equilíbrio perfeito entre sofisticação e conforto. E o conjunto entrega uma elegância impecável, sem esforço. Três escolhas. Uma semana inteira resolvida.',cta:'DESCUBRA OS TRÊS LOOKS'},
- jus:'59% dos pedidos levam 2 ou mais peças. Look completo sobe ticket sem custar margem.'},
-{id:45, d:'2026-08-03', t:'', ch:'Meta', fmt:'Vídeo de criadora, só para anúncio no Meta', title:'Vídeo 1: o casaco tweed de gola alta', cta:'Ver o modelo', fun:'meio', own:'Maria Alice', camp:'abertura',
+
+{id:45, d:'2026-08-03', t:'', ch:'Meta', fmt:'Vídeo de criadora, só para anúncio no Meta', title:'Vídeo 1: o casaco tweed de gola alta', cta:'Ver o modelo', fun:'meio', own:'Maria Alice', camp:'pulso1',
  obj:'Vender a peça mais cara da abertura falando a ficha dela', prod:'Peça enviada até qui 30/07 · vídeo gravado até dom 02/08',
  ugc:{produto:'262501-01 Casaco Tweed Gola Alta Preto · R$ 657',tipo:'Falando da peça + close no detalhe',gancho:'A gola desse tweed foi feita para ficar assim: estruturada o tempo todo.',ganchoTexto:'GOLA ESTRUTURADA O DIA INTEIRO',ganchoVisual:'Close direto na gola. A mão dobra levemente o tecido e solta. A gola retorna naturalmente à posição, evidenciando sua estrutura. Sem plano de abertura, o primeiro frame já destaca o detalhe.'},
- jus:'R$ 499 de ticket na semana 01 a 07/08, o maior do ano, então a peça mais cara leva o vídeo. O gancho abre na gola, que é o detalhe que a foto de catálogo não mostra.',
- warn:'12 das 13 peças venderam em 90 dias. Anúncio pago aponta para um código só, então conferir reposição com a fábrica antes de subir. Só roda como anúncio no Meta, não vai para grupo nem site.'},
+ jus:'A semana de maior ticket do ano leva a peça mais cara. O gancho abre na gola, que é o detalhe que a foto de catálogo não mostra.',
+ warn:'12 das 13 peças venderam em 90 dias. Anúncio pago aponta para um código só, então conferir reposição com a fábrica antes de subir.'},
+
+{id:9, d:'2026-08-05', t:'11h', ch:'Site + VIP', fmt:'Página + card + vídeo no mesmo disparo', title:'Pulso 2: Almoço de Domingo entra no ar', cta:'Ver a seleção', fun:'fundo', own:'Renam', camp:'almoco',
+ obj:'Ancorar o mês na única data com efeito medido, agora com vantagem de compra', prod:'Copy a escrever no pivot · hero e card seg 03/08 · página e cupom de sedex no ar até qua 05',
+ jus:'Dia dos Pais 2025 fez receita +31% e ticket +20%: aqui a data é ticket, não presente. O sedex pela metade resolve a ansiedade de chegar a tempo, e o progressivo na seleção do almoço empurra o look completo em vez da peça avulsa.',
+ warn:'Duas mecânicas na mesma janela, exceção declarada em 29/07. Sedex é público e vai sem numeral na arte, progressivo é do grupo e o número fica no texto. O vídeo de caimento da quarta entra neste mesmo disparo, para não estourar o teto de 3.', star:true},
+
+{id:10, d:'2026-08-05', t:'11h', ch:'E-mail (RD)', fmt:'E-mail 1 · base completa', title:'Almoço de Domingo por e-mail', cta:'Ver a seleção', fun:'meio', own:'Milena', camp:'almoco',
+ obj:'Levar a âncora para a base inteira', prod:'Copy a escrever no pivot · até ter 04/08',
+ jus:'Único envio do mês para a base completa. É o canal onde o numeral do sedex pode aparecer, porque e-mail não é encaminhável como card de grupo.'},
+
 {id:46, d:'2026-08-06', t:'', ch:'Meta', fmt:'Vídeo de criadora, só para anúncio no Meta', title:'Vídeo 2: o kit de alfaiataria do almoço', cta:'Ver o kit', fun:'fundo', own:'Maria Alice', camp:'almoco',
  obj:'Vender o kit como look de ocasião na quinta, pico da data', prod:'Peça enviada até sex 31/07 · vídeo gravado até ter 04/08',
  ugc:{produto:'Kit Alfaiataria (casaqueto botões e gola + calça) · R$ 749',tipo:'Provador + look completo',gancho:'Você veste os dois e o look já está pronto.',ganchoTexto:'UM KIT. LOOK PRONTO.',ganchoVisual:'Primeiro frame no cabide com o casaqueto e a calça juntos. A mão retira as duas peças ao mesmo tempo e corta imediatamente para o look completo no corpo. O movimento reforça que as peças foram pensadas para serem usadas em conjunto.'},
  jus:'Ticket +20% na data em 2025, com pico na quinta e na sexta antes do domingo. Kit sobe ticket sem tocar em desconto, e a fala já diz que as duas peças saem juntas por um preço.'},
-{id:9, d:'2026-08-05', t:'11h', ch:'Site + VIP', fmt:'Página + card', title:'Almoço de Domingo entra no ar', cta:'Ver a seleção', fun:'fundo', own:'Renam', camp:'almoco',
- obj:'Ancorar o mês na única data com efeito medido', prod:'Hero e card seg 03/08 (materiais 12 a 14) · página no ar até qua 05',
- copy:{logo:'Mira Vest, monograma dourado',headline:'VOCÊ CHEGA PRONTA À MESA',subhead:'Uma seleção pensada para o almoço de família, e para todos os compromissos que vêm depois.',beneficio:'TRÊS PEÇAS. INÚMERAS OCASIÕES. + Sedex pela metade do preço',body:'Vestido midi, alfaiataria como terceira peça e tricô para quando a temperatura cair. Uma combinação elegante no domingo e indispensável durante toda a semana.',cta:'VER A SELEÇÃO'},
- jus:'Dia dos Pais 2025 fez receita +31% e ticket +20%: aqui a data é ticket, não presente. A página junta vestido midi, alfaiataria e tricô a preço cheio e fica 5 dias no ar.', star:true},
-{id:10, d:'2026-08-05', t:'11h', ch:'E-mail (RD)', fmt:'E-mail 1 · base completa', title:'Almoço de Domingo por e-mail', cta:'Ver a seleção', fun:'meio', own:'Milena', camp:'almoco',
- obj:'Levar a âncora para a base inteira', prod:'Copy e arte até ter 04/08',
- copy:{logo:'Mira Vest, grafite',headline:'DOMINGO VOCÊ NÃO IMPROVISA',subhead:'Almoço de domingo, dia 09/08. Uma mesa que começa cedo e termina no fim da tarde.',beneficio:'TRÊS PEÇAS. UMA SEMANA DE POSSIBILIDADES.',body:'Vestido midi, alfaiataria e tricô. Uma combinação pensada para o domingo e peças que continuam compondo novos looks ao longo da semana, sem repetir a mesma imagem.',cta:'VER A SELEÇÃO'},
- jus:'Único envio do mês para a base completa. Os outros três são segmentados.'},
-{id:11, d:'2026-08-05', t:'11h', ch:'WhatsApp VIP', fmt:'Vídeo', title:'Vídeo: como a peça veste no corpo', cta:'Ver no site', fun:'meio', own:'Milena', camp:'cadencia',
- obj:'Atacar a dúvida de caimento, que é onde o carrinho vaza', prod:'Reel do lote 1 (até 03/08)',
- copy:{logo:'Mira Vest, monograma dourado',headline:'A PEÇA NO CORPO. NUNCA NO CABIDE.',subhead:'Veja o caimento em movimento e descubra como cada tecido acompanha você.',beneficio:'O CAIMENTO ANTES DA ESCOLHA.',body:'Vestido midi, alfaiataria e tricô da coleção Almoço de Domingo apresentados em movimento, para revelar textura, estrutura e fluidez. Porque a peça certa se reconhece antes mesmo de escolher o tamanho.',cta:'VER O CAIMENTO'},
- jus:'De 100 que veem uma peça, só 5,7 põem no carrinho, e caimento é o que trava. Quarta é o dia fixo do vídeo, gravado em lote em casa, custo zero.'},
+
 {id:12, d:'2026-08-06', t:'', ch:'Meta', fmt:'Carrossel de look', title:'Como montar o look do almoço', cta:'Ver a seleção', fun:'meio', own:'Milena', camp:'almoco',
- obj:'Empurrar a venda na quinta, que é o pico da data', prod:'Sai do material da página, sem arte nova',
- copy:{logo:'Mira Vest',headline:'O LOOK QUE MARCA PRESENÇA ANTES DA PRIMEIRA PALAVRA',subhead:'Vestido midi, alfaiataria e tricô pensados para celebrar o Dia dos Pais com elegância em qualquer ocasião.',beneficio:'DOMINGO SEM PRESSA. ELEGÂNCIA SEM DÚVIDAS.',body:'Um vestido sofisticado para um visual impecável. Acrescente o blazer para um toque de alfaiataria ou finalize com o tricô para um charme acolhedor. Três propostas elegantes, criadas a partir das mesmas peças, para diferentes momentos do seu domingo.',cta:'ARRASTE E DESCUBRA AS 3 COMBINAÇÕES'},
+ obj:'Empurrar a venda na quinta, que é o pico da data', prod:'Copy a escrever no pivot · sai do material da página, sem arte nova',
  jus:'Receita +31% e ticket +20% na data em 2025, e o pico é na quinta e na sexta antes, não no domingo. Ela precisa da roupa resolvida antes.', star:true},
-{id:13, d:'2026-08-07', t:'10h30', ch:'WhatsApp VIP', fmt:'Foto de look + link', title:'Sexta de ocasião, peça de ticket alto', cta:'Ver o look', fun:'fundo', own:'Renam', camp:'almoco',
- obj:'Converter no melhor dia da loja', prod:'Look montado na véspera',
- copy:{logo:'Mira Vest, monograma dourado',headline:'O SEU LOOK DE DOMINGO JÁ ESTÁ ESPERANDO POR VOCÊ',subhead:'Selecionamos combinações elegantes para você viver o Dia dos Pais com leveza e sofisticação.',beneficio:'VOCÊ SÓ APROVA. NÓS CUIDAMOS DO RESTO.',body:'Comece com o vestido midi para uma elegância atemporal. Acrescente o blazer para um acabamento refinado ou o tricô para o conforto da tarde. Nós ajudamos a encontrar o caimento ideal para você, para que no domingo sua única preocupação seja aproveitar o momento.',cta:'FALE COM A GENTE'},
- jus:'R$ 3.797 por dia na sexta, o maior da semana, e a compra da data acontece antes de domingo.'},
-{id:15, d:'2026-08-08', t:'', ch:'Meta', fmt:'Estático', title:'Almoço de Domingo, reforço', cta:'Ver a seleção', fun:'fundo', own:'Renam', camp:'almoco',
- obj:'Dar o último empurrão pago da data', prod:'Reaproveita o criativo de qua 05',
- copy:{logo:'Mira Vest, grafite',headline:'PRESENÇA QUE SE PERCEBE ANTES DA PRIMEIRA PALAVRA',subhead:'Para o almoço do Dia dos Pais e para todos os momentos que pedem uma elegância natural.',beneficio:'SEDEX PELA METADE PARA CHEGAR NO DOMINGO',body:'Vestido midi, alfaiataria e tricô reunidos em combinações versáteis e atemporais. Um look pensado para o domingo em família, mas que continua fazendo sentido em qualquer ocasião onde vestir-se bem faz toda a diferença.',cta:'DESCUBRA OS MODELOS'},
- jus:'Último fim de semana útil antes do domingo. Mesmo criativo, sem porcentagem.'},
-{id:17, d:'2026-08-10', t:'10h30', ch:'WhatsApp VIP', fmt:'3 looks', title:'Look da semana 2', cta:'Ver o look completo', fun:'meio', own:'Renam', camp:'cadencia',
- obj:'Manter a cadência e o ticket', prod:'Looks na segunda cedo',
- copy:{logo:'Mira Vest, monograma dourado',headline:'SEGUNDA, VOCÊ JÁ COMEÇA PRONTA.',subhead:'Três combinações pensadas para eliminar a dúvida antes mesmo da semana começar.',beneficio:'REPITA AS PEÇAS. RENOVE O LOOK.',body:'Tudo começa com uma peça que sustenta a produção sozinha. A partir dela, surgem outras duas combinações versáteis, com a elegância que acompanha a reunião de segunda e o jantar de sexta. Uma curadoria feita para simplificar a rotina sem abrir mão do estilo.',cta:'VER OS TRÊS LOOKS'},
- jus:'No mesmo dia a página Almoço de Domingo sai do ar.'},
+
+{id:13, d:'2026-08-07', t:'10h30', ch:'WhatsApp VIP', fmt:'Foto de look + link', title:'Sexta de ocasião, último dia útil para chegar', cta:'Ver o look', fun:'fundo', own:'Renam', camp:'almoco',
+ obj:'Converter no melhor dia da loja, com o prazo de entrega como argumento', prod:'Copy a escrever no pivot · look montado na véspera',
+ jus:'R$ 3.797 por dia na sexta, o maior da semana, e a compra da data acontece antes de domingo. O sedex pela metade vira urgência real de calendário, não urgência inventada.'},
+
+{id:15, d:'2026-08-08', t:'', ch:'Meta', fmt:'Estático', title:'Almoço de Domingo, reforço pago', cta:'Ver a seleção', fun:'fundo', own:'Renam', camp:'almoco',
+ obj:'Dar o último empurrão pago da data', prod:'Copy a escrever no pivot · reaproveita o criativo de qua 05',
+ jus:'Último fim de semana útil antes do domingo. Mesmo criativo, sem porcentagem na arte.'},
+
+{id:60, d:'2026-08-09', t:'', ch:'Google', fmt:'Search e Shopping', title:'Google começa a aquecer busca de primavera', cta:'', fun:'topo', own:'Renam', camp:'preview',
+ obj:'Aquecer intenção de busca 8 dias antes do lançamento público', prod:'Termos e grupos montados até sáb 08/08',
+ jus:'Search converte 1,73% contra 0,25% do Meta. Chegar na busca antes do lançamento significa que no dia 17 a campanha já está madura em vez de começar do zero.',
+ warn:'Não é campanha de conversão da coleção ainda: no dia 09 a coleção não está publicada. É aquecimento de termo, com destino em categoria, não em produto.'},
+
+{id:17, d:'2026-08-10', t:'10h30', ch:'WhatsApp VIP', fmt:'Card + link do outlet', title:'Pulso 3: outlet abre com preço único', cta:'Ver o outlet', fun:'fundo', own:'Renam', camp:'outlet',
+ obj:'Escoar 599 modelos de poucos tamanhos em 72 horas', prod:'Copy a escrever no pivot · card qui 06/08 · preço único cadastrado até dom 09/08',
+ jus:'599 modelos, R$ 799 mil de etiqueta parados. Preço fixo é mais rápido de cadastrar que régua por peça, e com o outlet público a peça tem casa fixa em vez de precisar de um evento fechado toda vez.',
+ warn:'O valor do preço único depende do custo real de fábrica, que nunca foi confirmado. Sem ele, o preço pode sair no prejuízo. Ocupa o slot de segunda da semana.', star:true},
+
+{id:61, d:'2026-08-10', t:'', ch:'Meta', fmt:'Estático, outlet como chamada', title:'Estático do outlet, agora público', cta:'Ver o outlet', fun:'topo', own:'Renam', camp:'outlet',
+ obj:'Sustentar o outlet reaberto como destino de escoamento', prod:'Copy a escrever no pivot · arte até sex 07/08',
+ jus:'A palavra outlet volta a ser permitida em público por decisão de 29/07. Vale lembrar o dado da conta: outlet em catálogo estruturado fez ROAS 9,6, outlet com porcentagem gritada fez 1,70. Estrutura vende, grito não.',
+ warn:'Único lugar do mês onde valor pode aparecer em arte pública, e mesmo aqui é preço fixo, nunca porcentagem.'},
+
+{id:31, d:'2026-08-10', t:'', ch:'Meta', fmt:'Vídeo de criadora, só para anúncio no Meta', title:'Vídeo 3: o cardigã do punho canelado', cta:'Ver o modelo', fun:'meio', own:'Maria Alice', camp:'outlet',
+ obj:'Vender uma peça específica do outlet, falando a ficha dela', prod:'Peça enviada até sex 31/07 · vídeo gravado até dom 09/08',
+ ugc:{produto:'252116 Cardigan punho canelado · R$ 324',tipo:'Falando da peça, close no detalhe',gancho:'Qualidade também se percebe assim.',ganchoTexto:'ACABAMENTO QUE PERMANECE.',ganchoVisual:'Macro do punho canelado em movimento. A manga é levemente tensionada e retorna naturalmente ao lugar. Sem cortes rápidos, com ritmo calmo e foco total na construção da peça.'},
+ jus:'Vídeo de criadora aqui é venda de produto, não conteúdo de estilo: ela recebe a peça e fala a ficha. O gancho tem 7 palavras porque 3 segundos falados não comportam mais.',
+ warn:'13 das 16 peças venderam em 90 dias. Conferir estoque antes de subir e deixar a categoria como destino reserva.'},
+
 {id:18, d:'2026-08-11', t:'', ch:'Meta', fmt:'Carrossel de anúncio, 5 telas', title:'Anúncio dos 3 kits, peça a peça', cta:'Ver o kit', fun:'meio', own:'Renam', camp:'kits',
- obj:'Apresentar os kits como look completo e subir o ticket', prod:'Carrossel seg 10/08 (material 16)',
- copy:{logo:'Mira Vest, grafite',headline:'QUEM ESCOLHE BEM, RESOLVE TUDO DE UMA VEZ.',subhead:'Suede, alfaiataria ou conforto. Três propostas, cada uma com o look completo.',beneficio:'DOIS ESSENCIAIS. UMA ÚNICA ESCOLHA.',body:'Suede por R$ 459, alfaiataria por R$ 749 ou conforto por R$ 359. Combinações completas, pensadas para funcionar juntas desde o primeiro uso, e continuar rendendo novas produções quando usadas separadamente.',cta:'ARRASTE PARA VER'},
+ obj:'Apresentar os kits como look completo e subir o ticket dentro do pulso', prod:'Carrossel sex 07/08',
+ copy:{logo:'Mira Vest, grafite',headline:'QUEM ESCOLHE BEM, RESOLVE TUDO DE UMA VEZ.',subhead:'Suede, alfaiataria ou conforto. Três propostas, cada uma com o look completo.',beneficio:'DOIS ESSENCIAIS. UMA ÚNICA ESCOLHA.',body:'Suede por R$ 459, alfaiataria por R$ 749 ou conforto por R$ 359. Combinações que funcionam juntas desde o primeiro uso e rendem novas produções quando usadas separadas.',cta:'ARRASTE PARA VER'},
  jus:'R$ 16,8 mil presos na calça mais parada da loja, e é ela que o Kit Suede puxa. Os três kits juntam peças que as clientes já levam no mesmo pedido.'},
+
 {id:51, d:'2026-08-11', t:'', ch:'Meta', fmt:'Vídeo de criadora, só para anúncio no Meta', title:'Vídeo 5: o Kit Suede', cta:'Ver o kit', fun:'fundo', own:'Maria Alice', camp:'kits',
  obj:'Vender o kit que puxa a calça mais parada da loja', prod:'Peças enviadas até sex 31/07 · vídeo gravado até dom 09/08',
  ugc:{produto:'Kit Suede · blusa suede bordô + calça slim suede preta · R$ 459',tipo:'Provador, look completo',gancho:'Nem toda calça preta entrega essa presença.',ganchoTexto:'O DIFERENCIAL ESTÁ NO TECIDO.',ganchoVisual:'Close na perna da calça preenchendo a tela, contra parede branca, luz lateral para a textura do suede pegar. Preto sobre branco, contraste alto. No segundo 1 a mão passa no tecido. O primeiro frame é o tecido, nunca o rosto.'},
  jus:'R$ 16,8 mil presos em 43 calças paradas. A blusa é a que mais vende e sai junto no kit, o mais forte dos três. O que gira puxa o que está parado.',
  warn:'O código ditado é o DO KIT, não o da calça avulsa: quem digitar o da calça cai em outro preço depois de ouvir R$ 459 as duas. Sem cadastro próprio do kit, criar antes de enviar as peças.'},
-{id:19, d:'2026-08-12', t:'11h', ch:'WhatsApp segmentado', fmt:'Texto + fotos', title:'Reposição de básicas, 10% no canal fechado', cta:'Renovar as básicas', fun:'ret', own:'Renam', camp:'reposicao',
- obj:'Ativar o ciclo de recompra de 3 a 4 meses', prod:'Card ter 11/08 (material 18)',
- copy:{logo:'Mira Vest, monograma dourado',headline:'OS MELHORES GUARDA-ROUPAS COMEÇAM PELO ESSENCIAL.',subhead:'As básicas voltaram para completar as combinações que você usa todos os dias.',beneficio:'ESSENCIAIS QUE PERMANECEM RELEVANTES.',body:'Modelagens atemporais, cores versáteis e caimento impecável. As novas reposições foram pensadas para acompanhar a rotina com discrição e elegância. Escolha sua cor, informe sua numeração e cuidamos do restante.',cta:'ESCOLHER A MINHA BÁSICA'},
- jus:'Quem comprou básica em abril e maio está no vencimento do ciclo. 10% só no canal fechado, o site aberto não vê porcentagem.',
- warn:'A porcentagem vai no texto do disparo, nunca na arte. Sem o recorte de quem comprou em abril e maio montado no RD, o disparo não sai.'},
-{id:20, d:'2026-08-12', t:'11h', ch:'E-mail (RD)', fmt:'E-mail 2 · segmento abril e maio', title:'Reposição de básicas por e-mail', cta:'Renovar as básicas', fun:'ret', own:'Milena', camp:'reposicao',
- obj:'Dobrar o alcance do mesmo segmento em outro canal', prod:'Copy até ter 11/08',
- copy:{logo:'Mira Vest, grafite',headline:'O QUE SUSTENTA UM BOM LOOK RARAMENTE CHAMA ATENÇÃO.',subhead:'Essenciais que fazem toda combinação parecer mais refinada.',beneficio:'MENOS EXCESSO. MAIS PROPÓSITO.',body:'As básicas retornam para ocupar o lugar mais importante do guarda-roupa: aquele das peças que você veste repetidamente, porque funcionam em qualquer estação e elevam tudo o que vem por cima.',cta:'EXPLORAR AS BÁSICAS'},
- jus:'Mesmo recorte do disparo, agora por e-mail: não gasta verba e pega quem não abriu o WhatsApp.'},
-{id:22, d:'2026-08-13', t:'', ch:'Meta', fmt:'Estático novo (refresh)', title:'Kits, look completo', cta:'Ver o kit', fun:'meio', own:'Renam', camp:'kits',
- obj:'Renovar o criativo no meio da quinzena', prod:'Arte qua 12/08 (material 17)',
- copy:{logo:'Mira Vest, grafite',headline:'VESTIR BEM NÃO DEVERIA EXIGIR UMA SEGUNDA ESCOLHA.',subhead:'Três combinações completas para uma rotina que muda ao longo do dia.',beneficio:'VERSATILIDADE QUE COMPENSA CADA ESCOLHA.',body:'Cada kit reúne duas peças que funcionam em perfeita harmonia, mas revelam ainda mais possibilidades quando usadas separadamente. Um investimento em um guarda-roupa mais inteligente, versátil e duradouro.',cta:'EXPLORAR OS KITS'},
- jus:'Criativo novo a cada 10 a 12 dias evita arte cansada. O kit é preço de conjunto, nunca porcentagem na peça.'},
-{id:23, d:'2026-08-14', t:'15h', ch:'WhatsApp VIP', fmt:'Texto', title:'Teaser: sábado abre a ação de inverno, só no grupo', cta:'Fique de olho', fun:'ret', own:'Renam', camp:'inverno',
- obj:'Encher o sábado sem abrir a condição', prod:'Só texto, sem arte',
- copy:{logo:'MIRA VEST',headline:'ALGUMAS OPORTUNIDADES NÃO SÃO PÚBLICAS.',subhead:'Amanhã, você recebe acesso a uma seleção reservada.',beneficio:'ATÉ 60% EM UMA CURADORIA EXCLUSIVA.',body:'Uma seleção de peças com disponibilidade limitada, reunida em uma página de acesso exclusivo. Ela não faz parte da navegação do site nem pode ser encontrada por mecanismos de busca. Um convite reservado para quem está aqui.',cta:'ESTEJA PRONTO ÀS 9H'},
- jus:'Oferta com essa base tem 48 a 72 horas de vida, então a condição abre só no sábado e a véspera serve para juntar gente.',
- warn:'4 disparos na semana com o sábado 15, e o teto anti-ban é 3. Este junta com o disparo de quarta 12.'},
-{id:47, d:'2026-08-01', t:'', ch:'Meta', fmt:'Catálogo, público de compradoras', title:'Anúncio que só quem já comprou vê, o mês inteiro', cta:'Ver a peça', fun:'ret', own:'Renam', camp:'reativa',
- obj:'Ficar na frente de quem mais compra os 31 dias, com verba baixa e constante', prod:'Sobe junto com a faxina de preço, dia 1º',
- copy:{logo:'Mira Vest, grafite',headline:'VOCÊ JÁ SABE COMO A PEÇA CAI EM VOCÊ',subhead:'Coleção 2026 no ar, com peça nova na capa toda semana.',beneficio:'A SEGUNDA PEÇA VOCÊ PEDE SEM PENSAR',body:'Alfaiataria, tricô e vestidos com as medidas de cada modelo na página. O número que já serviu em você continua servindo aqui.',cta:'VER A PEÇA'},
- jus:'Compradoras dos últimos 24 meses com mais de R$ 1.000 acumulados, tirando quem comprou nos últimos 15 dias. Catálogo converte quem já conhece a marca.',
- warn:'Sem verba nova: sai repartida da linha de remarketing de R$ 40 por dia. O mês tem R$ 10 mil e não sobe.'},
-{id:48, d:'2026-08-14', t:'noite', ch:'WhatsApp 1:1', fmt:'Mensagem pessoal, 15 nomes', title:'Reserva no nome antes do inverno abrir', cta:'Me diz o seu número', fun:'ret', own:'Renam', camp:'reativa',
- obj:'Tirar do caminho o motivo real de quem parou: o tamanho dela some antes de ela ver', prod:'Lista puxada da API na quinta, ordenada por valor acumulado',
- copy:{headline:'EU SEPARO O SEU NÚMERO ANTES',subhead:'Oi, [nome]! Amanhã as últimas peças do inverno abrem no grupo.',beneficio:'ATÉ 3 PEÇAS SEPARADAS NO SEU NOME',body:'Me diz o seu número e o que você procura. Eu separo antes de abrir e seguro por 48 horas, sem compromisso de fechar na hora.'},
+
+{id:62, d:'2026-08-12', t:'11h', ch:'WhatsApp VIP', fmt:'Texto + fotos de bastidor', title:'Último dia do preço único, e o que vem depois', cta:'Ver o outlet', fun:'ret', own:'Renam', camp:'preview',
+ obj:'Fechar o pulso 3 e começar o esquenta da coleção nova no mesmo fôlego', prod:'Copy a escrever no pivot · fotos de bastidor da coleção',
+ jus:'Fecha uma coisa e abre outra no mesmo disparo, sem gastar dois slots da semana. O esquenta não vende nada, só avisa que na sexta o grupo vê antes de todo mundo.',
+ warn:'Nada de preço nem de peça específica no esquenta. Se o grupo vir a coleção aqui, o preview de sexta perde a razão de existir.'},
+
+{id:63, d:'2026-08-12', t:'', ch:'Meta', fmt:'Estático ou vídeo curto de esquenta', title:'Esquenta de primavera no Meta', cta:'Saiba quando', fun:'topo', own:'Renam', camp:'preview',
+ obj:'Aquecer público frio antes do lançamento e alimentar a captação para o grupo', prod:'Copy a escrever no pivot · arte até seg 10/08',
+ jus:'Público aquecido no dia 12 é público que converte no dia 17. Subir criativo de lançamento no próprio dia do lançamento é começar a aprendizagem do zero na hora que a campanha mais precisa estar madura.'},
+
+{id:48, d:'2026-08-13', t:'noite', ch:'WhatsApp 1:1', fmt:'Mensagem pessoal, 15 nomes', title:'Reserva no nome antes do preview abrir', cta:'Me diz o seu número', fun:'ret', own:'Renam', camp:'reativa',
+ obj:'Tirar do caminho o motivo real de quem parou: o tamanho dela some antes de ela ver', prod:'Lista puxada da API na quarta, ordenada por valor acumulado',
+ copy:{headline:'EU SEPARO O SEU NÚMERO ANTES',subhead:'Oi, [nome]! Amanhã a coleção nova abre aqui no grupo, antes do site.',beneficio:'ATÉ 3 PEÇAS SEPARADAS NO SEU NOME',body:'Me diz o seu número e o que você procura. Eu separo antes de abrir e seguro por 48 horas, sem compromisso de fechar na hora.'},
  jus:'Quem gastou acima de R$ 3.000 e parou não parou por preço. Parou porque abre o link e o tamanho já foi. Reserva ataca isso e não cede margem nenhuma.',
- warn:'A reserva é reativa: só executa quando ela responde. Nunca separar peça por antecipação. 15 nomes, e quem entra aqui sai da onda de 28/08.'},
-{id:49, d:'2026-08-19', t:'11h', ch:'E-mail (RD)', fmt:'Recorte dentro do e-mail 3', title:'Bloco de topo do e-mail 3 só para as maiores compradoras', cta:'Ver os tamanhos', fun:'ret', own:'Milena', camp:'reativa',
- obj:'Falar com o topo da base sem gastar um envio novo de e-mail.', prod:'Mesma peça do e-mail 3, com o bloco de topo trocado',
- copy:{logo:'Mira Vest, grafite',headline:'NADA AQUI DESTOA DO QUE É SEU',subhead:'As peças desta seleção conversam com o que você já levou daqui.',beneficio:'SEM PROCURAR, JÁ ESTÁ SEPARADO',body:'Poucos tamanhos de cada modelo. O link abre direto na seleção, com a numeração que ainda existe em cada peça.',cta:'VER AS PEÇAS'},
- jus:'4 e-mails por mês e os quatro já estão ocupados. Entra como recorte dentro do envio do dia 19, que já vai só para base compradora.'},
-{id:50, d:'2026-08-28', t:'noite', ch:'WhatsApp 1:1', fmt:'Mensagem pessoal, 15 nomes', title:'Reserva no nome na cápsula de primavera', cta:'Me diz o seu número', fun:'ret', own:'Renam', camp:'reativa',
- obj:'Fechar o mês com o topo da base escolhendo primeiro, a preço cheio', prod:'Fotos da cápsula prontas em 20/08',
- copy:{headline:'A PRIMAVERA COMEÇA PELO SEU NÚMERO',subhead:'Oi, [nome]! Amanhã a Cápsula Primavera abre no grupo.',beneficio:'ATÉ 3 PEÇAS SEPARADAS NO SEU NOME',body:'São 15 peças e não vão para o site em agosto. Me diz o seu número que eu separo antes de abrir.'},
- jus:'São 15 peças para 1.700 pessoas no grupo. Sem reserva, quem abre a mensagem 20 minutos depois não acha o próprio tamanho.',
- warn:'Lista diferente da onda de 14/08. A reserva é reativa: só separa quando ela responde. Sem as fotos da cápsula até 20/08, esta ação não sai.'},
-{id:25, d:'2026-08-15', t:'10h30', ch:'WhatsApp VIP', fmt:'Card + link não listado', title:'Últimas Peças do Inverno abre', cta:'Ver os tamanhos', fun:'fundo', own:'Renam', camp:'inverno',
- obj:'Escoar o que ficou com poucos tamanhos sem sujar a vitrine', prod:'Card qui 13/08 (material 19) · link e cupom sex 14/08',
- copy:{logo:'MIRA VEST',headline:'A SELEÇÃO ESTÁ ABERTA.',subhead:'Acesso exclusivo às últimas peças da coleção de inverno.',beneficio:'ÚLTIMAS NUMERAÇÕES. ACESSO PRIVILEGIADO.',body:'Reunimos as últimas disponibilidades da coleção em uma página de acesso reservado. Disponível apenas para quem faz parte deste grupo, sem divulgação pública ou navegação pelo site.',cta:'ACESSAR AGORA'},
- jus:'599 modelos com poucos tamanhos, R$ 799 mil de etiqueta parados. O link fica fora do menu e do Google, então a vitrine não vê o preço rebaixado.',
- warn:'Teto de 60%: a 60% a peça sai no preço de atacado, sem sobra. A porcentagem vai no texto do disparo, nunca na arte.', star:true},
-{id:26, d:'2026-08-15', t:'', ch:'Meta', fmt:'Estático sem porcentagem', title:'Peças de inverno, poucas numerações', cta:'Ver os modelos', fun:'topo', own:'Renam', camp:'inverno',
- obj:'Dar ar para a ação sem mostrar a condição', prod:'Arte qui 13/08 (material 20)',
- copy:{logo:'Mira Vest, grafite',headline:'ALGUMAS PEÇAS FAZEM TODO O GUARDA-ROUPA FUNCIONAR.',subhead:'Os essenciais de inverno que continuam relevantes até a próxima estação.',beneficio:'ELEGÂNCIA QUE PERMANECE.',body:'Uma curadoria de casaquetos, tricôs e casacos criada para vestir com naturalidade em diferentes momentos da semana. Modelagens atemporais e caimentos que permanecem atuais muito além do inverno.',cta:'EXPLORAR A CURADORIA'},
- jus:'Em agosto/25 o anúncio com 30% na cara marcou retorno 20 na plataforma, e o Analytics viu R$ 2 mil. A porcentagem mora no link fechado.'},
-{id:27, d:'2026-08-17', t:'10h30', ch:'WhatsApp VIP', fmt:'3 looks da ação', title:'Look da semana 3, com peças da ação', cta:'Ver o look', fun:'meio', own:'Renam', camp:'cadencia',
- obj:'Subir o ticket dentro da própria ação', prod:'Looks na segunda cedo',
- copy:{logo:'Mira Vest, monograma dourado',headline:'A SEMANA COMEÇA COM UMA BOA ESCOLHA.',subhead:'Três produções construídas a partir de uma única peça-chave.',beneficio:'VERSATILIDADE QUE ACOMPANHA A SUA ROTINA.',body:'O casaqueto é o ponto de partida. Ao redor dele, três combinações que transitam com naturalidade entre os compromissos da semana, valorizando o que você já tem e ampliando as possibilidades de vestir bem.',cta:'ACESSAR O GRUPO'},
- jus:'2,7 peças por pedido hoje. Look montado só com peças do link fechado: quem entra por uma sai com três.'},
-{id:29, d:'2026-08-19', t:'11h', ch:'WhatsApp VIP', fmt:'Vídeo', title:'Vídeo: como a peça de inverno veste', cta:'Ver os tamanhos', fun:'meio', own:'Milena', camp:'cadencia',
- obj:'Mostrar como a peça da ação veste', prod:'Lote 2 de reels até seg 17/08',
- copy:{logo:'Mira Vest, monograma dourado',headline:'O CAIMENTO DIZ TUDO.',subhead:'Porque nenhuma foto substitui a peça em movimento.',beneficio:'ESCOLHA COM CONFIANÇA.',body:'Veja cada detalhe da coleção de inverno em movimento e descubra como o tecido acompanha o corpo. Uma curadoria de peças sem reposição: quando a numeração acaba, ela não volta.',cta:'ASSISTIR AO VÍDEO'},
- jus:'O vídeo de quarta usa peça do link fechado, sem citar a condição na imagem.',
- warn:'4 disparos na semana do sábado 15 e o teto é 3. Decidir qual sai antes de segunda 10.'},
-{id:30, d:'2026-08-19', t:'11h', ch:'E-mail (RD)', fmt:'E-mail 3 · só base compradora', title:'Últimas peças, só para quem já é cliente', cta:'Ver os tamanhos', fun:'ret', own:'Milena', camp:'inverno',
- obj:'Reativar quem parou de comprar', prod:'Copy até ter 18/08',
- copy:{logo:'MIRA VEST',headline:'ALGUNS ACESSOS SÃO PARA QUEM JÁ CONHECE A CASA.',subhead:'A curadoria de sábado continua disponível até sexta-feira.',beneficio:'ATÉ 60% EM PEÇAS SELECIONADAS.',body:'Uma seleção reservada das últimas unidades da coleção. As mesmas peças, o mesmo padrão de caimento e acabamento, agora em uma oportunidade exclusiva para quem já faz parte do universo Mira Vest.',cta:'ENTRAR AGORA'},
- jus:'990 clientes paradas na base, e tocar nelas custa zero.'},
-{id:31, d:'2026-08-20', t:'', ch:'Meta', fmt:'Vídeo de criadora, só para anúncio no Meta', title:'Vídeo 3: o cardigã do punho canelado', cta:'Ver o modelo', fun:'meio', own:'Maria Alice', camp:'inverno',
- obj:'Vender uma peça específica no anúncio, falando a ficha dela', prod:'Peça enviada até sex 14/08 · vídeo gravado até qua 19/08',
- ugc:{produto:'252116 Cardigan punho canelado · R$ 324',tipo:'Falando da peça, close no detalhe',gancho:'Qualidade também se percebe assim.',ganchoTexto:'ACABAMENTO QUE PERMANECE.',ganchoVisual:'Macro do punho canelado em movimento. A manga é levemente tensionada e retorna naturalmente ao lugar. Sem cortes rápidos, com ritmo calmo e foco total na construção da peça.'},
- jus:'Vídeo de criadora aqui é venda de produto, não conteúdo de estilo: ela recebe a peça e fala a ficha. O gancho tem 7 palavras porque 3 segundos falados não comportam mais.',
- warn:'13 das 16 peças venderam em 90 dias. Anúncio pago apontando para um código só esgota rápido: conferir estoque antes de subir e deixar a categoria como destino reserva.'},
-{id:32, d:'2026-08-21', t:'10h30', ch:'WhatsApp VIP + e-mail', fmt:'Card + link', title:'Janela de 48h com os 3 kits', cta:'Ver os kits', fun:'fundo', own:'Renam', camp:'kits',
- obj:'Fechar a ação de inverno com carrinho cheio', prod:'Card qua 19/08 (material 21)',
- copy:{logo:'Mira Vest, monograma dourado',headline:'A ESCOLHA JÁ ESTÁ FEITA.',subhead:'Três kits completos, disponíveis até domingo, 23/08.',beneficio:'COMBINAÇÕES PENSADAS PARA VESTIR SEM ESFORÇO.',body:'Suede (R$ 459), alfaiataria (R$ 749) e conforto (R$ 359). Kits criados para simplificar a rotina com peças que funcionam juntas desde o primeiro uso e continuam rendendo novas combinações ao longo da semana.',cta:'VER OS KITS'},
- jus:'Com essa base, oferta além de 48 a 72 horas vira paisagem. Os kits fecham a semana tirando peça parada em conjunto.', star:true},
-{id:33, d:'2026-08-22', t:'10h30', ch:'WhatsApp VIP', fmt:'Card + link', title:'Últimos Tamanhos abre', cta:'Ver os tamanhos', fun:'fundo', own:'Renam', camp:'tamanhos',
- obj:'Manter receita na semana mais fraca do mês', prod:'Card qui 20/08 (material 22) · cupom sex 21/08',
- copy:{logo:'Mira Vest, monograma dourado',headline:'VOCÊ NÃO PRECISA DE MUITO, PRECISA DO CERTO',subhead:'Últimos Tamanhos abre agora. A página existe só aqui dentro.',beneficio:'AINDA TEM O SEU NÚMERO, COM O PREÇO DAQUI',body:'Separei modelo por modelo o que ainda tem numeração. Casaquetos, tricôs e conjuntos que seguem servindo até o fim do inverno, em setembro.',cta:'ABRIR A SELEÇÃO'},
- jus:'13,5% do mês em 2025 nessa semana, com ticket de R$ 250. Degrau de até 30%, canal fechado, nunca vitrine.',
- warn:'A porcentagem vai no texto do disparo, nunca na arte.'},
-{id:52, d:'2026-08-24', t:'', ch:'Meta', fmt:'Vídeo de criadora, só para anúncio no Meta', title:'Vídeo 6: a blusa canelada que sustenta o look', cta:'Ver a peça', fun:'meio', own:'Maria Alice', camp:'tamanhos',
- obj:'Vender a peça de base, que entra em quase todo look', prod:'Peça enviada até sex 14/08 · vídeo gravado até dom 23/08',
+ warn:'A reserva é reativa: só executa quando ela responde. Nunca separar peça por antecipação. Não é a ação de embaixadoras, que saiu do plano.'},
+
+{id:23, d:'2026-08-14', t:'10h30', ch:'WhatsApp VIP', fmt:'Card + fotos + link fechado', title:'Preview da coleção abre, só no grupo', cta:'Ver a coleção', fun:'fundo', own:'Renam', camp:'preview',
+ obj:'Dar ao grupo três dias de vantagem sobre o site, sem gastar margem', prod:'Copy a escrever no pivot · fotos até ter 11/08 · card e link até qui 13/08',
+ jus:'O benefício do grupo aqui é acesso, não desconto. É o que faz a coleção nova nascer a preço cheio e o grupo continuar valendo a pena depois que os pulsos acabam.',
+ warn:'Sem as fotos da coleção prontas até 11/08 e a arte até 13/08, o preview não abre. É a pendência mais apertada do mês.', star:true},
+
+{id:47, d:'2026-08-01', t:'', ch:'Meta', fmt:'Catálogo, público de compradoras', title:'Anúncio que só quem já comprou vê, o mês inteiro', cta:'Ver a peça', fun:'ret', own:'Renam', camp:'midia',
+ obj:'Ficar na frente de quem mais compra os 31 dias, com verba baixa e constante', prod:'Sobe junto com a faxina de preço, dia 1º',
+ copy:{logo:'Mira Vest, grafite',headline:'VOCÊ JÁ CONHECE O CAIMENTO',subhead:'Coleção 2026 no ar, com uma nova peça em destaque toda semana.',beneficio:'ESCOLHER A PRÓXIMA FICA MAIS FÁCIL',body:'Alfaiataria, tricôs e vestidos com as medidas de cada modelo na página. Você compara com a peça que já tem e define sua numeração com mais segurança.',cta:'VER A PEÇA'},
+ jus:'Compradoras dos últimos 24 meses com mais de R$ 1.000 acumulados, tirando quem comprou nos últimos 15 dias. Catálogo converte quem já conhece a marca.',
+ warn:'A partir de 17/08 o catálogo passa a destacar peça da coleção nova, não da 2026. Trocar o feed no dia do lançamento.'},
+
+{id:27, d:'2026-08-17', t:'10h30', ch:'WhatsApp VIP + site + Meta + Google', fmt:'Card + hero + criativo', title:'Lançamento Primavera/Verão vai ao ar', cta:'Ver a coleção', fun:'fundo', own:'Renam', camp:'lancamento',
+ obj:'Publicar a coleção em todos os canais, a preço cheio', prod:'Copy a escrever no pivot · hero e criativos até qui 13/08 · coleção publicada até dom 16/08',
+ jus:'Três dias depois do grupo. Quem estava no preview já viu, e a mensagem do dia reconhece isso em vez de fingir que é novidade para todo mundo.',
+ warn:'Zero desconto em canal nenhum. Se o outlet continuar com preço reduzido em paralelo, ele compete com a coleção pela mesma atenção. Decisão pendente.', star:true},
+
+{id:29, d:'2026-08-19', t:'11h', ch:'WhatsApp VIP', fmt:'Vídeo', title:'Prova de caimento com peça nova', cta:'Ver no site', fun:'meio', own:'Milena', camp:'cadencia',
+ obj:'Atacar a dúvida de caimento na peça que acabou de entrar', prod:'Copy a escrever no pivot · reel gravado em lote até seg 17/08',
+ jus:'De 100 que veem uma peça, 5,7 põem no carrinho, e caimento é o que trava. Peça nova sem prova de caimento vende menos ainda, porque ninguém tem referência dela.'},
+
+{id:64, d:'2026-08-21', t:'10h30', ch:'WhatsApp VIP', fmt:'3 looks + link', title:'Os primeiros looks da coleção montados', cta:'Ver o look completo', fun:'meio', own:'Renam', camp:'lancamento',
+ obj:'Subir peças por pedido na primeira semana da coleção', prod:'Copy a escrever no pivot · looks montados até qui 20/08',
+ jus:'59% dos pedidos levam 2 ou mais peças. Look completo sobe ticket sem custar margem, e na semana de lançamento é a única alavanca de ticket disponível, porque desconto não existe aqui.'},
+
+{id:65, d:'2026-08-22', t:'', ch:'Instagram', fmt:'Carrossel', title:'Como a coleção conversa com o que ela já tem', cta:'Link na bio', fun:'topo', own:'Milena', camp:'lancamento',
+ obj:'Transição de estação: mostrar que a peça nova entra no armário que já existe', prod:'Copy a escrever no pivot · sai do material do lançamento',
+ jus:'A cliente do Sul ainda está de casaco em agosto. Vender peça de primavera sem mostrar como ela convive com o inverno que ela já comprou é pedir para ela esperar setembro.'},
+
+{id:52, d:'2026-08-24', t:'', ch:'Meta', fmt:'Vídeo de criadora, só para anúncio no Meta', title:'Vídeo 6: a blusa canelada que sustenta o look', cta:'Ver a peça', fun:'meio', own:'Maria Alice', camp:'base',
+ obj:'Vender a peça de base, que entra em quase todo look e atravessa a virada', prod:'Peça enviada até sex 14/08 · vídeo gravado até dom 23/08',
  ugc:{produto:'242063 Blusa canelada manga comprida · R$ 215',tipo:'Provador, a peça por baixo do casaco',gancho:'Essa blusa não aparece na foto do look.',ganchoTexto:'ELA NÃO APARECE NA FOTO DO LOOK',ganchoVisual:'Close extremo no canelado da manga, ocupando a tela toda, as ondas do tecido visíveis. Fundo branco se a cor enviada for escura, fundo grafite se for clara. Nunca claro sobre claro. No segundo 2 o plano abre e a criadora fecha o casaco por cima, escondendo a blusa: é o esconder que entrega o gancho.'},
- jus:'A peça entra em quase todo look e é topo de giro. E o gancho vende o contrário do óbvio, a peça que não aparece.',
+ jus:'A peça entra em quase todo look e é topo de giro. O gancho vende o contrário do óbvio, a peça que não aparece.',
  warn:'Confirmar o sufixo de cor no cadastro antes de enviar a peça. A criadora fala o código em voz alta e é a única instrução que a cliente recebe.'},
-{id:34, d:'2026-08-24', t:'10h30', ch:'WhatsApp VIP', fmt:'3 looks', title:'Look da semana 4', cta:'Ver o look', fun:'meio', own:'Renam', camp:'cadencia',
- obj:'Manter a cadência na semana mais fraca', prod:'Looks na segunda cedo',
- copy:{logo:'Mira Vest, monograma dourado',headline:'NÃO É SOBRE TER MAIS. É SOBRE ESCOLHER MELHOR.',subhead:'O look da semana, construído a partir de peças que trabalham juntas.',beneficio:'TRÊS PRODUÇÕES. UMA CURADORIA.',body:'Cada combinação foi pensada para ampliar as possibilidades do seu guarda-roupa. As mesmas peças atravessam a semana com elegância e continuam relevantes quando a estação muda. Porque versatilidade também é um sinal de sofisticação.',cta:'VER O LOOK COMPLETO'},
- jus:'Sumir na semana mais fraca ensina a base a sumir junto.'},
-{id:36, d:'2026-08-26', t:'11h', ch:'E-mail (RD)', fmt:'E-mail 4 · clicou e não comprou', title:'Últimos tamanhos por grade', cta:'Ver o meu tamanho', fun:'ret', own:'Milena', camp:'tamanhos',
- obj:'Converter o segmento mais quente da base', prod:'Copy até ter 25/08',
- copy:{logo:'Mira Vest, grafite',headline:'VOCÊ JÁ SABIA QUAL ERA A PEÇA',subhead:'Ela continua na página, e agora está separada por numeração.',beneficio:'A DÚVIDA ERA O TAMANHO. NÃO É MAIS.',body:'Casaquetos, tricôs e conjuntos com poucas numerações de cada modelo. As mesmas peças que ainda vestem as manhãs frias de setembro.',cta:'VER O MEU TAMANHO'},
- jus:'Quem clicou nos e-mails anteriores e não comprou recebe a lista por tamanho. A mensagem fala do corpo dela, não do estoque.'},
-{id:37, d:'2026-08-26', t:'11h', ch:'WhatsApp VIP', fmt:'Vídeo', title:'Vídeo: como a peça veste, o último do inverno', cta:'Ver no site', fun:'meio', own:'Milena', camp:'cadencia',
- obj:'Fechar o inverno atacando a dúvida de caimento', prod:'Lote 2',
- copy:{logo:'Mira Vest, monograma dourado',headline:'ROUPA BOA SE REVELA EM MOVIMENTO.',subhead:'Porque o verdadeiro caimento não cabe em uma foto.',beneficio:'VEJA ANTES DE ESCOLHER.',body:'Cada detalhe foi registrado em movimento para mostrar o que realmente importa: estrutura, proporção e fluidez. Uma experiência de compra mais precisa, pensada para que você escolha com segurança as últimas peças disponíveis.',cta:'ASSISTIR AO VÍDEO'},
- jus:'De cada 100 que veem uma peça, 5,7 põem no carrinho. Caimento é onde vaza, e este é o último vídeo do inverno.',
- warn:'4 disparos na semana do sábado 22 e o teto é 3. Decidir qual sai antes de segunda 17.'},
-{id:38, d:'2026-08-27', t:'', ch:'Meta', fmt:'Vídeo de criadora, só para anúncio no Meta', title:'Vídeo 4: o casaqueto de algodão da meia estação', cta:'Ver o modelo', fun:'meio', own:'Maria Alice', camp:'tamanhos',
+
+{id:34, d:'2026-08-24', t:'10h30', ch:'WhatsApp VIP', fmt:'3 looks', title:'Look da semana, coleção nova com o que ela já tem', cta:'Ver o look', fun:'meio', own:'Renam', camp:'cadencia',
+ obj:'Manter a cadência e mostrar a peça nova em uso, não em vitrine', prod:'Copy a escrever no pivot · looks na segunda cedo',
+ jus:'Sumir depois do lançamento ensina a base a sumir junto. A semana seguinte à estreia é onde a coleção prova que funciona na rotina.'},
+
+{id:37, d:'2026-08-26', t:'11h', ch:'WhatsApp VIP', fmt:'Vídeo', title:'Prova de caimento, segunda peça da coleção', cta:'Ver no site', fun:'meio', own:'Milena', camp:'cadencia',
+ obj:'Repetir a prova de caimento na peça de maior giro da coleção', prod:'Copy a escrever no pivot · lote 2 de reels',
+ jus:'Uma peça por semana com prova de caimento é o que sustenta a taxa de carrinho. O reel é gravado em lote em casa, custo zero.'},
+
+{id:30, d:'2026-08-26', t:'11h', ch:'E-mail (RD)', fmt:'E-mail 3 · hibernando e perdidas', title:'Reativação de quem parou de comprar', cta:'Ver a coleção', fun:'ret', own:'Milena', camp:'base',
+ obj:'Tocar nas 990 clientes paradas antes de montar a lista de novembro', prod:'Copy a escrever no pivot · recorte no RD até seg 24/08',
+ jus:'990 clientes paradas na base, e tocar nelas custa zero. Quem reagir a este e-mail entra na lista de Black Friday já aquecida, quem não reagir entra em outro recorte.',
+ warn:'Este e-mail é reativação, não oferta. A coleção é preço cheio e o argumento é novidade, não desconto.'},
+
+{id:38, d:'2026-08-27', t:'', ch:'Meta', fmt:'Vídeo de criadora, só para anúncio no Meta', title:'Vídeo 4: o casaqueto de algodão da meia estação', cta:'Ver o modelo', fun:'meio', own:'Maria Alice', camp:'base',
  obj:'Vender a peça que atravessa a virada de estação', prod:'Peça enviada até sex 21/08 · vídeo gravado até qua 26/08',
  ugc:{produto:'262081-13 Casaqueto Algodão Texturizado Off White · R$ 590',tipo:'Provador, look de meia estação',gancho:'Agosto pede casaco de manhã e não pede à tarde.',ganchoTexto:'CASACO DE MANHÃ, NÃO DE TARDE',ganchoVisual:'Peça off white contra fundo grafite, mão passando na textura do algodão. Nunca claro sobre claro: no feed a peça sumiria.'},
  jus:'A meia estação é problema real de agosto: de manhã faz frio, à tarde não. O gancho abre pelo problema, não por atributo, porque atributo não segura o dedo de ninguém.',
  warn:'O código na fala sai com o sufixo de cor (262081-13). Sem ele a busca no site não acha a peça, e o vídeo é a única instrução que a cliente recebe.'},
-{id:39, d:'2026-08-28', t:'10h30', ch:'WhatsApp VIP', fmt:'Texto + foto', title:'Encerramento do inverno e teaser da primavera', cta:'Ver o que ainda tem', fun:'fundo', own:'Renam', camp:'tamanhos',
- obj:'Fechar o inverno e apontar para setembro', prod:'Texto + foto de catálogo',
- copy:{logo:'Mira Vest',headline:'AMANHÃ TEM COISA NOVA ANTES DE TODO MUNDO',subhead:'Quinze peças de primavera, 9h da manhã, e a abertura é só aqui no grupo.',beneficio:'"EM AGOSTO SO SAI POR AQUI"',body:'"Meninas, hoje fecha a semana dos Ultimos Tamanhos e o inverno segue firme por aqui. Eu mando foto por foto, com preco, tamanho e cor 🌱"',cta:'ME CHAMA QUE EU SEPARO'},
- jus:'O encerramento é real: segunda 31 as peças mudam de lugar no site. E o sábado seguinte já tem motivo novo.'},
-{id:40, d:'2026-08-29', t:'10h30', ch:'WhatsApp VIP', fmt:'Card + 15 fotos', title:'Cápsula Primavera, o grupo vê antes', cta:'Ver as primeiras peças', fun:'fundo', own:'Renam', camp:'primavera',
- obj:'Fazer setembro nascer sem vício de desconto', prod:'Fotos até qui 20/08 (material 23) · hero e card qui 27/08 (materiais 24 e 25)',
- copy:{logo:'Mira Vest, monograma dourado',headline:'A ESTAÇÃO COMEÇA AQUI DENTRO',subhead:'Cápsula Primavera: 15 peças hoje no grupo, amanhã no site.',beneficio:'PRIMAVERA RESOLVIDA ANTES DO CALOR',body:'Vestidos leves, camisaria fluida e alfaiataria clara para os primeiros dias de sol. Separo hoje mesmo a peça e a numeração que você quiser.',cta:'PEÇA A SUA'},
- jus:'15 produtos a preço cheio, o grupo vê primeiro. É o único jeito de fechar um mês de escoamento sem treinar a base a esperar porcentagem.',
- warn:'Sem as fotos até 20/08, a semana vira extensão de Últimos Tamanhos no VIP.', star:true},
-{id:41, d:'2026-08-30', t:'', ch:'Site', fmt:'Hero novo', title:'Site segue com o inverno que ainda tem numeração', cta:'Ver os tamanhos', fun:'meio', own:'Renam', camp:'primavera',
- obj:'Manter a vitrine vendendo inverno enquanto a primavera fica só no grupo', prod:'Hero qui 27/08 (material 24)',
- copy:{logo:'Mira Vest, grafite',headline:'O CASACO AINDA MANDA NA MANHÃ',subhead:'As peças de inverno que sobraram, com o tamanho que ainda existe.',beneficio:'O SEU NÚMERO AINDA ESTÁ AQUI',body:'Casacos, casaquetos e tricôs para as manhãs frias que agosto ainda tem. Numeração e medidas na página de cada peça.',cta:'VER OS TAMANHOS'},
- jus:'Inverno é o que ainda existe em estoque de verdade, então é ele que sustenta a vitrine. A cápsula é prévia de grupo, não vitrine.'},
-{id:42, d:'2026-08-31', t:'10h30', ch:'WhatsApp VIP', fmt:'Texto + post', title:'Fecha o mês falando com quem viu primeiro', cta:'Me diz o que falta', fun:'ret', own:'Renam', camp:'primavera',
- obj:'Cumprir a promessa que abriu o mês', prod:'Texto + recap do mês',
- copy:{logo:'Mira Vest',headline:'AGOSTO FECHA COM VOCÊ POR DENTRO',subhead:'Setembro entra e o casaco segue em uso.',beneficio:'A CÁPSULA DE SÁBADO FICOU SÓ AQUI',body:'Meninas, quem é do Sul sabe como começa setembro por aqui. O que for novo continua aparecendo primeiro na sua tela 🤍',cta:'ME DIZ O QUE FALTA'},
- jus:'As peças de inverno mudam de lugar no site nesse dia.', star:true}
+
+{id:39, d:'2026-08-28', t:'10h30', ch:'WhatsApp VIP', fmt:'Texto + foto', title:'Fecha a semana e abre setembro', cta:'Me chama que eu separo', fun:'fundo', own:'Renam', camp:'base',
+ obj:'Manter a sexta vendendo sem inventar oferta', prod:'Copy a escrever no pivot · foto de catálogo da coleção',
+ jus:'Sexta é o melhor dia da loja, índice 135. Sem oferta para dar, o que sustenta a sexta é peça nova com atendimento pessoal, que é a mecânica que o grupo já conhece.'},
+
+{id:50, d:'2026-08-28', t:'noite', ch:'WhatsApp 1:1', fmt:'Mensagem pessoal, 15 nomes', title:'Segunda onda de reserva no nome', cta:'Me diz o seu número', fun:'ret', own:'Renam', camp:'reativa',
+ obj:'Fechar o mês com o topo da base escolhendo primeiro, a preço cheio', prod:'Copy a escrever no pivot · lista diferente da onda de 13/08',
+ jus:'A primeira onda pegou 15 nomes. Esta pega os 15 seguintes, agora com a coleção já no ar e com estoque real para separar.',
+ warn:'Lista diferente da onda de 13/08. Quem já foi abordado não entra de novo.'},
+
+{id:66, d:'2026-08-24', t:'', ch:'Base (CRM + grupos)', fmt:'Cruzamento de lista, sem arte', title:'Levantamento de base para Black Friday', cta:'', fun:'ret', own:'Renam', camp:'base',
+ obj:'Saber, antes de novembro, quem está fora do grupo e quem está no grupo sem nunca ter comprado', prod:'Export do CRM e das listas dos 5 grupos, cruzamento em planilha',
+ jus:'São 1.790 clientes na base e cerca de 1.700 pessoas nos grupos, e ninguém sabe o tamanho da interseção. Sem esse número, a Black Friday começa com captação às cegas em vez de ativação de quem já comprou.',
+ warn:'Não é execução de Black Friday, é levantamento. Sem arte nova e sem verba. Se virar campanha em agosto, atropela o lançamento.'},
+
+{id:42, d:'2026-08-31', t:'10h30', ch:'WhatsApp VIP', fmt:'Texto + post', title:'Fecha o mês falando com quem viu primeiro', cta:'Me diz o que falta', fun:'ret', own:'Renam', camp:'base',
+ obj:'Cumprir a promessa que abriu o mês: quem está aqui vê antes', prod:'Copy a escrever no pivot · recap do mês',
+ jus:'O grupo viu a coleção três dias antes do site. Fechar o mês nomeando isso é o que faz a pessoa continuar no grupo em setembro.', star:true}
 ];
 
 const B = [
-{id:'b1', d:'2026-07-30', own:'Renam', title:'Cadastro dos 47 agasalhos, categoria no ar e regra do progressivo', eff:'Sem isso o sábado 01/08 não abre.',
+{id:'b1', d:'2026-07-30', own:'Davi', title:'Cadastro dos 47 agasalhos, categoria no ar e regra do progressivo', eff:'Sem isso o sábado 01/08 não abre.',
  warn:'Escada de 2 peças 20%, 3 peças 30%, 4 ou mais 40%, valendo das 9h às 22h de 01/08. A regra tem que estar montada no site até quinta 30/07.', star:true},
-{id:'b2', d:'2026-08-01', own:'Renam', title:'Faxina de preço: 114 SKUs de coleção 2026 voltam ao preço cheio', eff:'Sem isso o ticket segue em R$ 343.',
+{id:'b2', d:'2026-08-01', own:'Davi', title:'Faxina de preço: 114 SKUs de coleção 2026 voltam ao preço cheio', eff:'Sem isso o ticket segue em R$ 343.',
  warn:'Tirar o desconto derruba volume na semana seguinte. Aguentar: o ticket caiu de R$ 427 para R$ 343 em três meses e não sobe com 7 de cada 10 produtos rebaixados.', star:true},
-{id:'b3', d:'2026-08-01', own:'Renam', title:'Despublicar /progressivo/c e tirar /outlet/c do menu e do Google', eff:'Sem isso a vitrine segue disputando preço com ela mesma.'},
+{id:'b3', d:'2026-08-01', own:'Davi', title:'Outlet volta a ser público e /progressivo/c sai do ar', eff:'Sem isso o pulso 3 não tem para onde apontar.',
+ warn:'Reversão declarada em 29/07: o plano de 28/07 mandava despublicar o outlet, e agora ele volta ao menu e ao Google. O /progressivo/c continua saindo, porque é ação encerrada em 19/07 ainda no ar.'},
 {id:'b4', d:'2026-08-01', own:'Renam', title:'UTM padrão em todos os links de disparo', eff:'Sem isso agosto fecha sem saber o que o WhatsApp vendeu.',
- warn:'UTM só mede do dia em que entra, link já disparado não volta atrás. A captação no Meta levou 34% da verba do trimestre sem receita medida e é essa etiqueta que decide se continua.'},
-{id:'b9', d:'2026-08-05', own:'Renam', title:'Página Almoço de Domingo montada', eff:'Sem ela o mês perde a única data com efeito medido.',
- warn:'No ar na quarta 05, que é o dia do e-mail que aponta para ela. Preço cheio, sem porcentagem: em 2025 a data rendeu ticket, +20%, não volume.'},
-{id:'b5', d:'2026-08-07', own:'Renam', title:'Avaliações reais de clientes cadastradas nas 20 mais vendidas', eff:'Sem isso a peça segue perdendo 94 de cada 100 que a olham.',
- warn:'Só avaliação verdadeira de cliente, com autorização. Nada escrito internamente. A coleta cai no atendimento, que é uma pessoa só, então começa pelas 20 mais vendidas.'},
-{id:'b6', d:'2026-08-14', own:'Renam', title:'Link não listado do inverno e o cupom da janela 3', eff:'Sem link e cupom o sábado 15 não abre.',
- warn:'O link fica fora do menu e do Google, e o cupom trava no teto de 60%. A 60% a peça sai no preço de atacado, sem sobra de margem.'},
-{id:'b7', d:'2026-08-20', own:'Produção de foto', title:'Fotos dos 15 produtos da cápsula primavera', eff:'Sem foto até 20/08 a última semana vira extensão do inverno.',
- warn:'Prazo 20/08, e é um designer só, que no mesmo período entrega as artes das janelas 3 e 4.'},
-{id:'b8', d:'2026-08-21', own:'Renam', title:'Cupom da janela 4', eff:'Sem cupom o sábado 22 não abre.',
- warn:'Teto de 30% aqui, não 60%: é a semana mais fraca do mês e não precisa pagar mais que isso. Cupom criado na sexta 21, antes do disparo.'}
+ warn:'UTM só mede do dia em que entra, link já disparado não volta atrás. É a etiqueta que decide se a linha de captação continua no mês que vem.'},
+{id:'b5', d:'2026-08-05', own:'Davi', title:'Página Almoço de Domingo e cupom de sedex pela metade', eff:'Sem ela o mês perde a única data com efeito medido.',
+ warn:'No ar na quarta 05, que é o dia do e-mail que aponta para ela. Duas condições rodando juntas aqui: o sedex é público, o progressivo é do grupo.'},
+{id:'b6', d:'2026-08-07', own:'Davi', title:'Avaliações reais de clientes cadastradas nas 20 mais vendidas', eff:'Sem isso a peça segue perdendo 94 de cada 100 que a olham.',
+ warn:'Só avaliação verdadeira de cliente, com autorização. Nada escrito internamente.'},
+{id:'b7', d:'2026-08-09', own:'Davi', title:'Preço único do outlet cadastrado nos 599 modelos', eff:'Sem isso o pulso 3 não abre na segunda 10.',
+ warn:'O valor depende do custo real de fábrica, que nunca foi confirmado. A tabela trabalha com markup de 2,5 sobre o atacado e ninguém sabe se atacado é custo ou preço ao lojista.', star:true},
+{id:'b8', d:'2026-08-11', own:'Produção de foto', title:'Fotos da coleção Primavera/Verão prontas', eff:'Sem foto até 11/08 o preview de sexta 14 não existe.',
+ warn:'Uma semana mais cedo que o prazo do plano de 28/07, porque o preview antecipou de 29 para 14/08. É o prazo mais apertado do mês.', star:true},
+{id:'b9', d:'2026-08-13', own:'Designer', title:'Hero do site, card VIP e criativo Meta da coleção nova', eff:'Sem arte até 13/08 o preview abre sem material.',
+ warn:'Dois dias entre foto pronta e arte pronta, com um designer só. Se a foto atrasar um dia, a arte não sai.'},
+{id:'b10', d:'2026-08-14', own:'Davi', title:'Link fechado do preview, fora do menu e do Google', eff:'Sem link o preview não abre.',
+ warn:'Preço cheio, sem cupom. O que faz o preview valer é o acesso antecipado, não desconto.'},
+{id:'b11', d:'2026-08-16', own:'Davi', title:'Coleção Primavera/Verão publicada no site, hero novo', eff:'Sem isso o lançamento de segunda 17 não acontece.',
+ warn:'Publicar no domingo 16 para o dia 17 já nascer com a página estável. Zero desconto na coleção, em canal nenhum.', star:true},
+{id:'b12', d:'2026-08-24', own:'Renam', title:'Export do CRM e das listas dos 5 grupos para o cruzamento', eff:'Sem isso a Black Friday começa sem saber quem já é da casa.',
+ warn:'Só export e planilha. Se virar campanha em agosto, atropela o lançamento.'}
 ];
 
 const M = [
-{id:'m1', title:'Google Search, marca e categoria', verba:'R$ 2.480 · R$ 80/dia', jan:'Mês todo', pub:'Busca ativa: marca, vestido midi, casaco feminino, alfaiataria', kpi:'Conversão acima de 1,5% · receita acima de R$ 12 mil no GA', fun:'fundo', own:'Renam',
- jus:'1,73% de conversão, o melhor canal pago da casa, contra 0,25% do Meta. É aqui que entra o R$ 1 mil extra do orçamento.',
- warn:'O gasto real do Google não está levantado. Sem isso, agosto termina sem saber o retorno do canal que converte 1,73% e leva o reforço do mês.'},
-{id:'m2', title:'Google Shopping', verba:'R$ 1.550 · R$ 50/dia', jan:'Mês todo', pub:'Feed de produto, coleção 2026 a preço cheio', kpi:'Conversão acima de 0,9% · receita acima de R$ 8 mil', fun:'fundo', own:'Renam',
- jus:'Segundo melhor canal pago. Sobe junto com o Search pelo mesmo motivo: pega quem já está procurando a peça.'},
-{id:'m3', title:'Google PMAX', verba:'R$ 775 · R$ 25/dia', jan:'Mês todo', pub:'Automático, com exclusão de termos de marca', kpi:'Não canibalizar o Search', fun:'topo', own:'Renam',
- jus:'Fica no teto atual. Se o Search não sustentar a conversão, o PMAX é a primeira linha a perder verba.'},
-{id:'m4', title:'Meta remarketing 30 dias', verba:'R$ 1.240 · R$ 40/dia', jan:'Mês todo', pub:'Visitou produto ou carrinho em 30 dias, exclui quem comprou em 15', kpi:'Custo por compra abaixo de R$ 45 · receita acima de R$ 9 mil na plataforma', fun:'fundo', own:'Renam',
+{id:'m1', title:'Meta · Esquenta Primavera/Verão', verba:'A definir', jan:'09 a 16/08', pub:'Lookalike de valor das compradoras + interesse', kpi:'A definir na reunião', fun:'topo', own:'Renam',
+ jus:'Público aquecido no dia 12 é público que converte no dia 17. Subir criativo de lançamento no próprio dia é começar a aprendizagem do zero na hora que a campanha mais precisa estar madura.',
+ warn:'Sem verba por dia e KPI definidos, esta linha não sobe. Decisão na reunião com Maria Alice e Suellen.'},
+{id:'m2', title:'Meta · Ficha de produto com UGC e sedex', verba:'A definir', jan:'01 a 16/08, reforço 05 a 09', pub:'Retargeting de 30 dias + compradoras', kpi:'A definir na reunião', fun:'fundo', own:'Renam',
+ jus:'De 100 que veem uma peça, 5,7 põem no carrinho. O vazamento é na página de produto, não no tráfego, e vídeo de criadora na ficha é o formato que ataca isso direto.',
+ warn:'O benefício do sedex só está ativo de 05 a 09/08. Fora dessa janela o criativo não pode prometer o frete. O numeral do sedex em arte pública é decisão pendente.'},
+{id:'m3', title:'Meta · Estático do outlet com sedex', verba:'A definir', jan:'01 a 16/08, pico 10 a 12', pub:'Interesse em oferta + retargeting', kpi:'A definir na reunião', fun:'topo', own:'Renam',
+ jus:'Outlet Advantage em catálogo estruturado fez ROAS 9,6 na conta. Outlet com porcentagem gritada fez 1,70. Estrutura vende, grito não.',
+ warn:'A palavra outlet voltou a ser permitida em público em 29/07. O valor pode aparecer como preço fixo, nunca como porcentagem.'},
+{id:'m4', title:'Meta · Lançamento Primavera/Verão', verba:'A definir', jan:'17 a 31/08', pub:'Lookalike de valor + retargeting do esquenta', kpi:'A definir na reunião', fun:'fundo', own:'Renam',
+ jus:'Estático de peça em uso continua ganhando de vídeo na conta: o campeão de julho foi ad01-estatico-vestido-preto, 10,61 na plataforma. O formato se repete, com peça nova.',
+ warn:'Zero porcentagem, zero menção ao outlet. São duas vitrines separadas.'},
+{id:'m5', title:'Meta · Remarketing 30 dias', verba:'A definir', jan:'Mês todo', pub:'Visitou produto ou carrinho em 30 dias, exclui quem comprou em 15', kpi:'A definir na reunião', fun:'fundo', own:'Renam',
  jus:'Retorno 10,0 no trimestre, a única linha de Meta com número limpo. Fala com quem já conhece a marca, enquanto o social frio converte 0,25%.'},
-{id:'m5', title:'Meta captação VIP', verba:'R$ 1.240 · R$ 40/dia', jan:'Mês todo', pub:'Aberto, com Lookalike de valor como conjunto secundário', kpi:'Lead abaixo de R$ 2,00 · receita do grupo rastreada por UTM pela primeira vez', fun:'topo', own:'Renam',
- jus:'R$ 1,56 por lead em julho. Enche o grupo VIP, que é onde as janelas do mês abrem. Está performando em custo, não mexer.',
- warn:'34% da verba do trimestre foi para captação sem nenhuma receita medida do canal. A UTM de agosto decide se a linha continua.'},
-{id:'m6', title:'Meta conversão, quinzena 1', verba:'R$ 1.050 · R$ 75/dia', jan:'01 a 14/08', pub:'Lookalike de valor das compradoras + interesse', kpi:'Conversão do tráfego acima de 0,5% (hoje 0,25%)', fun:'topo', own:'Renam',
- jus:'R$ 499 de ticket na semana de 01 a 07/08 em 2025, o maior do ano. Criativo de look completo e ocasião, porcentagem nenhuma na arte.'},
-{id:'m7', title:'Meta conversão, quinzena 2', verba:'R$ 765 · R$ 45/dia', jan:'15 a 31/08', pub:'Lookalike de compradoras', kpi:'Custo por compra abaixo de R$ 60', fun:'topo', own:'Renam',
- jus:'Dá ar para as janelas 3 e 4 sem mostrar a condição. A porcentagem mora no link fechado, nunca no anúncio.'},
-{id:'m8', title:'Reserva', verba:'R$ 900', jan:'Sob gatilho', pub:'Definido no momento do acionamento', kpi:'Só entra se algum gatilho de risco for acionado', fun:'bast', own:'Renam',
- jus:'R$ 900 que fecham os R$ 10 mil do mês. Desligada por padrão. Entra se a janela 1 não engatar até 07/08 ou se o Search não sustentar conversão até 14/08.'}
+{id:'m6', title:'Meta · Captação VIP', verba:'A definir', jan:'Mês todo', pub:'Aberto, com Lookalike de valor como conjunto secundário', kpi:'Custo por lead e, pela primeira vez, receita do grupo por UTM', fun:'topo', own:'Renam',
+ jus:'R$ 1,56 por lead em julho. Enche o grupo, que é onde os pulsos e o preview abrem. Está performando em custo, não mexer no meio do mês.',
+ warn:'Aprendizagem reiniciada é custo por lead dobrado por uma semana. Não mexer em público nem em criativo durante os pulsos.'},
+{id:'m7', title:'Google · Search, Shopping e PMAX, rotina', verba:'A definir', jan:'01 a 08/08', pub:'Busca ativa: marca, vestido midi, casaco feminino, alfaiataria', kpi:'Conversão acima de 1,5% no Search', fun:'fundo', own:'Renam',
+ jus:'1,73% de conversão, o melhor canal pago da casa, contra 0,25% do Meta.',
+ warn:'O gasto real do Google nunca foi puxado. Sem ele, não dá para fechar retorno por canal na mesma régua.'},
+{id:'m8', title:'Google · Preview Primavera/Verão', verba:'A definir', jan:'09/08 em diante', pub:'Termos de estação e categoria, ainda sem produto publicado', kpi:'A definir na reunião', fun:'topo', own:'Renam',
+ jus:'Aquecer busca 8 dias antes do lançamento faz a campanha chegar madura no dia 17, em vez de começar do zero justo quando ela mais importa.',
+ warn:'No dia 09 a coleção ainda não está publicada. Destino em categoria, nunca em página de produto que não existe.'}
 ];
 /*DADOS_FIM*/
 
 const JANELAS = [
- {nome:'Abertura e Almoço',   dias:'sáb 01 a sex 07', meta:'R$ 24,0 mil', pct:'30% do mês'},
- {nome:'Ocasião e Reposição', dias:'sáb 08 a sex 14', meta:'R$ 19,2 mil', pct:'24% do mês'},
- {nome:'Inverno fechado',     dias:'sáb 15 a sex 21', meta:'R$ 18,4 mil', pct:'23% do mês'},
- {nome:'Últimos tamanhos',    dias:'sáb 22 a sex 28', meta:'R$ 11,2 mil', pct:'14% do mês'},
- {nome:'Primavera',           dias:'sáb 29 a seg 31', meta:'R$ 7,2 mil',  pct:'9% do mês'}
+ {nome:'Esquenta · pulsos de venda', dias:'sáb 01 a dom 16', meta:'Todo o desconto do mês'},
+ {nome:'Lançamento Primavera/Verão', dias:'seg 17 a dom 23', meta:'Preço cheio, todos os canais'},
+ {nome:'No ar + base Black Friday',  dias:'seg 24 a seg 31', meta:'Preço cheio'}
 ];
-const JSTART = {'2026-08-01':'começa a abertura','2026-08-08':'começa a semana da ocasião',
-                '2026-08-15':'começa o inverno fechado','2026-08-22':'começam os últimos tamanhos',
-                '2026-08-29':'começa a primavera'};
+const JSTART = {'2026-08-01':'começam os pulsos','2026-08-17':'começa o lançamento',
+                '2026-08-24':'começa a captação para novembro'};
 const SPECIAL = {
  '2026-08-09':{tag:'Dia dos Pais', note:'Ticket +20% em 2025. O pico é na quinta e na sexta antes, não no domingo.'},
- '2026-08-31':{tag:'Fecha o mês', note:'O inverno continua vendendo. A cápsula de primavera ficou só no grupo.'}
+ '2026-08-16':{tag:'Vira a chave', note:'Último dia com desconto no mês. Do dia 17 em diante é preço cheio em todo canal.'},
+ '2026-08-31':{tag:'Fecha o mês', note:'O grupo viu a coleção 3 dias antes do site. Fechar nomeando isso é o que segura a base em setembro.'}
 };
 
 const WD = ['dom','seg','ter','qua','qui','sex','sáb'];
@@ -526,7 +527,7 @@ function miniCard(it){
   const meta = isB ? esc(it.own) : (it.t ? esc(it.t)+' · '+esc(it.ch) : esc(it.ch));
   const bd = badges(it);
   return '<div class="cc'+(isB?' bast':'')+'" data-fun="'+k+'" data-go="'+target+'" role="button" tabindex="0">'+
-         '<div class="tt"><span class="fd" style="background:'+FUN[k].c+'"></span><span>'+esc(it.title)+'</span></div>'+
+         '<div class="tt"><span>'+esc(it.title)+'</span></div>'+
          '<div class="l2">'+meta+(bd?' '+bd:'')+'</div></div>';
 }
 
@@ -545,7 +546,7 @@ function legend(){
 function jstrip(){
   document.getElementById('jstrip').innerHTML = JANELAS.map(j=>
     '<div class="jcard"><div class="jd">'+j.dias+'</div><div class="jt">'+j.nome+'</div>'+
-    '<div class="jm">meta <b>'+j.meta+'</b> · '+j.pct+'</div></div>').join('');
+    '<div class="jm"><b>'+j.meta+'</b></div></div>').join('');
 }
 
 /* itens anteriores a 01/08 saem da grade e viram faixa compacta, sem semana vazia */
@@ -558,9 +559,9 @@ function preStrip(){
       '<div class="pd">'+fmtDate(it.d)+'</div>'+miniCard(it)+'</div>').join('')+'</div>';
 }
 
-/* A semana começa no SÁBADO de propósito: as janelas do plano são sáb a sex
-   e 01/08/2026 cai num sábado, então o mês encaixa sem nenhuma célula vazia
-   no começo e cada linha da grade é exatamente uma semana do plano. */
+/* A semana começa no SÁBADO de propósito: 01/08/2026 cai num sábado, então o mês
+   encaixa sem nenhuma célula vazia no começo e cada linha da grade é uma semana
+   fechada de sábado a sexta, que é como o teto de disparo do WhatsApp é contado. */
 function calendar(){
   const DAYS=31, byDate={}, IN=d=>d>='2026-08-01'&&d<='2026-08-31';
   A.filter(a=>IN(a.d)).forEach(a=>{(byDate[a.d]=byDate[a.d]||[]).push(a)});
@@ -577,16 +578,12 @@ function calendar(){
   }
   for(let i=(7-(DAYS%7))%7;i>0;i--) h+='<div class="pad"></div>';
   document.getElementById('grid').innerHTML=h;
-
-  const fora=(A.length+B.length)-Object.values(byDate).reduce((n,v)=>n+v.length,0)
-             -A.filter(a=>!IN(a.d)).length-B.filter(b=>!IN(b.d)).length;
-  if(fora!==0) console.warn('Itens fora da grade e fora da faixa "antes do mês":',fora);
 }
 
 /* ed() carimba o endereco do campo no elemento, pra edicao saber o que gravar */
 const ed=(end,campo)=> end?' data-e="'+end+'|'+campo+'"':'';
 const row=(l,v,end,campo)=> v?'<div class="pl">'+l+'</div><div class="pv"'+ed(end,campo)+'>'+v+'</div>':'';
-const fpill=k=>'<span class="fpill"><i style="background:'+FUN[k].c+'"></i>'+FUN[k].short+'</span>';
+const fpill=k=>'<span class="fpill">'+FUN[k].short+'</span>';
 const wbox=(w,end)=> '<div class="wbox"'+(w?'':' data-vazio="1"')+'><b>⚠ </b><span'+ed(end,'warn')+'>'+esc(w||'')+'</span></div>';
 
 /* briefing de arte na hierarquia de copy da casa: logo, headline, subhead,
@@ -632,16 +629,22 @@ function briefCard(id,fun,dateLine,title,rowsHtml,jus,warn,copy,fmt,ugc,end){
 }
 
 function brief(){
-  const order=['abertura','almoco','cadencia','kits','reposicao','inverno','tamanhos','primavera','reativa','midia','bastidor'];
+  const order=['pulso1','almoco','outlet','preview','lancamento','base','cadencia','kits','reativa','midia','bastidor'];
   let h='';
   order.forEach(ck=>{
     const g=CAMPS[ck]; let items='', count=0;
     if(ck==='midia'){
-      count=M.length;
+      const acoes=A.filter(a=>a.camp==='midia');
+      count=M.length+acoes.length;
       items=M.map(m=>{const e='M:'+m.id; return briefCard(m.id,m.fun,'<b>'+esc(m.jan)+'</b>',m.title,
         row('Verba',esc(m.verba),e,'verba')+row('Público',esc(m.pub),e,'pub')+
         row('Meta',esc(m.kpi),e,'kpi')+row('Responsável',esc(m.own),e,'own'),
-        m.jus, m.warn, null, '', null, e)}).join('');
+        m.jus, m.warn, null, '', null, e)}).join('')
+        + acoes.map(a=>{const e='A:'+a.id; if(a.ugc)a.ugc.__e=e; return briefCard('a-'+a.id,a.fun,
+        '<b>'+fmtDate(a.d)+'</b>'+(a.t?' · '+esc(a.t):''), a.title,
+        row('Produção',esc(a.prod),e,'prod')+row('Objetivo',esc(a.obj),e,'obj')+row('Formato',esc(a.fmt),e,'fmt')+
+        row('Canal',esc(a.ch),e,'ch')+row('Botão',esc(a.cta),e,'cta')+row('Responsável',esc(a.own),e,'own'),
+        a.jus, a.warn, a.copy, a.fmt, a.ugc, e)}).join('');
     } else if(ck==='bastidor'){
       count=B.length;
       items=B.map(b=>{const e='B:'+b.id; return briefCard('b-'+b.id,'bast','prazo <b>'+fmtDate(b.d)+'</b>',b.title,
@@ -722,12 +725,14 @@ document.addEventListener('keydown',e=>{
 const ARRAYS={A:A,B:B,M:M};
 let mudancas=0;
 
-/* avisa sem travar: as regras da casa que mais doem se passarem batido */
+/* avisa sem travar: as regras da casa que mais doem se passarem batido.
+   OUTLET saiu da lista de palavras proibidas em 29/07: a pagina voltou a ser
+   publica por decisao do Renam, e a palavra pode aparecer em criativo publico. */
 function checarRegra(campo,txt){
   const t=(txt||'').toLowerCase(), avisos=[];
   const arte=/^copy\./.test(campo);
-  if(arte&&/\d+\s*%|\boff\b/.test(t)) avisos.push('porcentagem em arte: o card é encaminhável e vaza a condição');
-  if(/\boutlet\b|liquida|feirão|feirao|\bqueima\b|última chance|ultima chance|\bsale\b/.test(t))
+  if(arte&&/\d+\s*%|\boff\b/.test(t)) avisos.push('porcentagem em arte: o card é encaminhável e vaza a condição. No outlet, use preço fixo em vez de %');
+  if(/liquida|feirão|feirao|\bqueima\b|última chance|ultima chance|\bsale\b/.test(t))
     avisos.push('palavra proibida em canal público');
   if(/aproveite|\bcorra\b|\bgaranta\b|imperdível|imperdivel|não fique de fora|antes que acabe/.test(t))
     avisos.push('palavra de urgência proibida');
@@ -736,6 +741,8 @@ function checarRegra(campo,txt){
   if(/alonga a silhueta|afina|disfarça|disfarca a barriga/.test(t))
     avisos.push('promessa de efeito no corpo');
   if(/grade quebrada|\bsku\b|curva a/.test(t)) avisos.push('jargão de loja, a cliente não fala assim');
+  if(/atemporal|transcende|sofistica|exclusividade|requinte|curadoria|essência|essencia|impecáve|impecave|versátil|versatil/.test(t))
+    avisos.push('vocabulário de catálogo genérico, é o texto que a marca combate');
   if(txt&&txt.indexOf(String.fromCharCode(8212))>=0) avisos.push('travessão');
   return avisos;
 }
