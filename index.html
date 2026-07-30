@@ -111,9 +111,18 @@
 
   /* card aberto pelo calendário: um sinal só, e ele fica até você abrir outro */
   .bc.target{background:var(--tint)}
-  .bc.target .fromcal{display:block}
-  .fromcal{display:none;align-self:flex-start;margin-bottom:9px;
-           font-size:var(--fs-sm);font-weight:600;color:var(--wine)}
+  .bc.target .fromcal{display:inline-flex}
+  /* botão de volta: só aparece no card que veio do calendário */
+  .fromcal{display:none;align-items:center;gap:5px;align-self:flex-start;margin-bottom:9px;
+           font-size:var(--fs-sm);font-weight:600;color:var(--wine);
+           background:none;border:1px solid transparent;border-radius:7px;
+           padding:3px 8px 3px 6px;margin-left:-6px;cursor:pointer;font-family:inherit;
+           transition:background .15s,border-color .15s}
+  .fromcal:hover{background:var(--paper);border-color:var(--line)}
+  .fromcal:focus-visible{outline:2px solid var(--wine);outline-offset:2px}
+  /* piscada no dia de origem quando volta pro calendário */
+  @keyframes diaflash{0%,100%{background:var(--paper)}25%,60%{background:var(--tint)}}
+  .day.flash{animation:diaflash 1.3s ease-in-out}
 
   .bhead{display:flex;align-items:center;gap:8px;margin-bottom:6px}
   .bdate{font-size:var(--fs-sm);color:var(--ink-soft)}
@@ -618,7 +627,7 @@ function calendar(){
   let h='';
   for(let da=1;da<=DAYS;da++){
     const key='2026-08-'+String(da).padStart(2,'0'), sp=SPECIAL[key];
-    h+='<div class="day'+(sp?' special':'')+'"><div class="dhead"><span class="dnum">'+da+'</span>'+
+    h+='<div class="day'+(sp?' special':'')+'" id="dia-'+key+'"><div class="dhead"><span class="dnum">'+da+'</span>'+
        (JSTART[key]?'<span class="jtag">'+JSTART[key]+'</span>':'')+
        (sp?'<span class="stag">'+esc(sp.tag)+'</span>':'')+'</div>'+
        (sp?'<div class="snote">'+esc(sp.note)+'</div>':'')+
@@ -666,9 +675,9 @@ function ugcBox(u){
          '<button class="cpy" type="button" data-cpy="'+esc(plano)+'">Copiar critério</button></div></div>';
 }
 
-function briefCard(id,fun,dateLine,title,rowsHtml,jus,warn,copy,fmt,ugc,end){
+function briefCard(id,fun,dateLine,title,rowsHtml,jus,warn,copy,fmt,ugc,end,dia){
   return '<article class="bc" id="bc-'+id+'" data-fun="'+fun+'">'+
-    '<span class="fromcal">← veio do calendário, leia este</span>'+
+    (dia?'<button class="fromcal" type="button" data-back="'+esc(dia)+'">← voltar para o calendário</button>':'')+
     '<div class="bhead"><span class="bdate">'+dateLine+'</span>'+fpill(fun)+'</div>'+
     '<h3'+ed(end,'title')+'>'+esc(title)+'</h3>'+
     '<div class="props">'+rowsHtml+'</div>'+
@@ -693,12 +702,12 @@ function brief(){
         '<b>'+fmtDate(a.d)+'</b>'+(a.t?' · '+esc(a.t):''), a.title,
         row('Produção',esc(a.prod),e,'prod')+row('Objetivo',esc(a.obj),e,'obj')+row('Formato',esc(a.fmt),e,'fmt')+
         row('Canal',esc(a.ch),e,'ch')+row('Responsável',esc(a.own),e,'own'),
-        a.jus, a.warn, a.copy, a.fmt, a.ugc, e)}).join('');
+        a.jus, a.warn, a.copy, a.fmt, a.ugc, e, a.d)}).join('');
     } else if(ck==='bastidor'){
       count=B.length;
       items=B.map(b=>{const e='B:'+b.id; return briefCard('b-'+b.id,'bast','prazo <b>'+fmtDate(b.d)+'</b>',b.title,
         row('Responsável',esc(b.own),e,'own')+row('Efeito',esc(b.eff),e,'eff'),
-        '', b.warn, null, '', null, e)}).join('');
+        '', b.warn, null, '', null, e, b.d)}).join('');
     } else {
       const list=A.filter(a=>a.camp===ck); count=list.length;
       items=list.map(a=>{const e='A:'+a.id; if(a.ugc)a.ugc.__e=e; return briefCard('a-'+a.id,a.fun,
@@ -706,7 +715,7 @@ function brief(){
         a.title,
         row('Produção',esc(a.prod),e,'prod')+row('Objetivo',esc(a.obj),e,'obj')+row('Formato',esc(a.fmt),e,'fmt')+
         row('Canal',esc(a.ch),e,'ch')+row('Responsável',esc(a.own),e,'own'),
-        a.jus, a.warn, a.copy, a.fmt, a.ugc, e)}).join('');
+        a.jus, a.warn, a.copy, a.fmt, a.ugc, e, a.d)}).join('');
     }
     h+='<section class="group"><div class="ghead"><h2>'+g.name+'</h2><span class="gcount">'+count+' ações</span>'+
        '<span class="gper">'+g.per+'</span>'+(g.meta?'<span class="gmeta">'+g.meta+'</span>':'')+'</div>'+
@@ -722,6 +731,17 @@ function showView(v){
   bc.classList.toggle('on',cal); bb.classList.toggle('on',!cal);
   bc.setAttribute('aria-pressed',String(cal)); bb.setAttribute('aria-pressed',String(!cal));
   if(cal) document.querySelectorAll('.bc.target').forEach(x=>x.classList.remove('target'));
+}
+/* volta pro calendário e pisca o dia de onde o card veio */
+function voltarCal(dia){
+  showView('cal');
+  const el=document.getElementById('dia-'+dia);
+  if(!el) return;
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+  el.classList.remove('flash');
+  void el.offsetWidth;
+  el.classList.add('flash');
+  setTimeout(()=>el.classList.remove('flash'),1400);
 }
 function goBrief(id){
   showView('brief');
@@ -751,6 +771,8 @@ document.getElementById('legend').addEventListener('click',e=>{
   });
 });
 document.addEventListener('click',e=>{
+  const volta=e.target.closest('.fromcal');
+  if(volta){ voltarCal(volta.dataset.back); return; }
   const b=e.target.closest('.cpy');
   if(b){
     navigator.clipboard.writeText(b.dataset.cpy).then(()=>{
