@@ -59,12 +59,6 @@
   .view{display:none}.view.on{display:block}
 
   /* ---------- faixa de fases ---------- */
-  .jstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
-  .jcard{background:var(--tint);border-radius:var(--r);padding:13px 15px}
-  .jcard .jd{font-size:var(--fs-sm);color:var(--ink-soft);margin-bottom:3px}
-  .jcard .jt{font-size:var(--fs-md);font-weight:600;color:var(--ink);letter-spacing:-.01em}
-  .jcard .jm{font-size:var(--fs-sm);color:var(--ink-soft);margin-top:4px}
-  .jcard .jm b{color:var(--ink);font-weight:600}
 
   /* ---------- antes do mês ---------- */
   .pre{background:var(--tint);border-radius:var(--r);
@@ -179,7 +173,6 @@
   @media (max-width:820px){
     header,main,footer{padding-left:18px;padding-right:18px}
     h1{font-size:var(--fs-lg)}
-    .jstrip{grid-template-columns:1fr}
     .cards{grid-template-columns:1fr}
     .lg-note{margin-left:0;flex-basis:100%}
   }
@@ -213,7 +206,6 @@
 
 <main>
   <section id="view-cal" class="view on">
-    <div class="jstrip" id="jstrip"></div>
     <div class="pre" id="pre"></div>
     <div class="calwrap">
       <div class="cal">
@@ -556,12 +548,6 @@ const M = [
 ];
 /*DADOS_FIM*/
 
-const JANELAS = [
- {nome:'Os 3 pulsos de venda',        dias:'sáb 01 a ter 11', meta:'Todo o desconto em peça do mês'},
- {nome:'Teaser e coleção antecipada', dias:'qua 12 a dom 16', meta:'Preço cheio, só no grupo'},
- {nome:'Lançamento da VR27',          dias:'seg 17 a seg 24', meta:'Preço cheio + Sedex 50% OFF'},
- {nome:'Fidelização + base para BF',  dias:'ter 25 a seg 31', meta:'Preço cheio'}
-];
 const JSTART = {'2026-08-01':'começam os pulsos','2026-08-12':'acaba o desconto em peça',
                 '2026-08-17':'começa o lançamento','2026-08-25':'começa a captação para novembro'};
 const SPECIAL = {
@@ -606,12 +592,6 @@ function legend(){
   h+='<button class="chip" type="button" aria-pressed="false" data-k="bast"><span class="dot" style="background:'+FUN.bast.c+'"></span>'+FUN.bast.label+' <span class="n">'+B.length+'</span></button>';
   h+='<span class="lg-note"><span class="warn">⚠</span> pendência que trava · <span class="star">✦</span> momento-chave</span>';
   document.getElementById('legend').innerHTML=h;
-}
-
-function jstrip(){
-  document.getElementById('jstrip').innerHTML = JANELAS.map(j=>
-    '<div class="jcard"><div class="jd">'+j.dias+'</div><div class="jt">'+j.nome+'</div>'+
-    '<div class="jm"><b>'+j.meta+'</b></div></div>').join('');
 }
 
 /* itens anteriores a 01/08 saem da grade e viram faixa compacta, sem semana vazia */
@@ -751,7 +731,7 @@ function goBrief(id){
   el.setAttribute('tabindex','-1'); el.focus({preventScroll:true});
 }
 
-legend(); jstrip(); preStrip(); calendar(); brief();
+legend(); preStrip(); calendar(); brief();
 
 document.getElementById('btn-cal').addEventListener('click',()=>showView('cal'));
 document.getElementById('btn-brief').addEventListener('click',()=>showView('brief'));
@@ -873,7 +853,7 @@ function serializar(){
 function baixar(){
   const clone=document.documentElement.cloneNode(true);
   clone.querySelector('body').classList.remove('editando');
-  ['grid','groups','legend','jstrip','pre'].forEach(id=>{
+  ['grid','groups','legend','pre'].forEach(id=>{
     const n=clone.querySelector('#'+id); if(n) n.innerHTML='';
   });
   clone.querySelectorAll('[contenteditable]').forEach(n=>n.removeAttribute('contenteditable'));
