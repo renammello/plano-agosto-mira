@@ -29,6 +29,14 @@ tr:last-child td{border-bottom:0}
 .como{background:var(--tint);border-left:3px solid var(--wine);border-radius:0 8px 8px 0;
 padding:13px 16px;font-size:14px;color:var(--soft);margin:0 0 18px}
 .como b{color:var(--ink)}
+.ids{margin-top:16px;background:var(--tint);border-radius:8px;padding:12px 14px}
+.ids-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
+.ids-top span{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--soft);font-weight:600}
+.ids code{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;
+color:var(--ink);word-break:break-all;line-height:1.7}
+.ids button{background:var(--wine);color:#fff;border:0;border-radius:6px;padding:6px 13px;
+font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.ids button:active{opacity:.75}
 footer{color:var(--soft);font-size:12px;text-align:center;margin-top:28px}
 @media(max-width:560px){.wrap{padding:22px 12px 50px}h1{font-size:22px}
 td,th{padding-left:3px;padding-right:3px}.nome{font-size:13px}}</style></head><body>
@@ -37,10 +45,10 @@ td,th{padding-left:3px;padding-right:3px}.nome{font-size:13px}}</style></head><b
 <h1>Vitrines da home</h1>
 <p class="sub">Atualizado em 04/08/2026. Ciclo 0, próxima troca em 18/08/2026.</p>
 <div class="como">
-<b>Como aplicar:</b> no painel da Convertr, abra a categoria, mude <b>Ordenar por</b> para
-<b>Posição</b> e escreva o número da coluna Pos no campo Posição de cada produto.
-Os números vão de dez em dez de propósito: se depois você quiser encaixar um produto
-no meio, use 45 e ele entra sem mexer no resto.
+<b>Como aplicar:</b> no painel da Convertr abra a categoria, aba <b>Produtos</b>, e use o
+botão de <b>importar</b> ao lado de "Adicionar produto". Cole a lista de IDs do bloco
+cinza de cada vitrine, que já vem na ordem certa. Depois é só conferir se a categoria
+está ordenada por <b>Posição</b>.
 </div>
 <section>
 <h2>Lançamentos</h2>
@@ -48,24 +56,46 @@ no meio, use 45 e ele entra sem mexer no resto.
 
 <table><thead><tr><th>Pos</th><th>SKU</th><th>Produto</th><th>Tamanhos</th></tr></thead>
 <tbody><tr><td class='pos'>10</td><td class='sku'>262141-01</td><td class='nome'>BLUSA PLANO FLUIDO COM PEDRARIAS PRETO MIRA VEST</td><td class='tam'>PP,P,M,G,GG,XG</td></tr><tr><td class='pos'>20</td><td class='sku'>262141-983</td><td class='nome'>BLUSA PLANO FLUIDO COM PEDRARIAS OLIVA MIRA VEST</td><td class='tam'>PP,P,M,G,GG</td></tr><tr><td class='pos'>30</td><td class='sku'>262068-01</td><td class='nome'>T-SHIRT SUEDE COM TULE E PEDRARIAS PRETO MIRA VEST</td><td class='tam'>PP,P,M,G,GG</td></tr><tr><td class='pos'>40</td><td class='sku'>262104-983</td><td class='nome'>BLUSA PLANO FLUIDO OLIVA MIRA VEST</td><td class='tam'>P,M,G,GG</td></tr><tr><td class='pos'>50</td><td class='sku'>262120-01</td><td class='nome'>BLUSA MALHA CREPONADA PRETO MIRA VEST</td><td class='tam'>PP,P,M,G,GG</td></tr><tr><td class='pos'>60</td><td class='sku'>262453-1054</td><td class='nome'>SAIA TWEED PRETO/DOURADO MIRA VEST</td><td class='tam'>P,M,G,GG</td></tr><tr><td class='pos'>70</td><td class='sku'>262059-01</td><td class='nome'>T-SHIRT COM FOIL PRETA MIRA VEST</td><td class='tam'>P,M,G,GG,XG</td></tr><tr><td class='pos'>80</td><td class='sku'>262067-13</td><td class='nome'>T-Shirt Off White Creponada Bordada com Pedrarias Mira Vest</td><td class='tam'>P,M,G,GG,XG</td></tr><tr><td class='pos'>90</td><td class='sku'>262155-01</td><td class='nome'>BLUSA VISCOLINHO COM PEDRARIAS PRETO MIRA VEST</td><td class='tam'>P,M,G,GG,EX</td></tr><tr><td class='pos'>100</td><td class='sku'>262155-956</td><td class='nome'>BLUSA VISCOLINHO COM PEDRARIAS AVELÃ MIRA VEST</td><td class='tam'>P,M,G,GG,EX,XG</td></tr></tbody></table>
+<div class="ids">
+  <div class="ids-top"><span>IDs desta vitrine, na ordem</span>
+  <button onclick="cp('ids32827',this)">Copiar</button></div>
+  <code id="ids32827">1016754,1016752,1016621,1016736,1016744,1016870,1016726,1016729,1016761,1016760</code>
+</div>
 </section><section>
 <h2>Blusas</h2>
 <p class="meta">340 produtos ativos · 141 com grade boa · <span class="pill bad">grade 41%</span></p>
 
 <table><thead><tr><th>Pos</th><th>SKU</th><th>Produto</th><th>Tamanhos</th></tr></thead>
 <tbody><tr><td class='pos'>10</td><td class='sku'>242062-20</td><td class='nome'>BLUSA EM SUEDE DECOTE BORDO MIRA VEST</td><td class='tam'>PP,P,M,G,GG,EX</td></tr><tr><td class='pos'>20</td><td class='sku'>262227-111</td><td class='nome'>BLUSA PLANO FLUIDO COM ILHÓS VERDE MUSGO MIRA VEST</td><td class='tam'>PP,P,M,G,GG</td></tr><tr><td class='pos'>30</td><td class='sku'>262227-275</td><td class='nome'>BLUSA PLANO FLUIDO COM ILHÓS CANELA MIRA VEST</td><td class='tam'>PP,P,M,G,GG,EX</td></tr><tr><td class='pos'>40</td><td class='sku'>242223-29</td><td class='nome'>BLUSA DECOTE CANOA MANGAS LONGAS LARANJA MIRA VEST</td><td class='tam'>P,M,G,GG</td></tr><tr><td class='pos'>50</td><td class='sku'>261272-993</td><td class='nome'>BLUSA EM TECIDO FLUIDO COM RIBANA CANELADA MIRA VE</td><td class='tam'>P,M,G,GG,EX</td></tr><tr><td class='pos'>60</td><td class='sku'>262226-1057</td><td class='nome'>Blusa Plano Fluido com Tule Decote com Amarração Sertão Mira Vest</td><td class='tam'>P,M,G,GG,EX</td></tr><tr><td class='pos'>70</td><td class='sku'>242128-860</td><td class='nome'>BLUSA MANGAS COMPRIDAS DECOTE ARREDONDADO FIGO MIR</td><td class='tam'>P,M,G,GG</td></tr><tr><td class='pos'>80</td><td class='sku'>262034-13</td><td class='nome'>BLUSA MALHA CREPONADA OFF WHITE MIRA VEST</td><td class='tam'>P,M,G,GG,EX</td></tr><tr><td class='pos'>90</td><td class='sku'>262034-991</td><td class='nome'>BLUSA MALHA CREPONADA AZUL BEBÊ MIRA VEST</td><td class='tam'>P,M,G,GG,EX</td></tr><tr><td class='pos'>100</td><td class='sku'>262047-1026</td><td class='nome'>BLUSA VISCOLYCRA COM FOIL MOUSSE MIRA VEST</td><td class='tam'>P,M,G,GG</td></tr></tbody></table>
+<div class="ids">
+  <div class="ids-top"><span>IDs desta vitrine, na ordem</span>
+  <button onclick="cp('ids28580',this)">Copiar</button></div>
+  <code id="ids28580">330052,1016796,1016795,370897,879271,1019156,244091,1016704,1016702,1016716</code>
+</div>
 </section><section>
 <h2>Casacos & Jaquetas</h2>
 <p class="meta">71 produtos ativos · 26 com grade boa · <span class="pill bad">grade 37%</span></p>
 
 <table><thead><tr><th>Pos</th><th>SKU</th><th>Produto</th><th>Tamanhos</th></tr></thead>
 <tbody><tr><td class='pos'>10</td><td class='sku'>252347-01</td><td class='nome'>CASAQUETO GOLA REDONDA ALTA PRETO MIRA VEST</td><td class='tam'>P,M,G,GG,EX</td></tr><tr><td class='pos'>20</td><td class='sku'>252347-32</td><td class='nome'>CASACO JACQUARD BRILHANTE COBRE MIRA VEST</td><td class='tam'>PP,P,M,G,GG</td></tr><tr><td class='pos'>30</td><td class='sku'>252153-01</td><td class='nome'>CASAQUETO COM BOLSOS E FORRO INTERNO PRETO MIRA VE</td><td class='tam'>PP,P,M,G,GG,EX</td></tr><tr><td class='pos'>40</td><td class='sku'>252430-01</td><td class='nome'>CASACO DE ALFAIATARIA COM BOLSO PRETO MIRA VEST</td><td class='tam'>PP,P,M,G,GG,EX,XG</td></tr><tr><td class='pos'>50</td><td class='sku'>262025-01</td><td class='nome'>CASAQUETO MALHA TEXTURIZADA COM AVIAMENTO PRETO MIRA VEST</td><td class='tam'>PP,P,M,G,GG,EX</td></tr><tr><td class='pos'>60</td><td class='sku'>262173-700</td><td class='nome'>CASACO ALFAIATARIA TRANSPASSADO CAMURÇA MIRA VEST</td><td class='tam'>PP,P,M,G,GG</td></tr><tr><td class='pos'>70</td><td class='sku'>262265-1051</td><td class='nome'>CASAQUETO JACQUARD GOLA ALTA CHUMBO/PRETO MIRA VEST</td><td class='tam'>P,M,G,GG,XG</td></tr><tr><td class='pos'>80</td><td class='sku'>262374-01</td><td class='nome'>CASACO SUEDE PRETO MIRA VEST</td><td class='tam'>P,M,G,GG</td></tr><tr><td class='pos'>90</td><td class='sku'>262374-07</td><td class='nome'>CASACO SUEDE MARROM MIRA VEST</td><td class='tam'>PP,P,M,G,GG,EX</td></tr><tr><td class='pos'>100</td><td class='sku'>262086-13</td><td class='nome'>CASAQUETO JACQUARD COM CIRRÊ OFF WHITE MIRA VEST</td><td class='tam'>P,M,G,GG,EX,XG</td></tr></tbody></table>
+<div class="ids">
+  <div class="ids-top"><span>IDs desta vitrine, na ordem</span>
+  <button onclick="cp('ids30717',this)">Copiar</button></div>
+  <code id="ids30717">709438,660680,660638,709862,1019067,1019138,1090948,1016671,1016670,1087466</code>
+</div>
 </section><section>
 <h2>Vestidos</h2>
 <p class="meta">238 produtos ativos · 115 com grade boa · <span class="pill bad">grade 48%</span></p>
 
 <table><thead><tr><th>Pos</th><th>SKU</th><th>Produto</th><th>Tamanhos</th></tr></thead>
 <tbody><tr><td class='pos'>10</td><td class='sku'>252132-887</td><td class='nome'>VESTIDO BLOCOS DE COR LIMA MIRA VEST</td><td class='tam'>P,M,G,GG,EX,XG</td></tr><tr><td class='pos'>20</td><td class='sku'>242024-01</td><td class='nome'>VESTIDO DECOTE REDONDO MALHA PU PRETO MIRA VEST</td><td class='tam'>PP,P,M,G,GG</td></tr><tr><td class='pos'>30</td><td class='sku'>252170-980</td><td class='nome'>VESTIDO CHANEL MANGA LONGA LISTRADO COM GOLA CASTA</td><td class='tam'>P,M,G,GG</td></tr><tr><td class='pos'>40</td><td class='sku'>261367-1021</td><td class='nome'>VESTIDO LONGUETE DE ALÇA EM TECIDO FLUIDO MIRA VES</td><td class='tam'>P,M,G,GG,EX</td></tr><tr><td class='pos'>50</td><td class='sku'>262185-01</td><td class='nome'>VESTIDO PONTO ROMA COM TULE MIRA VEST</td><td class='tam'>P,M,G,GG,EX</td></tr><tr><td class='pos'>60</td><td class='sku'>242154-960</td><td class='nome'>VESTIDO MANGA LONGA GOLA ALTA PRETO XADREZ MIRA VE</td><td class='tam'>P,M,G,GG,EX</td></tr><tr><td class='pos'>70</td><td class='sku'>261134-77</td><td class='nome'>VESTIDO MIDI COM CINTO EM ALFAIATARIA DE VISCOSE M</td><td class='tam'>PP,P,M,G,GG</td></tr><tr><td class='pos'>80</td><td class='sku'>262137-01</td><td class='nome'>VESTIDO JACQUARD COM PONTO ROMA PRETO MIRA VEST</td><td class='tam'>P,M,G,GG</td></tr><tr><td class='pos'>90</td><td class='sku'>262168-700</td><td class='nome'>Vestido Tule Transpassado Mira Vest</td><td class='tam'>P,M,G,GG</td></tr><tr><td class='pos'>100</td><td class='sku'>262202-32</td><td class='nome'>Vestido Cobre com Cinto Couro Sintético Mira Vest</td><td class='tam'>P,M,G,GG,EX</td></tr></tbody></table>
+<div class="ids">
+  <div class="ids-top"><span>IDs desta vitrine, na ordem</span>
+  <button onclick="cp('ids28582',this)">Copiar</button></div>
+  <code id="ids28582">709401,279463,697923,881132,1016771,279483,879210,1016751,1016647,1016775</code>
+</div>
 </section>
-<footer>Gerado do catálogo vivo da Convertr em 04/08/2026 14:42 · Mira Vest</footer>
+<footer>Gerado do catálogo vivo da Convertr em 04/08/2026 15:13 · Mira Vest</footer>
+<script>function cp(id,b){navigator.clipboard.writeText(document.getElementById(id).textContent)
+.then(function(){var t=b.textContent;b.textContent='Copiado';setTimeout(function(){b.textContent=t},1600)})}</script>
 </div></body></html>
