@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setembro 2026 · Mira Vest · Plano em uma tela</title>
+<style>
+  :root{
+    --wine:#7A2E38;
+    /* dois níveis de tinta, só. o que se lê e o metadado. */
+    --ink:#1D1D1F; --ink-soft:#6B6B70;
+    --paper:#FFFFFF; --tint:#F5F5F7;
+    --line:#E3E3E5;
+    --warn:#8F4F1C;
+    /* quatro tamanhos, nada entre eles */
+    --fs-xl:24px; --fs-lg:17px; --fs-md:15px; --fs-sm:13px;
+    --sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI Variable Text","Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
+    --r:10px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:var(--fs-md);line-height:1.5;
+       -webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-weight:600;letter-spacing:-.02em}
+
+  /* ---------- topo ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(20px);
+         padding:18px 40px 14px;border-bottom:1px solid var(--line)}
+  .hrow{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .brand{font-size:var(--fs-sm);color:var(--wine);font-weight:600;margin-bottom:2px}
+  h1{font-size:var(--fs-xl);color:var(--ink);line-height:1.2}
+  .sub{color:var(--ink-soft);font-size:var(--fs-md);margin-top:4px}
+  .sub b{color:var(--ink);font-weight:600}
+
+  .toggle{display:flex;background:var(--tint);border-radius:9px;padding:3px;flex:none}
+  .toggle button{border:0;background:transparent;font:500 var(--fs-md) var(--sans);color:var(--ink-soft);
+                 padding:7px 20px;border-radius:7px;cursor:pointer;transition:.18s}
+  .toggle button:hover{color:var(--ink)}
+  .toggle button.on{background:var(--paper);color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.09)}
+
+  .legend{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .chip{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid transparent;
+        border-radius:999px;padding:4px 12px 4px 10px;font:400 var(--fs-sm) var(--sans);color:var(--ink-soft);cursor:pointer;transition:.15s}
+  .chip:hover{background:var(--tint)}
+  .chip .dot{width:8px;height:8px;border-radius:50%;flex:none}
+  .chip .n{color:var(--ink-soft)}
+  .chip.on{background:var(--tint);border-color:var(--line);color:var(--ink);font-weight:500}
+  .lg-note{font-size:var(--fs-sm);color:var(--ink-soft);margin-left:auto}
+
+  body[data-f="topo"] [data-fun]:not([data-fun="topo"]),
+  body[data-f="meio"] [data-fun]:not([data-fun="meio"]),
+  body[data-f="fundo"] [data-fun]:not([data-fun="fundo"]),
+  body[data-f="ret"] [data-fun]:not([data-fun="ret"]),
+  body[data-f="bast"] [data-fun]:not([data-fun="bast"]){opacity:.2;pointer-events:none}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+  @media (max-height:820px){header{position:static}}
+
+  main{padding:26px 40px 64px;max-width:1560px;margin:0 auto}
+  .view{display:none}.view.on{display:block}
+
+  /* ---------- faixa de fases ---------- */
+
+  /* ---------- antes do mês ---------- */
+  .pre{background:var(--tint);border-radius:var(--r);
+       padding:12px 15px;margin-bottom:22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .pre .pt{font-size:var(--fs-sm);color:var(--ink-soft);flex:none}
+  .pre .pitems{display:flex;gap:10px;flex-wrap:wrap;flex:1}
+  .pre .pd{font-size:var(--fs-sm);color:var(--ink-soft);margin-bottom:2px}
+
+  /* ---------- calendário: malha contínua, não 31 caixinhas ---------- */
+  .calwrap{overflow-x:auto}
+  .cal{min-width:1060px}
+  .wdays{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:6px}
+  .wdays div{text-align:center;font-size:var(--fs-sm);color:var(--ink-soft);padding:2px 0}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);
+        border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  .pad{background:var(--paper);min-height:8px}
+  .day{background:var(--paper);min-height:116px;padding:10px 10px 12px;display:flex;flex-direction:column;gap:4px}
+  .dhead{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:1px}
+  .dnum{font-size:var(--fs-md);font-weight:600;color:var(--ink);line-height:1}
+  .jtag{font-size:var(--fs-sm);color:var(--ink-soft)}
+  .stag{font-size:var(--fs-sm);color:var(--wine);font-weight:600}
+  .snote{font-size:var(--fs-sm);color:var(--ink-soft);line-height:1.4}
+
+  .cc{border:0;background:transparent;border-radius:6px;padding:5px 7px;margin:0 -3px;cursor:pointer;transition:background .13s}
+  .cc:hover{background:var(--tint)}
+  .cc:focus-visible{outline:2px solid var(--wine);outline-offset:1px}
+  .cc .tt{font-size:var(--fs-md);font-weight:500;line-height:1.3;color:var(--ink)}
+  .cc .l2{font-size:var(--fs-sm);color:var(--ink-soft);margin-top:1px}
+  .cc.bast .tt{color:var(--ink-soft);font-weight:400}
+  /* o que trava o go-live fica no mesmo dia, embaixo e mais leve */
+  .sep{display:flex;align-items:center;gap:7px;margin-top:8px;font-size:var(--fs-sm);color:var(--ink-soft)}
+  .sep::after{content:'';flex:1;height:1px;background:var(--line)}
+  .star{color:var(--wine)} .warn{color:var(--warn)}
+  /* selo de KV: marca o card em que a Milena tem que pedir arte pra designer */
+  .kv{color:var(--ink-soft);font-weight:600;letter-spacing:.04em;font-size:.82em}
+
+  /* ---------- briefing ---------- */
+  .group{margin-bottom:44px}
+  .ghead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+  .ghead h2{font-size:var(--fs-lg);color:var(--ink)}
+  .gcount,.gper{font-size:var(--fs-sm);color:var(--ink-soft)}
+  .gmeta{margin-left:auto;font-size:var(--fs-sm);color:var(--ink);font-weight:600;background:var(--tint);border-radius:999px;padding:3px 12px}
+  .gdesc{font-size:var(--fs-md);color:var(--ink-soft);margin-bottom:16px;max-width:820px;line-height:1.55}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+
+  .bc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 18px 18px;
+      display:flex;flex-direction:column;transition:box-shadow .2s,background .3s;scroll-margin:110px}
+  .bc:hover{box-shadow:0 2px 12px rgba(0,0,0,.07)}
+  .bc:focus-visible{outline:2px solid var(--wine);outline-offset:2px}
+
+  /* card aberto pelo calendário: um sinal só, e ele fica até você abrir outro */
+  .bc.target{background:var(--tint)}
+  .bc.target .fromcal{display:inline-flex}
+  /* botão de volta: só aparece no card que veio do calendário */
+  .fromcal{display:none;align-items:center;gap:5px;align-self:flex-start;margin-bottom:9px;
+           font-size:var(--fs-sm);font-weight:600;color:var(--wine);
+           background:none;border:1px solid transparent;border-radius:7px;
+           padding:3px 8px 3px 6px;margin-left:-6px;cursor:pointer;font-family:inherit;
+           transition:background .15s,border-color .15s}
+  .fromcal:hover{background:var(--paper);border-color:var(--line)}
+  .fromcal:focus-visible{outline:2px solid var(--wine);outline-offset:2px}
+  /* piscada no dia de origem quando volta pro calendário */
+  @keyframes diaflash{0%,100%{background:var(--paper)}25%,60%{background:var(--tint)}}
+  .day.flash{animation:diaflash 1.3s ease-in-out}
+
+  .bhead{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .bdate{font-size:var(--fs-sm);color:var(--ink-soft)}
+  .bdate b{color:var(--ink);font-weight:600}
+  .bc h3{font-size:var(--fs-lg);line-height:1.3;color:var(--ink);margin-bottom:14px}
+  .fpill{margin-left:auto;flex:none;font-size:var(--fs-sm);color:var(--ink-soft);white-space:nowrap}
+
+  /* duas colunas: rótulo cresce com o texto, nunca sobrepõe o valor */
+  .props{display:grid;grid-template-columns:max-content 1fr;column-gap:16px;row-gap:8px;align-items:baseline}
+  .pl{font-size:var(--fs-md);color:var(--ink-soft);white-space:nowrap}
+  .pv{font-size:var(--fs-md);color:var(--ink)}
+  /* briefing de arte: a hierarquia de copy que Milena entrega pra designer */
+  .art{margin-top:13px;background:var(--tint);border-radius:8px;padding:12px 14px}
+  .art .al{font-size:var(--fs-sm);color:var(--ink-soft);margin-bottom:8px}
+  .art dl{display:grid;grid-template-columns:max-content 1fr;column-gap:14px;row-gap:7px;margin:0}
+  .art dt{font-size:var(--fs-sm);color:var(--ink-soft);white-space:nowrap}
+  .art dd{font-size:var(--fs-md);color:var(--ink);margin:0;line-height:1.4;white-space:pre-line}
+  .art dd.big{font-weight:600}
+  .art .cpy{margin-top:10px;border:0;background:transparent;padding:0;
+            font:400 var(--fs-sm) var(--sans);color:var(--wine);cursor:pointer;text-decoration:underline}
+  .art .cpy:hover{color:var(--ink)}
+
+  /* critério de seleção do vídeo de criadora: quem escolhe e o que procurar */
+  .ugc{margin-top:13px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .ugc .uh{background:var(--wine);color:#fff;padding:9px 13px;font-size:var(--fs-sm);font-weight:600}
+  .ugc .ub{padding:12px 13px}
+  .ugc dl{display:grid;grid-template-columns:max-content 1fr;column-gap:14px;row-gap:8px;margin:0}
+  .ugc dt{font-size:var(--fs-sm);color:var(--ink-soft);white-space:nowrap}
+  .ugc dd{font-size:var(--fs-md);color:var(--ink);margin:0;line-height:1.45}
+  .ugc dd.hook{font-weight:600}
+
+  .why{margin-top:14px;padding-top:13px;border-top:1px solid var(--line);font-size:var(--fs-md);color:var(--ink-soft);line-height:1.55}
+  .wbox{margin-top:11px;font-size:var(--fs-md);color:var(--ink);line-height:1.5}
+  .wbox b{color:var(--warn);font-weight:600}
+
+  /* ---------- modo edição ---------- */
+  .hactions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .ghost{border:1px solid var(--line);background:var(--paper);border-radius:9px;
+         font:500 var(--fs-md) var(--sans);color:var(--ink-soft);padding:9px 18px;cursor:pointer;transition:.15s}
+  .ghost:hover{background:var(--tint);color:var(--ink)}
+  .ghost[aria-pressed="true"]{background:var(--wine);border-color:var(--wine);color:#fff}
+  .ghost.primary{border-color:var(--wine);color:var(--wine);font-weight:600}
+  .ghost.primary:hover{background:var(--wine);color:#fff}
+  #editbar{margin-top:12px;background:var(--tint);border-radius:8px;padding:10px 14px;
+           font-size:var(--fs-sm);color:var(--ink-soft);line-height:1.5}
+  #editbar b{color:var(--ink)}
+  #editcount{color:var(--wine);font-weight:600}
+
+  body.editando [data-e]{outline:1px dashed var(--line);outline-offset:3px;border-radius:3px;cursor:text;min-width:24px;display:inline-block}
+  body.editando [data-e]:hover{outline-color:var(--ink-soft);background:var(--tint)}
+  body.editando [data-e]:focus{outline:2px solid var(--wine);background:var(--paper)}
+  body.editando [data-vazio]{display:block!important;opacity:.55}
+  [data-vazio]{display:none}
+  [data-e].mudou{background:#FBF4E9;outline-color:var(--warn)}
+  .regra{margin-top:6px;font-size:var(--fs-sm);color:var(--warn);font-weight:500}
+
+  footer{padding:18px 40px 48px;font-size:var(--fs-sm);color:var(--ink-soft);max-width:1560px;margin:0 auto;border-top:1px solid var(--line);line-height:1.6}
+
+  @media (max-width:820px){
+    header,main,footer{padding-left:18px;padding-right:18px}
+    h1{font-size:var(--fs-lg)}
+    .cards{grid-template-columns:1fr}
+    .lg-note{margin-left:0;flex-basis:100%}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hrow">
+    <div>
+      <div class="brand">Mira Vest</div>
+      <h1>Setembro 2026 · Plano em uma tela</h1>
+      <div class="sub">Aniversário de 6 anos e Dia do Cliente · meta <b>R$ 82 mil</b> · clientes novas <b>86</b> · mídia <b>R$ 9 mil</b></div>
+    </div>
+    <div class="hactions">
+      <div class="toggle">
+        <button id="btn-cal" class="on" type="button" aria-pressed="true">Calendário</button>
+        <button id="btn-brief" type="button" aria-pressed="false">Briefing</button>
+      </div>
+      <button id="btn-edit" class="ghost" type="button" aria-pressed="false">Editar</button>
+      <button id="btn-save" class="ghost primary" type="button" hidden>Baixar atualizado</button>
+    </div>
+  </div>
+  <div class="legend" id="legend"></div>
+  <div id="editbar" hidden>
+    <b>Modo edição.</b> Clique em qualquer texto para mudar. Ao terminar, clique em
+    <b>Baixar atualizado</b> e suba o arquivo no GitHub, senão as mudanças ficam só na sua tela.
+    <span id="editcount"></span>
+  </div>
+</header>
+
+<main>
+  <section id="view-cal" class="view on">
+    <div class="pre" id="pre"></div>
+    <div class="calwrap">
+      <div class="cal">
+        <div class="wdays"><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div><div>Dom</div><div>Seg</div></div>
+        <div class="grid" id="grid"></div>
+      </div>
+    </div>
+  </section>
+  <section id="view-brief" class="view"><div id="groups"></div></section>
+</main>
+
+<footer>
+Clique em qualquer ação do calendário para abrir o briefing dela, já marcado.
+  <span class="warn">⚠</span> pendência que trava · <span class="star">✦</span> momento-chave.
+  <br>Mira Vest · Agosto de 2026. Desconto em peça cabe todo até o dia 16. Do dia 17 em diante a coleção nova é preço cheio, e o único benefício que segue é o Sedex 50% OFF.
+  <br>Números de venda pela Convertr, site pelo Google Analytics, estoque pelo relatório de grade.
+</footer>
+
+<script>
+const FUN = {
+  topo:  {label:'Topo · descoberta',    short:'Topo',     c:'#8C7B6B', bg:'#F6F3EF'},
+  meio:  {label:'Meio · consideração',  short:'Meio',     c:'#77836B', bg:'#F1F4EE'},
+  fundo: {label:'Fundo · conversão',    short:'Fundo',    c:'#722F37', bg:'#FBF1F2'},
+  ret:   {label:'Retenção · base',      short:'Retenção', c:'#6B5B73', bg:'#F4F1F5'},
+  bast:  {label:'Antes de ir pro ar', short:'Preparação', c:'#948D84', bg:'#F5F4F1'}
+};
+
+const CAMPS = {
+  aniv:    {name:'Aniversário do site · 6 anos', per:'03 a 06/09 · 4 dias', meta:'Frete grátis, inverno 40% no VIP, crédito',
+    desc:'Frete grátis sem valor mínimo pra todo mundo. 40% no inverno só no grupo VIP. Crédito de R$ 50, R$ 100 ou R$ 180 conforme o valor da compra, pra usar até 30/09. A Primavera/Verão entra a preço cheio.'},
+  cliente: {name:'Dia do Cliente', per:'13 a 15/09', meta:'Progressivo por quantidade',
+    desc:'10% em 2 peças, 15% em 3, 20% em 4 ou mais. O VIP entra no sábado 13 com o percentual aberto; o site abre na segunda 15, sem número na comunicação.'},
+  prima:   {name:'Primavera', per:'16 a 22/09', meta:'Sem oferta, só conteúdo',
+    desc:'Sustentação da Primavera/Verão depois do pico. Os dois vídeos entram, styling de como usar agora e no verão. Nenhum desconto.'},
+  inverno: {name:'Saída do inverno', per:'23 a 30/09', meta:'Canal fechado',
+    desc:'Escoar o INV26 antes do verão. VIP e e-mail segmentado, nunca na home e nunca em mídia ampla. São 294 peças com grade cheia e R$ 1,27 milhão de etiqueta parados.'},
+  aquis:   {name:'Aquisição · o que muda o ano', per:'o mês inteiro', meta:'Meta de 86 clientes novas',
+    desc:'A aquisição caiu 40%: 86 clientes novas por mês em 2025 contra 52 hoje. A receita se sustentou porque a base antiga virou 73% do faturamento, e isso disfarça o buraco. Resgate das 436 que sumiram, fluxo automático no RD e verba de aquisição separada da de colheita.'}
+};
+
+/*DADOS_INICIO*/
+const A = [
+{id:1, d:'2026-09-03', t:'9h', ch:'Site', fmt:'Banner do topo, 1920x600 + video', title:'Aniversário do site: 6 anos no ar', cta:'Ver a coleção', fun:'topo', own:'Renam', camp:'aniv', kv:true,
+ obj:'Abrir os 4 dias de aniversário pra todo mundo, com a Primavera/Verão a preço cheio no centro da home.',
+ prod:'O vídeo do banner já está pronto na pasta do Z (1_banner.mp4 + 1_poster.jpg). Sobe os dois: o poster é o que o Google cronometra.',
+ copy:{logo:'Mira Vest',headline:'6 ANOS',subhead:'De 03 a 06 de setembro, frete grátis em qualquer compra.',beneficio:'FRETE GRÁTIS SEM VALOR MÍNIMO',body:'A Primavera/Verão acabou de chegar e o site faz 6 anos. Comemoramos do jeito que faz diferença pra você: frete grátis em qualquer valor, e crédito pra usar até o fim do mês.',cta:'Ver a coleção'}},
+
+{id:2, d:'2026-09-03', t:'19h', ch:'WhatsApp VIP', fmt:'1080x1080', title:'Aniversário no VIP: frete grátis, inverno com 40% e crédito', cta:'Ver as peças', fun:'ret', own:'Renam', camp:'aniv', kv:true,
+ obj:'O grupo é onde a oferta é forte de verdade. Frete sozinho não move a base, já foi medido: sem desconto o grupo entrega R$ 300 a 700 por noite.',
+ prod:'Três camadas numa mensagem só. O 40% é só do inverno, a coleção nova entra a preço cheio.',
+ copy:{logo:'Mira Vest',headline:'O SITE FAZ 6 ANOS',subhead:'E vocês recebem primeiro.',beneficio:'40% NO INVERNO + FRETE GRÁTIS + CRÉDITO',body:'De hoje até domingo: frete grátis em qualquer compra, 40% em toda a coleção de inverno, e crédito de aniversário pra você usar até 30 de setembro. A Primavera/Verão entra a preço cheio, e o frete e o crédito valem pra ela também.',cta:'Ver as peças'}},
+
+{id:3, d:'2026-09-04', t:'', ch:'E-mail (RD)', fmt:'E-mail', title:'Aniversário por e-mail pra base inteira', cta:'Aproveitar', fun:'meio', own:'Renam', camp:'aniv', kv:true,
+ obj:'Alcançar quem não está no grupo. E-mail é o canal que 33% das clientes apontam como decisivo em data comemorativa.',
+ prod:'Segmento: base inteira do RD. Sem percentual no corpo, só frete grátis e crédito.',
+ copy:{logo:'Mira Vest',headline:'6 ANOS DE MIRA VEST',subhead:'Frete grátis até domingo, em qualquer compra.',beneficio:'E CRÉDITO PRA USAR ATÉ 30/09',body:'Seis anos vestindo mulheres que sabem o que querem. Até domingo o frete é por nossa conta, sem valor mínimo, e toda compra gera crédito pra próxima.',cta:'Ver a coleção'}},
+
+{id:4, d:'2026-09-04', t:'', ch:'Meta', fmt:'1080x1350 + carrossel', title:'Aniversário no Meta, público frio', cta:'Conhecer', fun:'topo', own:'Renam', camp:'aniv', kv:true,
+ obj:'Aquisição. É a verba nova de prospecção, medida por custo por cliente nova e não por ROAS.',
+ prod:'Sem percentual no criativo. Frete grátis é o gancho que funciona em público frio.',
+ copy:{logo:'Mira Vest',headline:'SEIS ANOS',subhead:'Moda feminina que não precisa gritar.',beneficio:'FRETE GRÁTIS EM QUALQUER COMPRA',body:'Alfaiataria, vestidos e conjuntos pensados pra mulher que se veste pra si. Até domingo, frete grátis sem valor mínimo.',cta:'Conhecer a marca'}},
+
+{id:5, d:'2026-09-06', t:'20h', ch:'WhatsApp VIP', fmt:'1080x1080', title:'Último dia do aniversário', cta:'Aproveitar', fun:'fundo', own:'Renam', camp:'aniv', kv:true,
+ obj:'Fechar a janela com urgência real. A data acaba de verdade hoje.',
+ prod:'Mesma arte do dia 03 com a tarja de último dia. Não precisa de KV novo.',
+ copy:{logo:'Mira Vest',headline:'ÚLTIMO DIA',subhead:'O aniversário fecha hoje às 23h59.',beneficio:'40% NO INVERNO + FRETE GRÁTIS',body:'Depois de hoje o frete volta ao normal e o inverno sai da condição. Seu crédito continua valendo até 30 de setembro.',cta:'Aproveitar agora'}},
+
+{id:6, d:'2026-09-09', t:'', ch:'E-mail (RD)', fmt:'E-mail', title:'Resgate das 436 que compraram uma vez e sumiram', cta:'Voltar a comprar', fun:'ret', own:'Renam', camp:'aquis', kv:true,
+ obj:'436 clientes compraram uma vez nos últimos 9 meses e nunca voltaram. Ticket médio de R$ 412. 434 delas nunca entraram no grupo VIP: não ignoraram a marca, nunca foram convidadas.',
+ prod:'Lista pronta em RD STATION\\saidas\\reativar_1compra.csv, com nome, e-mail e o que cada uma levou. Cupom, nunca preço por grupo: preço por grupo exige login e a maioria desiste na senha.',
+ copy:{logo:'Mira Vest',headline:'SENTIMOS SUA FALTA',subhead:'A Primavera/Verão chegou e separamos peças que combinam com o que você já tem.',beneficio:'CUPOM DE VOLTA + CONVITE PRO GRUPO',body:'Você comprou com a gente e queremos você por perto. Entre no nosso grupo e receba as novidades antes de todo mundo.',cta:'Ver a coleção'}},
+
+{id:7, d:'2026-09-13', t:'10h', ch:'WhatsApp VIP', fmt:'1080x1080', title:'Dia do Cliente: o VIP entra 48h antes', cta:'Aproveitar', fun:'ret', own:'Renam', camp:'cliente', kv:true,
+ obj:'Acesso antecipado. 29% das clientes dizem que isso as faz sentir valorizadas, e é a mecânica que preserva preço em vez de queimar.',
+ prod:'Aqui o percentual aparece, porque é canal fechado. No site e na mídia sai sem número.',
+ copy:{logo:'Mira Vest',headline:'VOCÊS PRIMEIRO',subhead:'O Dia do Cliente começa hoje, só aqui.',beneficio:'2 PEÇAS 10% · 3 PEÇAS 15% · 4 OU MAIS 20%',body:'Segunda-feira isso abre pra todo mundo. Hoje e amanhã é de vocês, com a coleção inteira valendo.',cta:'Ver a coleção'}},
+
+{id:8, d:'2026-09-15', t:'9h', ch:'Site', fmt:'Banner do topo + prateleira', title:'Dia do Cliente abre pro site', cta:'Aproveitar', fun:'fundo', own:'Renam', camp:'cliente', kv:true,
+ obj:'O pico comercial do mês. A data que a pesquisa mostrou ser a mais forte de setembro no e-commerce de moda.',
+ prod:'Sem número na comunicação ampla: só a mecânica. Regra da marca.',
+ copy:{logo:'Mira Vest',headline:'DIA DO CLIENTE',subhead:'Quanto mais peças, mais vantagem.',beneficio:'A COLEÇÃO INTEIRA NA CONDIÇÃO',body:'Monte seu look completo e a vantagem cresce a cada peça. Vale hoje, no site inteiro.',cta:'Montar meu look'}},
+
+{id:9, d:'2026-09-15', t:'11h', ch:'E-mail (RD)', fmt:'E-mail', title:'Dia do Cliente por e-mail', cta:'Aproveitar', fun:'meio', own:'Renam', camp:'cliente', kv:false,
+ obj:'E-mail foi apontado por 33% das clientes como o canal de maior impacto nessa data.',
+ prod:'Reaproveita a arte do site. Não precisa de peça nova.',
+ copy:{logo:'Mira Vest',headline:'HOJE É O SEU DIA',subhead:'Quanto mais peças, mais vantagem.',body:'A condição vale no site inteiro, só hoje.',cta:'Ver a coleção'}},
+
+{id:10, d:'2026-09-18', t:'', ch:'Site', fmt:'Vídeo na vitrine, 1080x1350', title:'Primavera: o vídeo entra na vitrine', cta:'Ver a coleção', fun:'topo', own:'Renam', camp:'prima', kv:false,
+ obj:'Sustentar a Primavera/Verão depois do pico, sem novo desconto.',
+ prod:'O vídeo já está pronto (2_banner.mp4 + 2_poster.jpg na pasta do Z). Sem oferta nenhuma nessa semana.',
+ copy:{logo:'Mira Vest',headline:'A ESTAÇÃO CHEGOU',subhead:'Tecido leve, caimento fluido, cor de primavera.',body:'',cta:'Ver a coleção'}},
+
+{id:11, d:'2026-09-20', t:'', ch:'Meta + Instagram', fmt:'Carrossel de looks 1080x1350', title:'Styling: como usar agora e no verão', cta:'Ver os looks', fun:'meio', own:'Renam', camp:'prima', kv:true,
+ obj:'Reduzir a dúvida de quem não sabe montar produção. Conteúdo, não oferta.',
+ prod:'Peças de transição: o que serve pro fim do frio e pro começo do calor.',
+ copy:{logo:'Mira Vest',headline:'UMA PEÇA, DUAS ESTAÇÕES',subhead:'Como usar agora e continuar usando no verão.',body:'',cta:'Ver os looks'}},
+
+{id:12, d:'2026-09-24', t:'19h', ch:'WhatsApp VIP', fmt:'1080x1080', title:'Saída do inverno, só no grupo', cta:'Ver as peças', fun:'fundo', own:'Renam', camp:'inverno', kv:true,
+ obj:'Escoar o INV26 antes do verão sem sujar a percepção de preço da coleção nova.',
+ prod:'Canal fechado, sempre. Nunca na home, nunca em mídia ampla. É o que Renner e Riachuelo fazem em setembro.',
+ copy:{logo:'Mira Vest',headline:'ÚLTIMA CHAMADA DO INVERNO',subhead:'As peças de frio saem de linha e não voltam.',beneficio:'CONDIÇÃO SÓ PRA VOCÊS',body:'A partir de outubro a vitrine é toda de verão. O que sobrou do inverno sai agora, e só aqui no grupo.',cta:'Ver as peças'}},
+
+{id:13, d:'2026-09-26', t:'', ch:'E-mail (RD)', fmt:'E-mail segmentado', title:'Saída do inverno por e-mail', cta:'Ver as peças', fun:'ret', own:'Renam', camp:'inverno', kv:false,
+ obj:'Alcançar quem comprou inverno antes e não está no grupo.',
+ prod:'Segmento: quem comprou peça de inverno em 2026. Não vai pra base inteira.',
+ copy:{logo:'Mira Vest',headline:'O INVERNO ESTÁ SAINDO',subhead:'Últimas peças, últimos tamanhos.',body:'',cta:'Ver as peças'}},
+
+{id:14, d:'2026-09-30', t:'', ch:'Instagram', fmt:'Post único', title:'Dia da Secretária: conteúdo, sem ação', cta:'', fun:'topo', own:'Renam', camp:'', kv:false,
+ obj:'A pesquisa não encontrou evidência de venda de moda nessa data. Entra como conteúdo leve, não como campanha.',
+ prod:'Um post, sem oferta, sem disparo, sem mídia.',
+ copy:{logo:'Mira Vest',headline:'PRA QUEM SEGURA TUDO',subhead:'',body:'',cta:''}}
+];
+
+const B = [
+{id:'b1', d:'2026-08-28', own:'Renam', title:'Subir os dois vídeos do banner no site', eff:'Sem isso o aniversário abre sem o vídeo e a semana da primavera fica sem conteúdo.',
+ warn:'Os quatro arquivos já estão prontos em Z:\\_E-COMMERCE\\01- Layouts\\2026\\Banner pré lançamento verão 27. Sobe o vídeo e o poster juntos: o poster é o que aparece antes de tocar e é ele que o Google cronometra.', star:true},
+
+{id:'b2', d:'2026-08-29', own:'Renam', title:'Configurar o crédito de aniversário', eff:'Sem o cupom criado, a camada de crédito não existe no dia 03.',
+ warn:'R$ 50 acima de R$ 300, R$ 100 acima de R$ 500, R$ 180 acima de R$ 800, válido até 30/09. Se o painel tiver uso único por cliente, marca. Se não tiver, cupom único com valor mínimo resolve: entregue só a quem comprou na janela.', star:true},
+
+{id:'b3', d:'2026-08-29', own:'Renam', title:'Montar a condição de 40% no inverno pro grupo VIP', eff:'É a camada que faz o grupo comprar. Frete sozinho não move a base.',
+ warn:'Usa o sistema de preço por grupo (grupo 1335) que já está montado. Cuidado: promoção percentual compõe multiplicativo, então peça que já tem desconto no site vai passar de 40%. São 98 das 294 peças de inverno nessa situação e precisam de tratamento separado.', star:true},
+
+{id:'b4', d:'2026-08-30', own:'Parceira', title:'KVs e copy das três ações do mês', eff:'Sem arte não tem disparo, não tem banner e não tem anúncio.',
+ warn:'Aniversário, Dia do Cliente e saída do inverno. Cada briefing está na aba Briefing desta página, com objetivo, canal, oferta, âncora e formato. A oferta já vem decidida: se tem percentual no briefing, é pra aparecer na arte.'},
+
+{id:'b5', d:'2026-08-31', own:'Renam', title:'Separar a verba de aquisição da de colheita', eff:'É o que muda o ano, não o mês.',
+ warn:'R$ 6.500 de colheita medida por ROAS e R$ 2.500 de aquisição medida por custo por cliente nova. Sem essa separação, prospecção sempre parece ruim e sempre é cortada. Foi assim que a aquisição caiu 40% sem ninguém decidir isso.', star:true},
+
+{id:'b6', d:'2026-09-08', own:'Renam', title:'Montar o fluxo automático de pós-primeira-compra no RD', eff:'A máquina permanente que resolve o buraco de vez.',
+ warn:'Sete dias depois da primeira compra, peças que combinam com o que ela levou. Trinta dias, convite pro grupo VIP. Sessenta dias sem voltar, reativação com cupom. Feito uma vez, vale pra sempre, inclusive pra quem ainda nem comprou.', star:true},
+
+{id:'b7', d:'2026-09-11', own:'Renam', title:'Preparar a lista de peças do Dia do Cliente', eff:'Sem a lista o disparo de sábado não sai.',
+ warn:'Coordenados e conjuntos, que puxam mais de uma peça por pedido, e todos com grade cheia. A skill /curadoria-vip confere a grade antes e manda a prévia no teu número antes de ir pro grupo.'},
+
+{id:'b8', d:'2026-09-22', own:'Renam', title:'Selecionar o inverno que sai na semana 4', eff:'Sem isso a última semana do mês fica vazia.',
+ warn:'São 294 peças de inverno com grade cheia, R$ 1,27 milhão de etiqueta. Prioriza o que tem mais dinheiro parado e grade completa. Nunca na home: só grupo e e-mail segmentado.'}
+];
+
+const M = [];
+/*DADOS_FIM*/
+
+const JSTART = {'2026-09-03':'começa o aniversário','2026-09-07':'feriado',
+                '2026-09-13':'VIP entra antes','2026-09-22':'começa a primavera',
+                '2026-09-23':'começa a saída do inverno'};
+const SPECIAL = {
+ '2026-09-04':{tag:'6 anos do site', note:'O aniversário é o único dia do mês em que a marca fala de si mesma. Três camadas rodando juntas: frete grátis sem mínimo pra todo mundo, 40% no inverno só no grupo, e crédito pra quem comprar na janela usar até 30/09. A Primavera/Verão fica a preço cheio de propósito: ela é a estrela, não a oferta.'},
+ '2026-09-07':{tag:'Independência · feriado', note:'Feriado muda o comportamento de tráfego e não é dia de disparo. A mídia continua rodando sozinha. A Semana do Brasil não existe mais como evento nacional: foi desmobilizada depois de 2022, então não dá pra contar com tráfego dela.'},
+ '2026-09-15':{tag:'Dia do Cliente', note:'A data comercial mais forte de setembro no e-commerce de moda. Em 2024 o setor liderou a semana com R$ 35 milhões nas PMEs; em 2025 a semana inteira fez R$ 136 milhões. O VIP entrou 48h antes, no sábado 13.'},
+ '2026-09-22':{tag:'Começa a primavera', note:'Marco de calendário, não pico de venda: a pesquisa não achou dado de faturamento isolado nessa data. Semana sem oferta nenhuma, só conteúdo e os dois vídeos.'}
+};
+
+const WD = ['dom','seg','ter','qua','qui','sex','sáb'];
+const esc = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const badges = it => (it.kv?'<span class="kv" role="img" aria-label="Milena precisa pedir esta arte para a designer" title="Milena precisa pedir esta arte para a designer">KV</span> ':'') + (it.warn?'<span class="warn" role="img" aria-label="Pendência que trava. Abra o card para ler." title="'+esc(it.warn)+'">⚠</span> ':'') + (it.star?'<span class="star" role="img" aria-label="Momento-chave do mês" title="Momento-chave do mês">✦</span>':'');
+const fmtDate = d => { const p=d.split('-').map(Number); return WD[new Date(p[0],p[1]-1,p[2]).getDay()]+' '+String(p[2]).padStart(2,'0')+'/'+String(p[1]).padStart(2,'0'); };
+
+/* card compacto do calendário */
+/* ação vem primeiro, o que trava o go-live desce pro pé do dia com divisória */
+function diaHtml(itens){
+  const acoes=itens.filter(i=>!i.bast), travas=itens.filter(i=>i.bast);
+  return acoes.map(miniCard).join('')+
+    (travas.length?'<div class="sep">antes de ir pro ar</div>'+travas.map(miniCard).join(''):'');
+}
+
+function miniCard(it){
+  const isB = !!it.bast, k = isB ? 'bast' : it.fun;
+  const target = isB ? 'b-'+it.id : 'a-'+it.id;
+  const meta = isB ? esc(it.own) : (it.t ? esc(it.t)+' · '+esc(it.ch) : esc(it.ch));
+  const bd = badges(it);
+  return '<div class="cc'+(isB?' bast':'')+'" data-fun="'+k+'" data-go="'+target+'" role="button" tabindex="0">'+
+         '<div class="tt"><span>'+esc(it.title)+'</span></div>'+
+         '<div class="l2">'+meta+(bd?' '+bd:'')+'</div></div>';
+}
+
+function legend(){
+  const cnt={topo:0,meio:0,fundo:0,ret:0};
+  A.forEach(a=>{ if(cnt[a.fun]!==undefined) cnt[a.fun]++; });
+  let h='';
+  ['topo','meio','fundo','ret'].forEach(k=>{
+    h+='<button class="chip" type="button" aria-pressed="false" data-k="'+k+'"><span class="dot" style="background:'+FUN[k].c+'"></span>'+FUN[k].label+' <span class="n">'+cnt[k]+'</span></button>';
+  });
+  h+='<button class="chip" type="button" aria-pressed="false" data-k="bast"><span class="dot" style="background:'+FUN.bast.c+'"></span>'+FUN.bast.label+' <span class="n">'+B.length+'</span></button>';
+  const nkv=A.filter(a=>a.kv).length;
+  h+='<span class="lg-note"><span class="kv">KV</span> Milena pede a arte ('+nkv+') · <span class="warn">⚠</span> pendência que trava · <span class="star">✦</span> momento-chave</span>';
+  document.getElementById('legend').innerHTML=h;
+}
+
+/* itens anteriores a 01/09 saem da grade e viram faixa compacta, sem semana vazia */
+function preStrip(){
+  const items = A.filter(a=>a.d<'2026-09-01').concat(B.filter(b=>b.d<'2026-09-01').map(b=>Object.assign({bast:true},b)))
+                 .sort((x,y)=>x.d.localeCompare(y.d));
+  document.getElementById('pre').innerHTML =
+    '<div class="pt">Antes do mês</div><div class="pitems">'+
+    items.map(it=>'<div style="min-width:250px;flex:1">'+
+      '<div class="pd">'+fmtDate(it.d)+'</div>'+miniCard(it)+'</div>').join('')+'</div>';
+}
+
+/* A semana começa na TERÇA de propósito: 01/09/2026 cai numa terça, então o mês
+   encaixa sem nenhuma célula vazia no começo e cada linha da grade é uma semana
+   fechada de sábado a sexta, que é como o teto de disparo do WhatsApp é contado. */
+function calendar(){
+  const DAYS=30, byDate={}, IN=d=>d>='2026-09-01'&&d<='2026-09-30';
+  A.filter(a=>IN(a.d)).forEach(a=>{(byDate[a.d]=byDate[a.d]||[]).push(a)});
+  B.filter(b=>IN(b.d)).forEach(b=>{(byDate[b.d]=byDate[b.d]||[]).push(Object.assign({bast:true},b))});
+
+  let h='';
+  for(let da=1;da<=DAYS;da++){
+    const key='2026-09-'+String(da).padStart(2,'0'), sp=SPECIAL[key];
+    h+='<div class="day'+(sp?' special':'')+'" id="dia-'+key+'"><div class="dhead"><span class="dnum">'+da+'</span>'+
+       (JSTART[key]?'<span class="jtag">'+JSTART[key]+'</span>':'')+
+       (sp?'<span class="stag">'+esc(sp.tag)+'</span>':'')+'</div>'+
+       (sp?'<div class="snote">'+esc(sp.note)+'</div>':'')+
+       diaHtml(byDate[key]||[])+'</div>';
+  }
+  for(let i=(7-(DAYS%7))%7;i>0;i--) h+='<div class="pad"></div>';
+  document.getElementById('grid').innerHTML=h;
+}
+
+/* ed() carimba o endereco do campo no elemento, pra edicao saber o que gravar */
+const ed=(end,campo)=> end?' data-e="'+end+'|'+campo+'"':'';
+const row=(l,v,end,campo)=> v?'<div class="pl">'+l+'</div><div class="pv"'+ed(end,campo)+'>'+v+'</div>':'';
+const fpill=k=>'<span class="fpill">'+FUN[k].short+'</span>';
+const wbox=(w,end)=> '<div class="wbox"'+(w?'':' data-vazio="1"')+'><b>⚠ </b><span'+ed(end,'warn')+'>'+esc(w||'')+'</span></div>';
+
+/* briefing de arte na hierarquia de copy da casa: logo, headline, subhead,
+   benefício, body e CTA. Slot vazio simplesmente não aparece. */
+/* Oferta tem slot próprio: a oferta sempre vai no KV, e separada do
+   headline pra ninguém ler o número como se fosse desconto na peça errada. */
+const SLOTS=[['logo','Logo'],['headline','Headline'],['subhead','Sub-headline'],
+             ['oferta','Oferta'],['beneficio','Benefício'],['body','Body copy'],['cta','CTA']];
+
+function artBox(c,fmt,end){
+  if(!c) return '';
+  const semArte=/texto|mensagem|e-mail/i.test(fmt||'');
+  if(typeof c==='string') c={headline:c};
+  const linhas=SLOTS.filter(s=>c[s[0]]&&c[s[0]].trim())
+    .map(s=>'<dt>'+s[1]+'</dt><dd'+(s[0]==='headline'||s[0]==='beneficio'||s[0]==='oferta'?' class="big"':'')+ed(end,'copy.'+s[0])+'>'+esc(c[s[0]])+'</dd>').join('');
+  const plano=SLOTS.filter(s=>c[s[0]]&&c[s[0]].trim()).map(s=>s[1]+': '+c[s[0]]).join('\n');
+  return '<div class="art"><div class="al">'+(semArte?'Texto da mensagem':'Briefing da arte')+'</div>'+
+         '<dl>'+linhas+'</dl>'+
+         '<button class="cpy" type="button" data-cpy="'+esc(plano)+'">Copiar para a designer</button></div>';
+}
+
+/* critério de seleção do vídeo: quem escolhe a peça e o que procurar no vídeo.
+   Não é briefing de gravação, o vídeo já existe. */
+const UGCF=[['tipo','O que procurar']];
+function ugcBox(u){
+  if(!u) return '';
+  const linhas=UGCF.filter(f=>u[f[0]]).map(f=>
+    '<dt>'+f[1]+'</dt><dd'+ed(u.__e,'ugc.'+f[0])+'>'+esc(u[f[0]])+'</dd>').join('');
+  const plano=('Peça: '+(u.produto||'')+'\n')+UGCF.filter(f=>u[f[0]]).map(f=>f[1]+': '+u[f[0]]).join('\n');
+  return '<div class="ugc"><div class="uh">Vídeo a selecionar · '+esc(u.produto||'')+'</div>'+
+         '<div class="ub"><dl>'+linhas+'</dl>'+
+         '<button class="cpy" type="button" data-cpy="'+esc(plano)+'">Copiar critério</button></div></div>';
+}
+
+function briefCard(id,fun,dateLine,title,rowsHtml,jus,warn,copy,fmt,ugc,end,dia){
+  return '<article class="bc" id="bc-'+id+'" data-fun="'+fun+'">'+
+    (dia?'<button class="fromcal" type="button" data-back="'+esc(dia)+'">← voltar para o calendário</button>':'')+
+    '<div class="bhead"><span class="bdate">'+dateLine+'</span>'+fpill(fun)+'</div>'+
+    '<h3'+ed(end,'title')+'>'+esc(title)+'</h3>'+
+    '<div class="props">'+rowsHtml+'</div>'+
+    ugcBox(ugc)+artBox(copy,fmt,end)+
+    '<div class="why"'+ed(end,'jus')+(jus?'':' data-vazio="1"')+'>'+esc(jus||'')+'</div>'+
+    wbox(warn,end)+'</article>';
+}
+
+function brief(){
+  const order=['pulso1','pulso2','pulso3','preview','lancamento','base','cadencia','reativa','midia','bastidor'];
+  let h='';
+  order.forEach(ck=>{
+    const g=CAMPS[ck]; let items='', count=0;
+    if(ck==='midia'){
+      const acoes=A.filter(a=>a.camp==='midia');
+      count=M.length+acoes.length;
+      items=M.map(m=>{const e='M:'+m.id; return briefCard(m.id,m.fun,'<b>'+esc(m.jan)+'</b>',m.title,
+        row('Verba',esc(m.verba),e,'verba')+row('Público',esc(m.pub),e,'pub')+
+        row('Meta',esc(m.kpi),e,'kpi')+row('Responsável',esc(m.own),e,'own'),
+        m.jus, m.warn, null, '', null, e)}).join('')
+        + acoes.map(a=>{const e='A:'+a.id; if(a.ugc)a.ugc.__e=e; return briefCard('a-'+a.id,a.fun,
+        '<b>'+fmtDate(a.d)+'</b>'+(a.t?' · '+esc(a.t):''), a.title,
+        row('Produção',esc(a.prod),e,'prod')+row('Objetivo',esc(a.obj),e,'obj')+row('Formato',esc(a.fmt),e,'fmt')+
+        row('Canal',esc(a.ch),e,'ch')+row('Responsável',esc(a.own),e,'own'),
+        a.jus, a.warn, a.copy, a.fmt, a.ugc, e, a.d)}).join('');
+    } else if(ck==='bastidor'){
+      count=B.length;
+      items=B.map(b=>{const e='B:'+b.id; return briefCard('b-'+b.id,'bast','prazo <b>'+fmtDate(b.d)+'</b>',b.title,
+        row('Responsável',esc(b.own),e,'own')+row('Efeito',esc(b.eff),e,'eff'),
+        '', b.warn, null, '', null, e, b.d)}).join('');
+    } else {
+      const list=A.filter(a=>a.camp===ck); count=list.length;
+      items=list.map(a=>{const e='A:'+a.id; if(a.ugc)a.ugc.__e=e; return briefCard('a-'+a.id,a.fun,
+        '<b>'+fmtDate(a.d)+'</b>'+(a.t?' · '+esc(a.t):''),
+        a.title,
+        row('Produção',esc(a.prod),e,'prod')+row('Objetivo',esc(a.obj),e,'obj')+row('Formato',esc(a.fmt),e,'fmt')+
+        row('Canal',esc(a.ch),e,'ch')+row('Responsável',esc(a.own),e,'own'),
+        a.jus, a.warn, a.copy, a.fmt, a.ugc, e, a.d)}).join('');
+    }
+    h+='<section class="group"><div class="ghead"><h2>'+g.name+'</h2><span class="gcount">'+count+' ações</span>'+
+       '<span class="gper">'+g.per+'</span>'+(g.meta?'<span class="gmeta">'+g.meta+'</span>':'')+'</div>'+
+       '<p class="gdesc">'+g.desc+'</p><div class="cards">'+items+'</div></section>';
+  });
+  document.getElementById('groups').innerHTML=h;
+}
+
+function showView(v){
+  const cal=v==='cal', bc=document.getElementById('btn-cal'), bb=document.getElementById('btn-brief');
+  document.getElementById('view-cal').classList.toggle('on',cal);
+  document.getElementById('view-brief').classList.toggle('on',!cal);
+  bc.classList.toggle('on',cal); bb.classList.toggle('on',!cal);
+  bc.setAttribute('aria-pressed',String(cal)); bb.setAttribute('aria-pressed',String(!cal));
+  if(cal) document.querySelectorAll('.bc.target').forEach(x=>x.classList.remove('target'));
+}
+/* volta pro calendário e pisca o dia de onde o card veio */
+function voltarCal(dia){
+  showView('cal');
+  const el=document.getElementById('dia-'+dia);
+  if(!el) return;
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+  el.classList.remove('flash');
+  void el.offsetWidth;
+  el.classList.add('flash');
+  setTimeout(()=>el.classList.remove('flash'),1400);
+}
+function goBrief(id){
+  showView('brief');
+  const el=document.getElementById('bc-'+id);
+  if(!el) return;
+  document.querySelectorAll('.bc.target').forEach(x=>x.classList.remove('target'));
+  el.classList.add('target');
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+  el.setAttribute('tabindex','-1'); el.focus({preventScroll:true});
+}
+
+legend(); preStrip(); calendar(); brief();
+
+document.getElementById('btn-cal').addEventListener('click',()=>showView('cal'));
+document.getElementById('btn-brief').addEventListener('click',()=>showView('brief'));
+document.getElementById('legend').addEventListener('click',e=>{
+  const c=e.target.closest('.chip'); if(!c) return;
+  const k=c.dataset.k, b=document.body, was=b.dataset.f===k;
+  document.querySelectorAll('.chip').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed','false')});
+  if(was) b.removeAttribute('data-f');
+  else { b.dataset.f=k; c.classList.add('on'); c.setAttribute('aria-pressed','true'); }
+  const on=b.dataset.f;
+  document.querySelectorAll('[data-fun]').forEach(el=>{
+    const off=on&&el.dataset.fun!==on;
+    if(el.hasAttribute('data-go')) el.tabIndex=off?-1:0;
+    if(off) el.setAttribute('aria-hidden','true'); else el.removeAttribute('aria-hidden');
+  });
+});
+document.addEventListener('click',e=>{
+  const volta=e.target.closest('.fromcal');
+  if(volta){ voltarCal(volta.dataset.back); return; }
+  const b=e.target.closest('.cpy');
+  if(b){
+    navigator.clipboard.writeText(b.dataset.cpy).then(()=>{
+      b.textContent='Copiado'; setTimeout(()=>b.textContent='Copiar para a designer',1600);
+    }).catch(()=>{ b.textContent='Selecione e copie manualmente'; });
+    return;
+  }
+  const c=e.target.closest('[data-go]'); if(c) goBrief(c.dataset.go);
+});
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'&&e.key!==' ') return;
+  if(document.body.classList.contains('editando')&&e.target.hasAttribute('data-e')) return;
+  const c=e.target.closest('[data-go]'); if(c){ e.preventDefault(); goBrief(c.dataset.go); }
+});
+
+/* ================= modo edição ================= */
+/* Os dados vivem nos arrays A, B e M. Cada texto na tela carrega data-e="A:12|title",
+   entao editar na tela grava direto no objeto. O download reescreve o bloco de dados
+   entre os marcadores e devolve o arquivo inteiro, pronto pra subir no GitHub. */
+
+const ARRAYS={A:A,B:B,M:M};
+let mudancas=0;
+
+/* avisa sem travar: as regras da casa que mais doem se passarem batido.
+   OUTLET nao entra na lista de palavras proibidas: a pagina e
+   publica por decisao do Renam, e a palavra pode aparecer em criativo publico. */
+/* teto por canal: VIP e 1:1 podem escrever %, o resto e canal publico e nao pode
+   (regra do Renam, 22/07: VIP ate 60%, area verde ate 30%, publico amplo 0%) */
+const CANAL_FECHADO=/whatsapp vip|whatsapp 1:1/i;
+function checarRegra(campo,txt,ch){
+  const t=(txt||'').toLowerCase(), avisos=[];
+  const arte=/^copy\./.test(campo);
+  const fechado=CANAL_FECHADO.test(ch||'');
+  if(arte&&!fechado&&/\d+\s*%|\boff\b/.test(t)) avisos.push('porcentagem em arte de canal público: só outlet pode, e em preço fixo, nunca %');
+  if(/liquida|feirão|feirao|\bqueima\b|última chance|ultima chance|\bsale\b/.test(t))
+    avisos.push('palavra proibida em canal público');
+  if(/aproveite|\bcorra\b|\bgaranta\b|imperdível|imperdivel|não fique de fora|antes que acabe/.test(t))
+    avisos.push('palavra de urgência proibida');
+  if(/mais procurad|clientes amaram|tá saindo|ta saindo|todo mundo|já garantiram|ja garantiram/.test(t))
+    avisos.push('prova social: a regra da casa proíbe afirmar o que outras clientes fizeram');
+  if(/alonga a silhueta|afina|disfarça|disfarca a barriga/.test(t))
+    avisos.push('promessa de efeito no corpo');
+  if(/grade quebrada|\bsku\b|curva a/.test(t)) avisos.push('jargão de loja, a cliente não fala assim');
+  if(/atemporal|transcende|sofistica|exclusividade|requinte|curadoria|essência|essencia|impecáve|impecave|versátil|versatil/.test(t))
+    avisos.push('vocabulário de catálogo genérico, é o texto que a marca combate');
+  if(txt&&txt.indexOf(String.fromCharCode(8212))>=0) avisos.push('travessão');
+  return avisos;
+}
+
+function gravar(el){
+  const [end,campo]=el.dataset.e.split('|');
+  const [arr,id]=end.split(':');
+  const alvo=ARRAYS[arr].find(x=>String(x.id)===id);
+  if(!alvo) return;
+  const txt=el.textContent.trim();
+  const p=campo.split('.');
+  if(p.length===1) alvo[p[0]]=txt;
+  else { alvo[p[0]]=alvo[p[0]]||{}; alvo[p[0]][p[1]]=txt; }
+
+  if(!el.classList.contains('mudou')){ el.classList.add('mudou'); mudancas++; }
+  const c=document.getElementById('editcount');
+  c.textContent=mudancas?' · '+mudancas+(mudancas>1?' campos alterados':' campo alterado'):'';
+
+  const velho=el.parentNode.querySelector('.regra');
+  if(velho) velho.remove();
+  const av=checarRegra(campo,txt,alvo.ch);
+  if(av.length){
+    const d=document.createElement('div');
+    d.className='regra'; d.textContent='⚠ '+av.join(' · ');
+    el.parentNode.appendChild(d);
+  }
+}
+
+function modoEdicao(on){
+  document.body.classList.toggle('editando',on);
+  document.getElementById('editbar').hidden=!on;
+  document.getElementById('btn-save').hidden=!on;
+  document.getElementById('btn-edit').setAttribute('aria-pressed',String(on));
+  document.getElementById('btn-edit').textContent=on?'Sair da edição':'Editar';
+  document.querySelectorAll('[data-e]').forEach(el=>{
+    if(on){ el.contentEditable='true'; el.spellcheck=false; }
+    else el.removeAttribute('contenteditable');
+  });
+}
+
+/* remonta o bloco de dados em JS valido, a partir dos arrays ja editados */
+function serializar(){
+  const q=s=>"'"+String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,' ')+"'";
+  const val=v=>{
+    if(v===true) return 'true';
+    if(typeof v==='number') return String(v);
+    if(v&&typeof v==='object') return '{'+Object.keys(v).filter(k=>k!=='__e'&&v[k])
+      .map(k=>k+':'+q(v[k])).join(',')+'}';
+    return q(v);
+  };
+  const obj=o=>'{'+Object.keys(o).filter(k=>k!=='__e'&&o[k]!==undefined&&o[k]!=='')
+    .map(k=>k+':'+val(o[k])).join(', ')+'}';
+  const arr=(nome,a)=>'const '+nome+' = [\n'+a.map(obj).join(',\n')+'\n];';
+  return '/*DADOS_INICIO*/\n'+arr('A',A)+'\n\n'+arr('B',B)+'\n\n'+arr('M',M)+'\n/*DADOS_FIM*/';
+}
+
+function baixar(){
+  const clone=document.documentElement.cloneNode(true);
+  clone.querySelector('body').classList.remove('editando');
+  ['grid','groups','legend','pre'].forEach(id=>{
+    const n=clone.querySelector('#'+id); if(n) n.innerHTML='';
+  });
+  clone.querySelectorAll('[contenteditable]').forEach(n=>n.removeAttribute('contenteditable'));
+  const eb=clone.querySelector('#editbar'); if(eb) eb.hidden=true;
+  const bs=clone.querySelector('#btn-save'); if(bs) bs.hidden=true;
+  const be=clone.querySelector('#btn-edit');
+  if(be){ be.setAttribute('aria-pressed','false'); be.textContent='Editar'; }
+
+  const sc=[...clone.querySelectorAll('script')].pop();
+  sc.textContent=sc.textContent.replace(/\/\*DADOS_INICIO\*\/[\s\S]*?\/\*DADOS_FIM\*\//,serializar());
+
+  const html='<!DOCTYPE html>\n'+clone.outerHTML;
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));
+  a.download='index.html'; a.click(); URL.revokeObjectURL(a.href);
+
+  const b=document.getElementById('btn-save');
+  b.textContent='Baixado. Suba no GitHub'; setTimeout(()=>b.textContent='Baixar atualizado',2600);
+}
+
+document.getElementById('btn-edit').addEventListener('click',()=>
+  modoEdicao(!document.body.classList.contains('editando')));
+document.getElementById('btn-save').addEventListener('click',baixar);
+document.addEventListener('focusout',e=>{
+  if(document.body.classList.contains('editando')&&e.target.hasAttribute&&e.target.hasAttribute('data-e'))
+    gravar(e.target);
+});
+window.addEventListener('beforeunload',e=>{ if(mudancas){ e.preventDefault(); e.returnValue=''; }});
+</script>
+</body>
+</html>+arr('M',M)+'
+/*DADOS_FIM*/
