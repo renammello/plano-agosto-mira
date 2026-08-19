@@ -266,6 +266,9 @@ const CAMPS = {
     desc:'Escoar o INV26 antes do verão. VIP e e-mail segmentado, nunca na home e nunca em mídia ampla. São 294 peças com grade cheia e R$ 1,27 milhão de etiqueta parados.'},
   aquis:   {c:'#8C7B6B', bg:'#F6F3EF', name:'Aquisição · o que muda o ano', per:'o mês inteiro', meta:'Meta de 86 clientes novas',
     desc:'A aquisição caiu 40%: 86 clientes novas por mês em 2025 contra 52 hoje. A receita se sustentou porque a base antiga virou 73% do faturamento, e isso disfarça o buraco. Resgate das 436 que sumiram, fluxo automático no RD e verba de aquisição separada da de colheita.'}
+,
+  bastidor:{c:'#948D84', bg:'#F5F4F1', name:'Antes de ir pro ar', per:'O que trava o go-live', meta:'',
+    desc:'Vídeo, crédito, condição do inverno, KV, verba e fluxo do RD. Sem isso a ação não existe no dia.'}
 };
 
 /*DADOS_INICIO*/
@@ -335,7 +338,7 @@ const A = [
  prod:'Segmento: quem comprou peça de inverno em 2026. Não vai pra base inteira.',
  copy:{logo:'Mira Vest',headline:'O INVERNO ESTÁ SAINDO',subhead:'Últimas peças, últimos tamanhos.',body:'',cta:'Ver as peças'}},
 
-{id:14, d:'2026-09-30', t:'', ch:'Instagram', fmt:'Post único', title:'Dia da Secretária', cta:'', fun:'topo', own:'Renam', camp:'', kv:false,
+{id:14, d:'2026-09-30', t:'', ch:'Instagram', fmt:'Post único', title:'Dia da Secretária', cta:'', fun:'topo', own:'Renam', camp:'inverno', kv:false,
  obj:'A pesquisa não encontrou evidência de venda de moda nessa data. Entra como conteúdo leve, não como campanha.',
  prod:'Um post, sem oferta, sem disparo, sem mídia.',
  copy:{logo:'Mira Vest',headline:'PRA QUEM SEGURA TUDO',subhead:'',body:'',cta:''}}
@@ -513,10 +516,11 @@ function briefCard(id,fun,dateLine,title,rowsHtml,jus,warn,copy,fmt,ugc,end,dia)
 }
 
 function brief(){
-  const order=['pulso1','pulso2','pulso3','preview','lancamento','base','cadencia','reativa','midia','bastidor'];
+  const order=['aniv','cliente','prima','inverno','aquis','bastidor'];
   let h='';
   order.forEach(ck=>{
-    const g=CAMPS[ck]; let items='', count=0;
+    const g=CAMPS[ck]; if(!g) return;   /* campanha que nao existe nao derruba o resto */
+    let items='', count=0;
     if(ck==='midia'){
       const acoes=A.filter(a=>a.camp==='midia');
       count=M.length+acoes.length;
@@ -543,7 +547,7 @@ function brief(){
         row('Canal',esc(a.ch),e,'ch')+row('Responsável',esc(a.own),e,'own'),
         a.jus, a.warn, a.copy, a.fmt, a.ugc, e, a.d)}).join('');
     }
-    h+='<section class="group"><div class="ghead"><h2>'+g.name+'</h2><span class="gcount">'+count+' ações</span>'+
+    h+='<section class="group"><div class="ghead"><h2>'+g.name+'</h2><span class="gcount">'+count+(count==1?' ação':' ações')+'</span>'+
        '<span class="gper">'+g.per+'</span>'+(g.meta?'<span class="gmeta">'+g.meta+'</span>':'')+'</div>'+
        '<p class="gdesc">'+g.desc+'</p><div class="cards">'+items+'</div></section>';
   });
