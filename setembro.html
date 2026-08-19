@@ -76,6 +76,16 @@
         border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
   .pad{background:var(--paper);min-height:8px}
   .day{background:var(--paper);min-height:116px;padding:10px 10px 12px;display:flex;flex-direction:column;gap:4px}
+  /* faixa de campanha: o dia dentro da janela ganha a cor dela no topo.
+     box-shadow inset em vez de border pra nao empurrar a altura da celula. */
+  .day.incamp{background:var(--cbg);box-shadow:inset 0 3px 0 var(--cc)}
+  .day.incamp .dnum{color:var(--cc)}
+  .cflag{font-size:var(--fs-sm);font-weight:600;color:var(--cc)}
+  .camps{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .cpill{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;
+         padding:4px 13px 4px 9px;font-size:var(--fs-sm);color:var(--ink-soft)}
+  .cpill b{color:var(--ink);font-weight:600}
+  .cpill i{width:9px;height:9px;border-radius:3px;flex:none;font-style:normal}
   .dhead{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:1px}
   .dnum{font-size:var(--fs-md);font-weight:600;color:var(--ink);line-height:1}
   .jtag{font-size:var(--fs-sm);color:var(--ink-soft)}
@@ -218,6 +228,7 @@
 <main>
   <section id="view-cal" class="view on">
     <div class="pre" id="pre"></div>
+    <div class="camps" id="camps"></div>
     <div class="calwrap">
       <div class="cal">
         <div class="wdays"><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div><div>Dom</div><div>Seg</div></div>
@@ -231,7 +242,7 @@
 <footer>
 Clique em qualquer ação do calendário para abrir o briefing dela, já marcado.
   <span class="warn">⚠</span> pendência que trava · <span class="star">✦</span> momento-chave.
-  <br>Mira Vest · Agosto de 2026. Desconto em peça cabe todo até o dia 16. Do dia 17 em diante a coleção nova é preço cheio, e o único benefício que segue é o Sedex 50% OFF.
+  <br>Mira Vest · Setembro de 2026. A Primavera/Verão é preço cheio o mês inteiro. Percentual só em canal fechado: grupo VIP e e-mail segmentado, nunca na home.
   <br>Números de venda pela Convertr, site pelo Google Analytics, estoque pelo relatório de grade.
 </footer>
 
@@ -245,56 +256,56 @@ const FUN = {
 };
 
 const CAMPS = {
-  aniv:    {name:'Aniversário do site · 6 anos', per:'03 a 06/09 · 4 dias', meta:'Frete grátis, inverno 40% no VIP, crédito',
+  aniv:    {ini:'2026-09-03', fim:'2026-09-06', c:'#8C6A3F', bg:'#FAF6EF', name:'Aniversário do site · 6 anos', per:'03 a 06/09 · 4 dias', meta:'Frete grátis, inverno 40% no VIP, crédito',
     desc:'Frete grátis sem valor mínimo pra todo mundo. 40% no inverno só no grupo VIP. Crédito de R$ 50, R$ 100 ou R$ 180 conforme o valor da compra, pra usar até 30/09. A Primavera/Verão entra a preço cheio.'},
-  cliente: {name:'Dia do Cliente', per:'13 a 15/09', meta:'Progressivo por quantidade',
+  cliente: {ini:'2026-09-13', fim:'2026-09-15', c:'#7A2E38', bg:'#FBF1F2', name:'Dia do Cliente', per:'13 a 15/09', meta:'Progressivo por quantidade',
     desc:'10% em 2 peças, 15% em 3, 20% em 4 ou mais. O VIP entra no sábado 13 com o percentual aberto; o site abre na segunda 15, sem número na comunicação.'},
-  prima:   {name:'Primavera', per:'16 a 22/09', meta:'Sem oferta, só conteúdo',
+  prima:   {ini:'2026-09-16', fim:'2026-09-22', c:'#5F7355', bg:'#F1F5EF', name:'Primavera', per:'16 a 22/09', meta:'Sem oferta, só conteúdo',
     desc:'Sustentação da Primavera/Verão depois do pico. Os dois vídeos entram, styling de como usar agora e no verão. Nenhum desconto.'},
-  inverno: {name:'Saída do inverno', per:'23 a 30/09', meta:'Canal fechado',
+  inverno: {ini:'2026-09-23', fim:'2026-09-30', c:'#4F6274', bg:'#EFF3F6', name:'Saída do inverno', per:'23 a 30/09', meta:'Canal fechado',
     desc:'Escoar o INV26 antes do verão. VIP e e-mail segmentado, nunca na home e nunca em mídia ampla. São 294 peças com grade cheia e R$ 1,27 milhão de etiqueta parados.'},
-  aquis:   {name:'Aquisição · o que muda o ano', per:'o mês inteiro', meta:'Meta de 86 clientes novas',
+  aquis:   {c:'#8C7B6B', bg:'#F6F3EF', name:'Aquisição · o que muda o ano', per:'o mês inteiro', meta:'Meta de 86 clientes novas',
     desc:'A aquisição caiu 40%: 86 clientes novas por mês em 2025 contra 52 hoje. A receita se sustentou porque a base antiga virou 73% do faturamento, e isso disfarça o buraco. Resgate das 436 que sumiram, fluxo automático no RD e verba de aquisição separada da de colheita.'}
 };
 
 /*DADOS_INICIO*/
 const A = [
-{id:1, d:'2026-09-03', t:'9h', ch:'Site', fmt:'Banner do topo, 1920x600 + video', title:'Aniversário do site: 6 anos no ar', cta:'Ver a coleção', fun:'topo', own:'Renam', camp:'aniv', kv:true,
+{id:1, d:'2026-09-03', t:'9h', ch:'Site', fmt:'Banner do topo, 1920x600 + video', title:'Aniversário no site', cta:'Ver a coleção', fun:'topo', own:'Renam', camp:'aniv', kv:true,
  obj:'Abrir os 4 dias de aniversário pra todo mundo, com a Primavera/Verão a preço cheio no centro da home.',
  prod:'O vídeo do banner já está pronto na pasta do Z (1_banner.mp4 + 1_poster.jpg). Sobe os dois: o poster é o que o Google cronometra.',
  copy:{logo:'Mira Vest',headline:'6 ANOS',subhead:'De 03 a 06 de setembro, frete grátis em qualquer compra.',beneficio:'FRETE GRÁTIS SEM VALOR MÍNIMO',body:'A Primavera/Verão acabou de chegar e o site faz 6 anos. Comemoramos do jeito que faz diferença pra você: frete grátis em qualquer valor, e crédito pra usar até o fim do mês.',cta:'Ver a coleção'}},
 
-{id:2, d:'2026-09-03', t:'19h', ch:'WhatsApp VIP', fmt:'1080x1080', title:'Aniversário no VIP: frete grátis, inverno com 40% e crédito', cta:'Ver as peças', fun:'ret', own:'Renam', camp:'aniv', kv:true,
+{id:2, d:'2026-09-03', t:'19h', ch:'WhatsApp VIP', fmt:'1080x1080', title:'Aniversário no VIP', cta:'Ver as peças', fun:'ret', own:'Renam', camp:'aniv', kv:true,
  obj:'O grupo é onde a oferta é forte de verdade. Frete sozinho não move a base, já foi medido: sem desconto o grupo entrega R$ 300 a 700 por noite.',
  prod:'Três camadas numa mensagem só. O 40% é só do inverno, a coleção nova entra a preço cheio.',
  copy:{logo:'Mira Vest',headline:'O SITE FAZ 6 ANOS',subhead:'E vocês recebem primeiro.',beneficio:'40% NO INVERNO + FRETE GRÁTIS + CRÉDITO',body:'De hoje até domingo: frete grátis em qualquer compra, 40% em toda a coleção de inverno, e crédito de aniversário pra você usar até 30 de setembro. A Primavera/Verão entra a preço cheio, e o frete e o crédito valem pra ela também.',cta:'Ver as peças'}},
 
-{id:3, d:'2026-09-04', t:'', ch:'E-mail (RD)', fmt:'E-mail', title:'Aniversário por e-mail pra base inteira', cta:'Aproveitar', fun:'meio', own:'Renam', camp:'aniv', kv:true,
+{id:3, d:'2026-09-04', t:'', ch:'E-mail (RD)', fmt:'E-mail', title:'Aniversário por e-mail', cta:'Aproveitar', fun:'meio', own:'Renam', camp:'aniv', kv:true,
  obj:'Alcançar quem não está no grupo. E-mail é o canal que 33% das clientes apontam como decisivo em data comemorativa.',
  prod:'Segmento: base inteira do RD. Sem percentual no corpo, só frete grátis e crédito.',
  copy:{logo:'Mira Vest',headline:'6 ANOS DE MIRA VEST',subhead:'Frete grátis até domingo, em qualquer compra.',beneficio:'E CRÉDITO PRA USAR ATÉ 30/09',body:'Seis anos vestindo mulheres que sabem o que querem. Até domingo o frete é por nossa conta, sem valor mínimo, e toda compra gera crédito pra próxima.',cta:'Ver a coleção'}},
 
-{id:4, d:'2026-09-04', t:'', ch:'Meta', fmt:'1080x1350 + carrossel', title:'Aniversário no Meta, público frio', cta:'Conhecer', fun:'topo', own:'Renam', camp:'aniv', kv:true,
+{id:4, d:'2026-09-04', t:'', ch:'Meta', fmt:'1080x1350 + carrossel', title:'Aniversário no Meta', cta:'Conhecer', fun:'topo', own:'Renam', camp:'aniv', kv:true,
  obj:'Aquisição. É a verba nova de prospecção, medida por custo por cliente nova e não por ROAS.',
  prod:'Sem percentual no criativo. Frete grátis é o gancho que funciona em público frio.',
  copy:{logo:'Mira Vest',headline:'SEIS ANOS',subhead:'Moda feminina que não precisa gritar.',beneficio:'FRETE GRÁTIS EM QUALQUER COMPRA',body:'Alfaiataria, vestidos e conjuntos pensados pra mulher que se veste pra si. Até domingo, frete grátis sem valor mínimo.',cta:'Conhecer a marca'}},
 
-{id:5, d:'2026-09-06', t:'20h', ch:'WhatsApp VIP', fmt:'1080x1080', title:'Último dia do aniversário', cta:'Aproveitar', fun:'fundo', own:'Renam', camp:'aniv', kv:true,
+{id:5, d:'2026-09-06', t:'20h', ch:'WhatsApp VIP', fmt:'1080x1080', title:'Último dia', cta:'Aproveitar', fun:'fundo', own:'Renam', camp:'aniv', kv:true,
  obj:'Fechar a janela com urgência real. A data acaba de verdade hoje.',
  prod:'Mesma arte do dia 03 com a tarja de último dia. Não precisa de KV novo.',
  copy:{logo:'Mira Vest',headline:'ÚLTIMO DIA',subhead:'O aniversário fecha hoje às 23h59.',beneficio:'40% NO INVERNO + FRETE GRÁTIS',body:'Depois de hoje o frete volta ao normal e o inverno sai da condição. Seu crédito continua valendo até 30 de setembro.',cta:'Aproveitar agora'}},
 
-{id:6, d:'2026-09-09', t:'', ch:'E-mail (RD)', fmt:'E-mail', title:'Resgate das 436 que compraram uma vez e sumiram', cta:'Voltar a comprar', fun:'ret', own:'Renam', camp:'aquis', kv:true,
+{id:6, d:'2026-09-09', t:'', ch:'E-mail (RD)', fmt:'E-mail', title:'Resgate das 436', cta:'Voltar a comprar', fun:'ret', own:'Renam', camp:'aquis', kv:true,
  obj:'436 clientes compraram uma vez nos últimos 9 meses e nunca voltaram. Ticket médio de R$ 412. 434 delas nunca entraram no grupo VIP: não ignoraram a marca, nunca foram convidadas.',
  prod:'Lista pronta em RD STATION\\saidas\\reativar_1compra.csv, com nome, e-mail e o que cada uma levou. Cupom, nunca preço por grupo: preço por grupo exige login e a maioria desiste na senha.',
  copy:{logo:'Mira Vest',headline:'SENTIMOS SUA FALTA',subhead:'A Primavera/Verão chegou e separamos peças que combinam com o que você já tem.',beneficio:'CUPOM DE VOLTA + CONVITE PRO GRUPO',body:'Você comprou com a gente e queremos você por perto. Entre no nosso grupo e receba as novidades antes de todo mundo.',cta:'Ver a coleção'}},
 
-{id:7, d:'2026-09-13', t:'10h', ch:'WhatsApp VIP', fmt:'1080x1080', title:'Dia do Cliente: o VIP entra 48h antes', cta:'Aproveitar', fun:'ret', own:'Renam', camp:'cliente', kv:true,
+{id:7, d:'2026-09-13', t:'10h', ch:'WhatsApp VIP', fmt:'1080x1080', title:'Dia do Cliente no VIP', cta:'Aproveitar', fun:'ret', own:'Renam', camp:'cliente', kv:true,
  obj:'Acesso antecipado. 29% das clientes dizem que isso as faz sentir valorizadas, e é a mecânica que preserva preço em vez de queimar.',
  prod:'Aqui o percentual aparece, porque é canal fechado. No site e na mídia sai sem número.',
  copy:{logo:'Mira Vest',headline:'VOCÊS PRIMEIRO',subhead:'O Dia do Cliente começa hoje, só aqui.',beneficio:'2 PEÇAS 10% · 3 PEÇAS 15% · 4 OU MAIS 20%',body:'Segunda-feira isso abre pra todo mundo. Hoje e amanhã é de vocês, com a coleção inteira valendo.',cta:'Ver a coleção'}},
 
-{id:8, d:'2026-09-15', t:'9h', ch:'Site', fmt:'Banner do topo + prateleira', title:'Dia do Cliente abre pro site', cta:'Aproveitar', fun:'fundo', own:'Renam', camp:'cliente', kv:true,
+{id:8, d:'2026-09-15', t:'9h', ch:'Site', fmt:'Banner do topo + prateleira', title:'Dia do Cliente no site', cta:'Aproveitar', fun:'fundo', own:'Renam', camp:'cliente', kv:true,
  obj:'O pico comercial do mês. A data que a pesquisa mostrou ser a mais forte de setembro no e-commerce de moda.',
  prod:'Sem número na comunicação ampla: só a mecânica. Regra da marca.',
  copy:{logo:'Mira Vest',headline:'DIA DO CLIENTE',subhead:'Quanto mais peças, mais vantagem.',beneficio:'A COLEÇÃO INTEIRA NA CONDIÇÃO',body:'Monte seu look completo e a vantagem cresce a cada peça. Vale hoje, no site inteiro.',cta:'Montar meu look'}},
@@ -304,17 +315,17 @@ const A = [
  prod:'Reaproveita a arte do site. Não precisa de peça nova.',
  copy:{logo:'Mira Vest',headline:'HOJE É O SEU DIA',subhead:'Quanto mais peças, mais vantagem.',body:'A condição vale no site inteiro, só hoje.',cta:'Ver a coleção'}},
 
-{id:10, d:'2026-09-18', t:'', ch:'Site', fmt:'Vídeo na vitrine, 1080x1350', title:'Primavera: o vídeo entra na vitrine', cta:'Ver a coleção', fun:'topo', own:'Renam', camp:'prima', kv:false,
+{id:10, d:'2026-09-18', t:'', ch:'Site', fmt:'Vídeo na vitrine, 1080x1350', title:'Vídeo na vitrine', cta:'Ver a coleção', fun:'topo', own:'Renam', camp:'prima', kv:false,
  obj:'Sustentar a Primavera/Verão depois do pico, sem novo desconto.',
  prod:'O vídeo já está pronto (2_banner.mp4 + 2_poster.jpg na pasta do Z). Sem oferta nenhuma nessa semana.',
  copy:{logo:'Mira Vest',headline:'A ESTAÇÃO CHEGOU',subhead:'Tecido leve, caimento fluido, cor de primavera.',body:'',cta:'Ver a coleção'}},
 
-{id:11, d:'2026-09-20', t:'', ch:'Meta + Instagram', fmt:'Carrossel de looks 1080x1350', title:'Styling: como usar agora e no verão', cta:'Ver os looks', fun:'meio', own:'Renam', camp:'prima', kv:true,
+{id:11, d:'2026-09-20', t:'', ch:'Meta + Instagram', fmt:'Carrossel de looks 1080x1350', title:'Styling de primavera', cta:'Ver os looks', fun:'meio', own:'Renam', camp:'prima', kv:true,
  obj:'Reduzir a dúvida de quem não sabe montar produção. Conteúdo, não oferta.',
  prod:'Peças de transição: o que serve pro fim do frio e pro começo do calor.',
  copy:{logo:'Mira Vest',headline:'UMA PEÇA, DUAS ESTAÇÕES',subhead:'Como usar agora e continuar usando no verão.',body:'',cta:'Ver os looks'}},
 
-{id:12, d:'2026-09-24', t:'19h', ch:'WhatsApp VIP', fmt:'1080x1080', title:'Saída do inverno, só no grupo', cta:'Ver as peças', fun:'fundo', own:'Renam', camp:'inverno', kv:true,
+{id:12, d:'2026-09-24', t:'19h', ch:'WhatsApp VIP', fmt:'1080x1080', title:'Saída do inverno no VIP', cta:'Ver as peças', fun:'fundo', own:'Renam', camp:'inverno', kv:true,
  obj:'Escoar o INV26 antes do verão sem sujar a percepção de preço da coleção nova.',
  prod:'Canal fechado, sempre. Nunca na home, nunca em mídia ampla. É o que Renner e Riachuelo fazem em setembro.',
  copy:{logo:'Mira Vest',headline:'ÚLTIMA CHAMADA DO INVERNO',subhead:'As peças de frio saem de linha e não voltam.',beneficio:'CONDIÇÃO SÓ PRA VOCÊS',body:'A partir de outubro a vitrine é toda de verão. O que sobrou do inverno sai agora, e só aqui no grupo.',cta:'Ver as peças'}},
@@ -324,49 +335,46 @@ const A = [
  prod:'Segmento: quem comprou peça de inverno em 2026. Não vai pra base inteira.',
  copy:{logo:'Mira Vest',headline:'O INVERNO ESTÁ SAINDO',subhead:'Últimas peças, últimos tamanhos.',body:'',cta:'Ver as peças'}},
 
-{id:14, d:'2026-09-30', t:'', ch:'Instagram', fmt:'Post único', title:'Dia da Secretária: conteúdo, sem ação', cta:'', fun:'topo', own:'Renam', camp:'', kv:false,
+{id:14, d:'2026-09-30', t:'', ch:'Instagram', fmt:'Post único', title:'Dia da Secretária', cta:'', fun:'topo', own:'Renam', camp:'', kv:false,
  obj:'A pesquisa não encontrou evidência de venda de moda nessa data. Entra como conteúdo leve, não como campanha.',
  prod:'Um post, sem oferta, sem disparo, sem mídia.',
  copy:{logo:'Mira Vest',headline:'PRA QUEM SEGURA TUDO',subhead:'',body:'',cta:''}}
 ];
 
 const B = [
-{id:'b1', d:'2026-08-28', own:'Renam', title:'Subir os dois vídeos do banner no site', eff:'Sem isso o aniversário abre sem o vídeo e a semana da primavera fica sem conteúdo.',
+{id:'b1', d:'2026-08-28', own:'Renam', title:'Subir os vídeos do banner', eff:'Sem isso o aniversário abre sem o vídeo e a semana da primavera fica sem conteúdo.',
  warn:'Os quatro arquivos já estão prontos em Z:\\_E-COMMERCE\\01- Layouts\\2026\\Banner pré lançamento verão 27. Sobe o vídeo e o poster juntos: o poster é o que aparece antes de tocar e é ele que o Google cronometra.', star:true},
 
 {id:'b2', d:'2026-08-29', own:'Renam', title:'Configurar o crédito de aniversário', eff:'Sem o cupom criado, a camada de crédito não existe no dia 03.',
  warn:'R$ 50 acima de R$ 300, R$ 100 acima de R$ 500, R$ 180 acima de R$ 800, válido até 30/09. Se o painel tiver uso único por cliente, marca. Se não tiver, cupom único com valor mínimo resolve: entregue só a quem comprou na janela.', star:true},
 
-{id:'b3', d:'2026-08-29', own:'Renam', title:'Montar a condição de 40% no inverno pro grupo VIP', eff:'É a camada que faz o grupo comprar. Frete sozinho não move a base.',
+{id:'b3', d:'2026-08-29', own:'Renam', title:'Montar os 40% do inverno', eff:'É a camada que faz o grupo comprar. Frete sozinho não move a base.',
  warn:'Usa o sistema de preço por grupo (grupo 1335) que já está montado. Cuidado: promoção percentual compõe multiplicativo, então peça que já tem desconto no site vai passar de 40%. São 98 das 294 peças de inverno nessa situação e precisam de tratamento separado.', star:true},
 
-{id:'b4', d:'2026-08-30', own:'Parceira', title:'KVs e copy das três ações do mês', eff:'Sem arte não tem disparo, não tem banner e não tem anúncio.',
+{id:'b4', d:'2026-08-30', own:'Parceira', title:'KVs e copy do mês', eff:'Sem arte não tem disparo, não tem banner e não tem anúncio.',
  warn:'Aniversário, Dia do Cliente e saída do inverno. Cada briefing está na aba Briefing desta página, com objetivo, canal, oferta, âncora e formato. A oferta já vem decidida: se tem percentual no briefing, é pra aparecer na arte.'},
 
-{id:'b5', d:'2026-08-31', own:'Renam', title:'Separar a verba de aquisição da de colheita', eff:'É o que muda o ano, não o mês.',
+{id:'b5', d:'2026-08-31', own:'Renam', title:'Separar a verba de aquisição', eff:'É o que muda o ano, não o mês.',
  warn:'R$ 6.500 de colheita medida por ROAS e R$ 2.500 de aquisição medida por custo por cliente nova. Sem essa separação, prospecção sempre parece ruim e sempre é cortada. Foi assim que a aquisição caiu 40% sem ninguém decidir isso.', star:true},
 
-{id:'b6', d:'2026-09-08', own:'Renam', title:'Montar o fluxo automático de pós-primeira-compra no RD', eff:'A máquina permanente que resolve o buraco de vez.',
+{id:'b6', d:'2026-09-08', own:'Renam', title:'Fluxo pós-compra no RD', eff:'A máquina permanente que resolve o buraco de vez.',
  warn:'Sete dias depois da primeira compra, peças que combinam com o que ela levou. Trinta dias, convite pro grupo VIP. Sessenta dias sem voltar, reativação com cupom. Feito uma vez, vale pra sempre, inclusive pra quem ainda nem comprou.', star:true},
 
-{id:'b7', d:'2026-09-11', own:'Renam', title:'Preparar a lista de peças do Dia do Cliente', eff:'Sem a lista o disparo de sábado não sai.',
+{id:'b7', d:'2026-09-11', own:'Renam', title:'Lista do Dia do Cliente', eff:'Sem a lista o disparo de sábado não sai.',
  warn:'Coordenados e conjuntos, que puxam mais de uma peça por pedido, e todos com grade cheia. A skill /curadoria-vip confere a grade antes e manda a prévia no teu número antes de ir pro grupo.'},
 
-{id:'b8', d:'2026-09-22', own:'Renam', title:'Selecionar o inverno que sai na semana 4', eff:'Sem isso a última semana do mês fica vazia.',
+{id:'b8', d:'2026-09-22', own:'Renam', title:'Selecionar o inverno da semana 4', eff:'Sem isso a última semana do mês fica vazia.',
  warn:'São 294 peças de inverno com grade cheia, R$ 1,27 milhão de etiqueta. Prioriza o que tem mais dinheiro parado e grade completa. Nunca na home: só grupo e e-mail segmentado.'}
 ];
 
 const M = [];
 /*DADOS_FIM*/
 
-const JSTART = {'2026-09-03':'começa o aniversário','2026-09-07':'feriado',
-                '2026-09-13':'VIP entra antes','2026-09-22':'começa a primavera',
-                '2026-09-23':'começa a saída do inverno'};
 const SPECIAL = {
- '2026-09-04':{tag:'6 anos do site', note:'O aniversário é o único dia do mês em que a marca fala de si mesma. Três camadas rodando juntas: frete grátis sem mínimo pra todo mundo, 40% no inverno só no grupo, e crédito pra quem comprar na janela usar até 30/09. A Primavera/Verão fica a preço cheio de propósito: ela é a estrela, não a oferta.'},
- '2026-09-07':{tag:'Independência · feriado', note:'Feriado muda o comportamento de tráfego e não é dia de disparo. A mídia continua rodando sozinha. A Semana do Brasil não existe mais como evento nacional: foi desmobilizada depois de 2022, então não dá pra contar com tráfego dela.'},
- '2026-09-15':{tag:'Dia do Cliente', note:'A data comercial mais forte de setembro no e-commerce de moda. Em 2024 o setor liderou a semana com R$ 35 milhões nas PMEs; em 2025 a semana inteira fez R$ 136 milhões. O VIP entrou 48h antes, no sábado 13.'},
- '2026-09-22':{tag:'Começa a primavera', note:'Marco de calendário, não pico de venda: a pesquisa não achou dado de faturamento isolado nessa data. Semana sem oferta nenhuma, só conteúdo e os dois vídeos.'}
+ '2026-09-04':{tag:'6 anos do site', note:'O único dia do mês em que a marca fala de si mesma.'},
+ '2026-09-07':{tag:'Independência · feriado', note:'Não é dia de disparo. A mídia roda sozinha.'},
+ '2026-09-15':{tag:'Dia do Cliente', note:'A data mais forte de setembro na moda.'},
+ '2026-09-22':{tag:'Começa a primavera', note:'Marco de calendário, não pico de venda.'}
 };
 
 const WD = ['dom','seg','ter','qua','qui','sex','sáb'];
@@ -416,8 +424,24 @@ function preStrip(){
 }
 
 /* A semana começa na TERÇA de propósito: 01/09/2026 cai numa terça, então o mês
-   encaixa sem nenhuma célula vazia no começo e cada linha da grade é uma semana
-   fechada de sábado a sexta, que é como o teto de disparo do WhatsApp é contado. */
+   encaixa sem nenhuma célula vazia no começo e cada linha da grade fecha 7 dias
+   corridos. Em agosto era sábado, pela mesma razão. */
+
+/* de quando a quando cada ação roda: a janela pinta o topo do dia com a cor dela.
+   As janelas não se cruzam, então cada dia pertence a uma campanha só. */
+function campDoDia(key){
+  for(const k in CAMPS){ const c=CAMPS[k]; if(c.ini && key>=c.ini && key<=c.fim) return k; }
+  return null;
+}
+
+function campsStrip(){
+  document.getElementById('camps').innerHTML =
+    ['aniv','cliente','prima','inverno','aquis'].map(k=>{
+      const c=CAMPS[k];
+      return '<span class="cpill"><i style="background:'+c.c+'"></i><b>'+
+             esc(c.name.split(' · ')[0])+'</b> '+esc(c.per)+'</span>';
+    }).join('');
+}
 function calendar(){
   const DAYS=30, byDate={}, IN=d=>d>='2026-09-01'&&d<='2026-09-30';
   A.filter(a=>IN(a.d)).forEach(a=>{(byDate[a.d]=byDate[a.d]||[]).push(a)});
@@ -426,8 +450,11 @@ function calendar(){
   let h='';
   for(let da=1;da<=DAYS;da++){
     const key='2026-09-'+String(da).padStart(2,'0'), sp=SPECIAL[key];
-    h+='<div class="day'+(sp?' special':'')+'" id="dia-'+key+'"><div class="dhead"><span class="dnum">'+da+'</span>'+
-       (JSTART[key]?'<span class="jtag">'+JSTART[key]+'</span>':'')+
+    const ck=campDoDia(key), cp=ck?CAMPS[ck]:null;
+    h+='<div class="day'+(sp?' special':'')+(cp?' incamp':'')+'"'+
+       (cp?' style="--cc:'+cp.c+';--cbg:'+cp.bg+'"':'')+' id="dia-'+key+'">'+
+       '<div class="dhead"><span class="dnum">'+da+'</span>'+
+       (cp&&key===cp.ini?'<span class="cflag">'+esc(cp.name.split(' · ')[0])+'</span>':'')+
        (sp?'<span class="stag">'+esc(sp.tag)+'</span>':'')+'</div>'+
        (sp?'<div class="snote">'+esc(sp.note)+'</div>':'')+
        diaHtml(byDate[key]||[])+'</div>';
@@ -552,7 +579,7 @@ function goBrief(id){
   el.setAttribute('tabindex','-1'); el.focus({preventScroll:true});
 }
 
-legend(); preStrip(); calendar(); brief();
+legend(); preStrip(); campsStrip(); calendar(); brief();
 
 document.getElementById('btn-cal').addEventListener('click',()=>showView('cal'));
 document.getElementById('btn-brief').addEventListener('click',()=>showView('brief'));
@@ -676,7 +703,7 @@ function serializar(){
 function baixar(){
   const clone=document.documentElement.cloneNode(true);
   clone.querySelector('body').classList.remove('editando');
-  ['grid','groups','legend','pre'].forEach(id=>{
+  ['grid','groups','legend','pre','camps'].forEach(id=>{
     const n=clone.querySelector('#'+id); if(n) n.innerHTML='';
   });
   clone.querySelectorAll('[contenteditable]').forEach(n=>n.removeAttribute('contenteditable'));
